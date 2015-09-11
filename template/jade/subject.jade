@@ -1,0 +1,78 @@
+include ./lib/header.jade
+link(href="/static/css/subject.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/subject.min.js")
+body(ng-controller="subjectCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加课程
+        table(class="table table-striped")
+            tr
+                th #
+                th 课程名称
+                th 课程开始时间
+                th 课程结束时间
+                th 课程地点
+                th 容纳人数
+                th 已报名人数
+                th 操作
+            tr(ng-repeat="i in user")
+                td {{ i.id }}
+                td {{ i.name }}
+                td {{ i.starttime }}
+                td {{ i.endtime }}
+                td {{ i.position }}
+                td {{ i.total }}
+                td {{ i.already }}
+                td
+                    a.edit(href="javascript:;") 编辑
+                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+    
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",datepicker,tabindex="-1",aria-labelledby="添加课程")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加课程
+                div.modal-body
+                    div.form-group
+                        label(for="name") 课程名称 
+                        input#name.form-control(type="text",placeholder="输入课程名称")
+                    div.form-group
+                        label(for="total") 容纳人数
+                        input#total.form-control(type="text",placeholder="输入容纳人数")
+                    div.form-group
+                        label(for="position") 所在场地
+                        select#subject(select,multiple="multiple")
+                            option(value="1") 南京
+                            option(value="2") 北京
+                            option(value="3") 东京
+                            option(value="4") 西京
+                    div.form-group
+                        label(for="starttime") 开始时间
+                        div.input-append.date(data-date-format="yyyy-mm-dd hh:ii")
+                            input.span2.form-control#starttime(size="16",type="text")
+                            span.add-on
+                                i.icon-th
+                    div.form-group
+                        label(for="endtime") 结束时间
+                        div.input-append.date(data-date-format="yyyy-mm-dd hh:ii")
+                            input.span2.form-control#endtime(size="16",type="text")
+                            span.add-on
+                                i.icon-th
+
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除课程")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除课程
+                div.modal-body
+                    p 确定要删除课程游泳吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除

@@ -1,0 +1,47 @@
+include ./lib/header.jade
+link(href="/static/css/course.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/course.min.js")
+body(ng-controller="courseCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加科目
+        table(class="table table-striped")
+            tr
+                th #
+                th 科目名称
+                th 创建时间
+                th 操作
+            tr(ng-repeat="i in user")
+                td {{ i.id }}
+                td {{ i.name }}
+                td {{ i.datetime }}
+                td
+                    a.edit(href="javascript:;") 编辑
+                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+    
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",datepicker,tabindex="-1",aria-labelledby="添加科目")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加科目
+                div.modal-body
+                    div.form-group
+                        label(for="name") 科目名称 
+                        input#name.form-control(type="text",placeholder="输入科目名称")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除科目")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除科目
+                div.modal-body
+                    p 确定要删除科目拳击吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除

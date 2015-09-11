@@ -1,0 +1,27 @@
+nav.navbar.navbar-default
+    div.continer-fluid
+        div.navbar-header
+            a.navbar-brand(href="javascript:;") 甜心健身
+        div.collapse.navbar-collapse
+            ul.nav.navbar-nav
+                li(ng-if="nav=='user'",class="active")
+                    a(href="/user.html") 用户管理
+                li(ng-if="nav!='user'")
+                    a(href="/user.html") 用户管理
+                li(ng-if="nav=='coach'",class="active")
+                    a(href="/coach.html") 教练管理
+                li(ng-if="nav!='coach'")
+                    a(href="/coach.html") 教练管理
+                li(ng-if="nav=='subject'",class="active")
+                    a(href="/coach.html") 操课管理
+                li(ng-if="nav!='subject'")
+                    a(href="/subject.html") 操课管理
+                li(ng-if="nav=='course'",class="active")
+                    a(href="/course.html") 课程管理 
+                li(ng-if="nav!='course'")
+                    a(href="/course.html") 课程管理
+                li(ng-if="nav=='position'",class="active")
+                    a(href="/position.html") 地点管理
+                li(ng-if="nav!='position'")
+                    a(href="/position.html") 地点管理
+

@@ -1,0 +1,19 @@
+include ./lib/header.jade
+link(href="/static/css/user.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/user.min.js")
+body(ng-controller="userCtrl")
+    include ./lib/nav.jade
+    div.container
+        table(class="table table-striped")
+            tr
+                th #
+                th 用户名
+                th 展示名
+                th openid
+                th 注册时间
+            tr(ng-repeat="i in user")
+                td {{ i.id }}
+                td {{ i.username }}
+                td {{ i.displayname }}
+                td {{ i.openid }}
+                td {{ i.datetime }}
