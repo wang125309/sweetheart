@@ -1,0 +1,67 @@
+include ./lib/header.jade
+link(href="/static/css/position.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/position.min.js")
+body(ng-controller="positionCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加地点
+        table(class="table table-striped")
+            tr
+                th #
+                th 用户名
+                th 展示名
+                th 真实姓名
+                th openid
+                th 注册时间
+                th 操作
+            tr(ng-repeat="i in user")
+                td {{ i.id }}
+                td {{ i.username }}
+                td {{ i.realname }}
+                td {{ i.displayname }}
+                td {{ i.openid }}
+                td {{ i.datetime }}
+                td
+                    a.view(href="javascript:;") 查看详情
+                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+    
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加教练")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加教练
+                div.modal-body
+                    div.form-group
+                        label(for="name") 用户名
+                        input#name.form-control(type="text",placeholder="输入教练的用户名")
+                    div.form-group
+                        label(for="age") 年龄 
+                        input#age.form-control(type="text",placeholder="输入教练的年龄")
+                    div.form-group
+                        label(for="display-name") 展示昵称
+                        input#display-name.form-control(type="text",placeholder="输入教练的昵称")
+                    div.form-group
+                        label(for="subject") 擅长的项目
+                        div
+                            select#subject(select,multiple="multiple")
+                                option(value="1") 搏击
+                                option(value="2") 散打
+                                option(value="3") 游泳
+                                option(value="4") 举重
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除教练")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除教练
+                div.modal-body
+                    p 确定要删除教练Jam吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除

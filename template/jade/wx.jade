@@ -1,0 +1,72 @@
+include ./lib/header.jade
+link(href="/static/css/wx.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/wx.min.js")
+body(ng-controller="wxCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加常量
+        table(class="table table-striped")
+            tr
+                th 常量名称
+                th 常量值
+                th 说明
+                th 操作
+            tr(ng-repeat="i in data")
+                td {{ i.xkey }}
+                td {{ i.xvalue }}
+                td {{ i.note }}
+                td
+                    a(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.xkey,i.xvalue,i.note)") 编辑
+                    a(href="#",data-toggle="modal",data-target="#delete",ng-click="delete( i.xkey )") 删除
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加常量")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加常量
+                div.modal-body
+                    div.form-group
+                        label(for="key") 常量名称
+                        input#key.form-control(type="text",placeholder="输入常量名称",ng-model="add.xkey")
+                    div.form-group
+                        label(for="value") 常量值
+                        input#value.form-control(type="text",placeholder="输入常量值",ng-model="add.xvalue")
+                    div.form-group
+                        label(for="note") 说明
+                        input#note.form-control(type="text",placeholder="输入说明",ng-model="add.note")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="save()",type="button",data-dismiss="modal") 保存
+    div#edit.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="编辑常量")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 编辑常量
+                div.modal-body
+                    div.form-group
+                        label(for="key") 常量名称
+                        input#key.form-control(type="text",placeholder="输入常量名称",ng-model="edit.xkey")
+                    div.form-group
+                        label(for="value") 常量值
+                        input#value.form-control(type="text",placeholder="输入常量值",ng-model="edit.xvalue")
+                    div.form-group
+                        label(for="note") 说明
+                        input#note.form-control(type="text",placeholder="输入说明",ng-model="edit.note")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="saveEdit()",type="button",data-dismiss="modal") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除教练")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除常量
+                div.modal-body
+                    p 确定要删除常量{{ deleteKey }}吗？删除操作可能导致系统无法正常使用。
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="doDelete()") 删除

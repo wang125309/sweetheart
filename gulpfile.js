@@ -23,7 +23,16 @@ gulp.task('stylus',function(){
         .pipe(gulp.dest('./static/css'));
 });
 
-var js_files = ['login','coach','user','subject','position','course'];
+gulp.task('js-only',function(){
+        gulp.src('./static/js-modify/wx.js')
+			.pipe(browserify())
+			.pipe(concat('.js'))
+            .pipe(gulp.dest('./static/js'))
+            .pipe(rename('wx.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('./static/js'));
+});
+var js_files = ['login','coach','user','subject','position','course','check','wx'];
 
 gulp.task('js',function(){
     for (i in js_files) {

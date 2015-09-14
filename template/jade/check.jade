@@ -1,0 +1,26 @@
+include ./lib/header.jade
+link(href="/static/css/check.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/check.min.js")
+body(ng-controller="checkCtrl")
+    include ./lib/nav.jade
+    div.container
+        table(class="table table-striped")
+            tr
+                th #
+                th 用户名
+                th 展示名
+                th 真实姓名
+                th 审批发起时间
+                th 审批图片
+                th 操作
+            tr(ng-repeat="i in user")
+                td {{ i.id }}
+                td {{ i.username }}
+                td {{ i.realname }}
+                td {{ i.displayname }}
+                td {{ i.datetime }}
+                td 
+                    img(ng-src="{{ i.src }}",style="width:200px;height:100px;")
+                td
+                    a.view(href="javascript:;") 通过
+                    a.delete(href="javascript:;") 拒绝
