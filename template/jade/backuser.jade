@@ -1,0 +1,67 @@
+include ./lib/header.jade
+link(href="/static/css/backuser.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/backuser.min.js")
+body(ng-controller="backuserCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加用户
+        table(class="table table-striped")
+            tr
+                th 用户名
+                th 密码
+                th 真实姓名 
+                th 用户权限
+                th 操作
+            tr(ng-repeat="i in data")
+                td {{ i.user_name }}
+                td {{ i.password }}
+                td {{ i.real_name }}
+                td {{ i.level }}
+                td
+                    a.edit-link(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.id,i.user_name,i.password,i.real_name,i.level)") 编辑
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加用户")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加用户
+                div.modal-body
+                    div.form-group
+                        label(for="user_name") 用户名
+                        input#user_name.form-control(type="text",placeholder="输入用户名",ng-model="add.user_name")
+                    div.form-group
+                        label(for="password") 密码
+                        input#password.form-control(type="text",placeholder="输入密码",ng-model="add.password")
+                    div.form-group
+                        label(for="realname") 真实姓名
+                        input#realname.form-control(type="text",placeholder="输入真实姓名",ng-model="add.real_name")
+                    div.form-group
+                        label(for="级别") 级别 
+                        input#level.form-control(type="text",placeholder="输入级别",ng-model="add.level")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="save()",type="button",data-dismiss="modal") 保存
+    div#edit.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="编辑用户")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 编辑用户
+                div.modal-body
+                    div.form-group
+                        label(for="user_name") 用户名
+                        input#user_name.form-control(type="text",placeholder="输入用户名",ng-model="edit.user_name")
+                    div.form-group
+                        label(for="password") 密码
+                        input#password.form-control(type="text",placeholder="输入密码",ng-model="edit.password")
+                    div.form-group
+                        label(for="realname") 真实姓名
+                        input#realname.form-control(type="text",placeholder="输入真实姓名",ng-model="edit.real_name")
+                    div.form-group
+                        label(for="级别") 级别 
+                        input#level.form-control(type="text",placeholder="输入级别",ng-model="edit.level")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="saveEdit()",type="button",data-dismiss="modal") 保存

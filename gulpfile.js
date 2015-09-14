@@ -24,15 +24,15 @@ gulp.task('stylus',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/wx.js')
+        gulp.src('./static/js-modify/backuser.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
-            .pipe(rename('wx.min.js'))
+            .pipe(rename('backuser.min.js'))
             .pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
-var js_files = ['login','coach','user','subject','position','course','check','wx'];
+var js_files = ['login','coach','user','subject','position','course','check','wx','backuser'];
 
 gulp.task('js',function(){
     for (i in js_files) {

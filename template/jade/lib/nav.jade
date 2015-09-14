@@ -29,7 +29,13 @@ nav.navbar.navbar-default
                 li(ng-if="nav!='check'")
                     a(href="/check.html") 审批管理
                 li(ng-if="nav=='wx'",class="active")
-                    a(href="/wx.html") 微信管理
+                    a(href="/wx.html") 常量管理
                 li(ng-if="nav!='wx'")
-                    a(href="/wx.html") 微信管理
-
+                    a(href="/wx.html") 常量管理
+                li(ng-if="nav=='backuser'",class="active")
+                    a(href="/backuser.html") 后台用户管理
+                li(ng-if="nav!='backuser'")
+                    a(href="/backuser.html") 后台用户管理
+            ul.nav.navbar-nav.navbar-right
+                li
+                    a(href="javascript:;",ng-click="logout()") 退出登录 

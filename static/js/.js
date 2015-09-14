@@ -45552,54 +45552,41 @@ require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
 require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
-wxCtrl = angular.module('app',['ngAnimate']).controller('wxCtrl',['$scope',function($scope){
-    $scope.nav = 'wx';
+backuserCtrl = angular.module('app',['ngAnimate']).controller('backuserCtrl',['$scope',function($scope){
+    $scope.nav = 'backuser';
     var refrash = function() {
-        jQuery.get("/sys/getSysConstant.do",function(data){
-            $scope.data = data;
+        jQuery.get("/sys/getSysUser.do",function(data){
+            $scope.data = data.data;
             $scope.$apply();
         });
     };
     refrash();
-    $scope.add = {
-        xkey : "",
-        xvalue : "",
-        note : ""
-    };
     $scope.save = function() {
-        jQuery.post("/sys/insertSysConstant.do",$scope.add,function(data){
+        jQuery.post("/sys/insertSysUser.do",$scope.add,function(data){
             if (data.error_no == '0') refrash();
         });
     };
-    $scope.deleteKey = "";
-    $scope.delete = function(xkey) {
-        $scope.deleteKey = xkey;
-    };
-    $scope.doDelete = function() {
-        jQuery.post("/sys/removeSysConstant.do",{
-            "xkeys":$scope.deleteKey
-        },function(data){
-            console.log(data);
-            refrash();
-        });
-    };
     $scope.edit = {
-        xkey:"",
-        xvalue:"",
-        note:""
+        id : "",
+        user_name : "",
+        password : "",
+        real_name : "",
+        level : ""
     };
-    $scope.editForm = function(xkey,xvalue,note) {
-        $scope.edit.xkey = xkey;
-        $scope.edit.xvalue = xvalue;
-        $scope.edit.note = note;
+    $scope.editForm = function(id,user_name,password,real_name,level) {
+        $scope.edit.id = id;
+        $scope.edit.user_name = user_name;
+        $scope.edit.password = password;
+        $scope.edit.real_name = real_name;
+        $scope.edit.level = level;
     };
     $scope.saveEdit = function() {
-        jQuery.post("/sys/editSysConstant.do",$scope.edit,function(data){
+        jQuery.post("/sys/editSysUser.do",$scope.edit,function(data){
             console.log(data);
             refrash();
         }); 
     };
 }])
-wxCtrl.$inject = ['$scope','wxCtrl']; 
+backuserCtrl.$inject = ['$scope','backuserCtrl']; 
 
 },{"../../bower_components/angular-animate/angular-animate.js":1,"../../bower_components/angular/angular.js":2,"../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":3,"../../bower_components/bootstrap/dist/js/bootstrap.js":4,"../../bower_components/jquery/dist/jquery.js":5}]},{},[6])
