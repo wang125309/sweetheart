@@ -12,7 +12,7 @@ wxCtrl = angular.module('app',['ngAnimate']).controller('wxCtrl',['$scope',funct
     };
     var refrash = function() {
         jQuery.get("/sys/getSysConstant.do",function(data){
-            if ("error_no" in data) {
+            if ("error_no" in data && data.error_no == '1') {
                 location.href = "/login.html";
             }
             $scope.data = data;
