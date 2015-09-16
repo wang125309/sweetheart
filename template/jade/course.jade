@@ -4,20 +4,17 @@ script(language="javascript",src="/static/js/course.min.js")
 body(ng-controller="courseCtrl")
     include ./lib/nav.jade
     div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加科目
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加专业
         table(class="table table-striped")
             tr
                 th #
-                th 科目名称
-                th 创建时间
+                th 专业名称
                 th 操作
-            tr(ng-repeat="i in user")
+            tr(ng-repeat="i in data")
                 td {{ i.id }}
-                td {{ i.name }}
-                td {{ i.datetime }}
+                td {{ i.display }}
                 td
-                    a.edit(href="javascript:;") 编辑
-                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+                    a.delete(href="javascript:;",ng-click="delete(i.id,i.display)",data-toggle="modal",data-target="#delete") 删除
     
     div#add.modal.fade.bs-example-modal-sm(role="dialog",datepicker,tabindex="-1",aria-labelledby="添加科目")
         div.modal-dialog(role="document")
@@ -28,11 +25,11 @@ body(ng-controller="courseCtrl")
                     h4.modal-title 添加科目
                 div.modal-body
                     div.form-group
-                        label(for="name") 科目名称 
-                        input#name.form-control(type="text",placeholder="输入科目名称")
+                        label(for="name") 专业名称
+                        input#name.form-control(type="text",placeholder="输入科目名称",ng-model="add.display")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="save()") 保存
     div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除科目")
         div.modal-dialog(role="document")
             div.modal-content
@@ -41,7 +38,7 @@ body(ng-controller="courseCtrl")
                         span(aria-hidden="true") &times;
                     h4.modal-title 删除科目
                 div.modal-body
-                    p 确定要删除科目拳击吗？
+                    p 确定要删除科目{{ subject }}吗？
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="doDelete()") 删除

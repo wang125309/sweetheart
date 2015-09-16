@@ -36,6 +36,10 @@ nav.navbar.navbar-default
                     a(href="/backuser.html") 后台用户管理
                 li(ng-if="nav!='backuser'")
                     a(href="/backuser.html") 后台用户管理
+                li(ng-if="nav=='shop'",class="active")
+                    a(href="/shop.html") 积分商城管理
+                li(ng-if="nav!='shop'")
+                    a(href="/shop.html") 积分商城管理
             ul.nav.navbar-nav.navbar-right
                 li
                     a(href="javascript:;",ng-click="logout()") 退出登录 

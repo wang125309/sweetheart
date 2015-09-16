@@ -5,6 +5,11 @@ require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
 coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope',function($scope){
     $scope.nav = 'coach'; 
+    $scope.logout = function() {
+        jQuery.get("/sys/logout.do",function(data){
+            location.href = "/login.html";
+        });
+    };
 }])
 .directive('select',function(){
     return {

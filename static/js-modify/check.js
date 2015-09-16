@@ -7,6 +7,11 @@ require("../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicke
 require("../../bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js");
 checkCtrl = angular.module('app',['ngAnimate']).controller('checkCtrl',['$scope',function($scope){
     $scope.nav = 'check'; 
+    $scope.logout = function() {
+        jQuery.get("/sys/logout.do",function(data){
+            location.href = "/login.html";
+        });
+    };
 }])
 .directive('select',function(){
     return {

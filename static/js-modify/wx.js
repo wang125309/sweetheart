@@ -5,6 +5,11 @@ require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
 wxCtrl = angular.module('app',['ngAnimate']).controller('wxCtrl',['$scope',function($scope){
     $scope.nav = 'wx';
+    $scope.logout = function() {
+        jQuery.get("/sys/logout.do",function(data){
+            location.href = "/login.html";
+        });
+    };
     var refrash = function() {
         jQuery.get("/sys/getSysConstant.do",function(data){
             if ("error_no" in data) {

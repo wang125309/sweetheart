@@ -8,7 +8,7 @@ body(ng-controller="wxCtrl")
         table(class="table table-striped")
             tr
                 th 常量名称
-                th 常量值
+                th(width="400px") 常量值
                 th 说明
                 th 操作
             tr(ng-repeat="i in data")
@@ -16,7 +16,7 @@ body(ng-controller="wxCtrl")
                 td {{ i.xvalue }}
                 td {{ i.note }}
                 td
-                    a(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.xkey,i.xvalue,i.note)") 编辑
+                    a.edit-link(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.xkey,i.xvalue,i.note)") 编辑
                     a(href="#",data-toggle="modal",data-target="#delete",ng-click="delete( i.xkey )") 删除
     div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加常量")
         div.modal-dialog(role="document")
