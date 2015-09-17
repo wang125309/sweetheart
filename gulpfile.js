@@ -23,6 +23,14 @@ gulp.task('stylus',function(){
         .pipe(gulp.dest('./static/css'));
 });
 
+gulp.task('stylus-portal',function(){
+    gulp.src('./static/css-modify/portal/*.styl')
+        .pipe(stylus())
+        .pipe(css_minify())
+        .pipe(base64())
+        .pipe(gulp.dest('./static/css/portal/'));
+});
+
 gulp.task('js-only',function(){
         gulp.src('./static/js-modify/user.js')
 			.pipe(browserify())
@@ -46,11 +54,22 @@ gulp.task('js',function(){
     }
 });
 
+gulp.task('js-portal',function(){
+    gulp.src('./static/js-modify/portal/*.js')
+        .pipe(browserify())
+        .pipe(gulp.dest('./static/js/portal/'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./static/js'));
+});
+
 gulp.task('jade',function(){
-    var jade_files = {};
     gulp.src('./template/jade/*.jade')
-        .pipe(jade({
-            locals:jade_files
-        }))
+        .pipe(jade())
         .pipe(gulp.dest('./template/'))
+});
+
+gulp.task('jade-portal',function(){
+    gulp.src('./template/jade/portal/*.jade')
+        .pipe(jade())
+        .pipe(gulp.dest('./template/portal/'))
 });

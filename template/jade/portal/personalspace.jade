@@ -1,0 +1,31 @@
+include ./lib/header.jade
+    title 个人中心
+    link(href="/static/css/portal/personalspace.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/personalspace.js")
+body(ng-controller="personalspaceCtrl")
+    section#index-view
+        section.banner
+            div.avatar(style="background-image:url('{{ person.avatar }}')")
+            div.name {{ person.name }}
+                span.sex-f(ng-show="person.sex == '1'")
+                span.sex-m(ng-show="person.sex == '0'")
+            div.button-line
+                button#order-button
+                    i#order-button-icon=""
+                    span 预约课程
+                    span {{ person.ordered }}
+                    i#new(ng-show="person.ordered_new == 1")
+                    i.go-right=""
+                button#shop
+                    i#shop-button-icon=""
+                    span 积分商城
+                    span {{ person.score }}
+                    i.go-right=""
+        section.blank
+            div.opt
+                span 我的关注
+                span#focus-num {{ person.focusNum }}
+                i.go-right=""
+            div.opt
+                span 成为教练
+                i.go-right=""

@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en" ng-app="sweetheart"><head><meta name="viewport" content="width=device-width,user-scalable=no,user-scalable=0,inital-scale=1.0"><meta http-equiv="Content-Type" content="text/html" charset="utf-8"><meta name="format-detection" content="telephone=no"><script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script>!(function() {
+    var rem;
+    rem = function() {
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+    };
+    rem();
+    window.addEventListener('resize', rem, false);
+    var _hmt = _hmt || []
+})();</script><title>个人中心</title><link href="/static/css/portal/personalspace.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/personalspace.js"></script></head></html><section id="index-view"><section class="banner"><div class="avatar"></div><div class="name">{{ person.name }}<span ng-show="person.sex == '1'" class="sex-f"></span><span ng-show="person.sex == '0'" class="sex-m"></span></div><div class="button-line"><button id="order-button"><i id="order-button-icon"></i><span>预约课程</span><span>{{ person.ordered }}</span><i id="new" ng-show="person.ordered_new == 1"></i><i class="go-right"></i></button><button id="shop"><i id="shop-button-icon"></i><span>积分商城</span><span>{{ person.score }}</span><i class="go-right"></i></button></div></section><section class="blank"><div class="opt"><span>我的关注</span><span id="focus-num">{{ person.focusNum }}</span><i class="go-right"></i></div><div class="opt"><span>成为教练</span><i class="go-right"></i></div></section></section>
