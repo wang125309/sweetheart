@@ -24,11 +24,11 @@ gulp.task('stylus',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/shop.js')
+        gulp.src('./static/js-modify/user.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
-            .pipe(rename('shop.min.js'))
+            .pipe(rename('user.min.js'))
             .pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
