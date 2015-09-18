@@ -6,7 +6,7 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
     $scope.person = {
         name : "张翼德",
         sex : "1",
-        ordered : 5,
+        ordered : 50,
         ordered_new : 1,
         score : 3000,
         focusNum : 110,
