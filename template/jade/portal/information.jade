@@ -1,0 +1,14 @@
+include ./lib/header.jade
+    title 个人资料
+    link(href="/static/css/portal/information.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/information.js")
+body(ng-controller="informationCtrl")
+    section#index-view
+        div.avatar
+            span 头像
+            div.avatar-detail(style="background-image:url('{{ headurl }}')")
+        div.num
+            div.phone
+                span.name 手机号
+                div.input
+                    input(type="text")
