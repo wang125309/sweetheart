@@ -34313,20 +34313,38 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
-personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('personalspaceCtrl',['$scope',function($scope){
-    $scope.person = {
-        name : "张翼德",
-        sex : "1",
-        ordered : 50,
-        ordered_new : 1,
-        score : 3000,
-        focusNum : 110,
-        avatar : 'http://sw.importos.com/res/20150917/fa962006c45646939312b7f7dc6ec425.jpg'
+coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapplyCtrl',['$scope',function($scope){
+    $scope.skills = [{
+        name:"搏击",
+        choose:false,
+        id:1
+    },{
+        name:"游泳",
+        choose:true,
+        id:2
+    },{
+        name:"击剑",
+        choose:false,
+        id:3
+    },{
+        name:"自由操",
+        choose:true,
+        id:4
+    },{
+        name:"瘦身",
+        choose:false,
+        id:5
+    }];
+    $scope.skillShow = true;
+    $scope.showSkill = function() {
+        if ($scope.skillShow == true) {
+            $scope.skillShow = false;
+        }
+        else {
+            $scope.skillShow = true;
+        }
     };
-    $.get("/api/getUserInfo.do",function(data){
-        console.log(data); 
-    });
 }]);
-personalspaceCtrl.$inject = ['$scope','personalspaceCtrl']; 
+coachapplyCtrl.$inject = ['$scope','coachapplyCtrl']; 
 
 },{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4}]},{},[5])

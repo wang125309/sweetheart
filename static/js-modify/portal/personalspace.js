@@ -12,5 +12,8 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
         focusNum : 110,
         avatar : 'http://sw.importos.com/res/20150917/fa962006c45646939312b7f7dc6ec425.jpg'
     };
+    $.get("/api/getUserInfo.do",function(data){
+        console.log(data); 
+    });
 }]);
 personalspaceCtrl.$inject = ['$scope','personalspaceCtrl']; 

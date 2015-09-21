@@ -1,0 +1,57 @@
+include ./lib/header.jade
+    title 申请成为私教 
+    link(href="/static/css/portal/coachapply.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/coachapply.js")
+body(ng-controller="coachapplyCtrl")
+    section#index-view
+        form#apply-form(method="post",role="form",enctype="multipart/form-data")
+            section#base-message
+                div.base-title
+                    span 基本信息
+                div.real-name.message-line.clearfix
+                    span 真实姓名
+                    input(type="text",name="realname",ng-model="coach.realname")
+                div.mobile.message-line.clearfix
+                    span 电话
+                    input(type="text",name="mobile",ng-model="coach.mobile")
+                div.mobile.message-line.clearfix
+                    span 昵称
+                    input(type="text",name="nickname",ng-model="coach.nickname")
+                div.mobild.message-line.clearfix
+                    span 生日
+                    input(type="text",name="birthday",ng-model="coach.birthday")
+                div.card.message-line.clearfix
+                    span 证件号
+                    input(type="text",name="card",ng-model="coach.card")
+            section#personal-message
+                div.base-title
+                    span 个人简介
+                textarea(placeholder="必填，100字以上")
+            section#award-message
+                div.base-title
+                    span 获奖经历
+                textarea(placeholder="（选填）")
+            section#skill-message
+                div.left-title 专长
+                    span.more-skill-down(ng-show="skillShow==true")=""
+                    span.more-skill-up(ng-show="skillShow==false")=""
+                div.skills-area
+                    button.unchoose(ng-show="i.choose==false",ng-click="chooseSkill(i.id)",ng-repeat="i in skills") {{ i.name }}
+                    button.choose(ng-show="i.choose==true",ng-click="chooseSkill(i.id)",ng-repeat="i in skills") {{ i.name }}
+            section#image-message
+                div.left-title 风采展示图片（请上传个人生活照，仅支持9图以内）
+                div.image-area
+                    div.pic(ng-repeat="i in pics")
+                        div.picture(style="background-image:url('{{ i.url }}')")
+                        i.close=""
+                    div.add-pic=""
+            section#video-message
+                div.left-title="视频展示"
+                div.add-video=""
+                textarea(placeholder="视频描述")
+            section#footer
+                div Tip：信息越完善，申请通过的几率越大哦~
+                button#submit 提交申请
+                
+
+            
