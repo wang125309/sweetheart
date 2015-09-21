@@ -42,6 +42,13 @@ wxCtrl = angular.module('app',['ngAnimate']).controller('wxCtrl',['$scope',funct
             refrash();
         });
     };
+    $scope.doSyncmenu = function() {
+        jQuery.post("/sys/createWeixinMenu.do",{
+        },function(data){
+            console.log(data);
+            refrash();
+        });
+    };
     $scope.edit = {
         xkey:"",
         xvalue:"",

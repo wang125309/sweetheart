@@ -45547,59 +45547,74 @@ return jQuery;
 }));
 
 },{}],6:[function(require,module,exports){
-require("./getParams.js");
 require("../../bower_components/angular/angular.js");
 require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
 require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
-userCtrl = angular.module('app',['ngAnimate']).controller('userCtrl',['$scope',function($scope){
-    $scope.nav = 'user'; 
+wxCtrl = angular.module('app',['ngAnimate']).controller('wxCtrl',['$scope',function($scope){
+    $scope.nav = 'wx';
     $scope.logout = function() {
         jQuery.get("/sys/logout.do",function(data){
             location.href = "/login.html";
         });
     };
-    per_page = 40;
     var refrash = function() {
-        p = getQueryParams("p");
-        if (p > 0){
-            start = (p-1) * per_page;
-            $scope.page = parseInt(p,10);
-        }
-        else {
-            start = 0;
-            $scope.page = 1;
-        }
-        jQuery.get("/sys/getStUsersList.do?start="+start+"&limit="+per_page,function(data){
+        jQuery.get("/sys/getSysConstant.do",function(data){
             if ("error_no" in data && data.error_no == '1') {
                 location.href = "/login.html";
             }
             $scope.data = data;
-            $scope.count = data.total/per_page;
             $scope.$apply();
         });
     };
     refrash();
-    $scope.goToPage = function(page) {
-        location.href = "/user.html?p="+page;  
+    $scope.add = {
+        xkey : "",
+        xvalue : "",
+        note : ""
     };
-    $scope.sync = function() {
-        jQuery.get("/sys/syncWeixinUser.do",function(data){
-            alert("同步成功");
+    $scope.save = function() {
+        jQuery.post("/sys/insertSysConstant.do",$scope.add,function(data){
+            if (data.error_no == '0') refrash();
         });
     };
+    $scope.deleteKey = "";
+    $scope.delete = function(xkey) {
+        $scope.deleteKey = xkey;
+    };
+    $scope.doDelete = function() {
+        jQuery.post("/sys/removeSysConstant.do",{
+            "xkeys":$scope.deleteKey
+        },function(data){
+            console.log(data);
+            refrash();
+        });
+    };
+    $scope.doSyncmenu = function() {
+        jQuery.post("/sys/createWeixinMenu.do",{
+        },function(data){
+            console.log(data);
+            refrash();
+        });
+    };
+    $scope.edit = {
+        xkey:"",
+        xvalue:"",
+        note:""
+    };
+    $scope.editForm = function(xkey,xvalue,note) {
+        $scope.edit.xkey = xkey;
+        $scope.edit.xvalue = xvalue;
+        $scope.edit.note = note;
+    };
+    $scope.saveEdit = function() {
+        jQuery.post("/sys/editSysConstant.do",$scope.edit,function(data){
+            console.log(data);
+            refrash();
+        }); 
+    };
 }])
-userCtrl.$inject = ['$scope','userCtrl']; 
+wxCtrl.$inject = ['$scope','wxCtrl']; 
 
-},{"../../bower_components/angular-animate/angular-animate.js":1,"../../bower_components/angular/angular.js":2,"../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":3,"../../bower_components/bootstrap/dist/js/bootstrap.js":4,"../../bower_components/jquery/dist/jquery.js":5,"./getParams.js":7}],7:[function(require,module,exports){
-window.getQueryParams = function(name,url) {                                         
-    if (!url) url = location.href;
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS  );
-    var results = regex.exec( url  );
-    return results == null ? null : results[1];
-};
-
-},{}]},{},[6])
+},{"../../bower_components/angular-animate/angular-animate.js":1,"../../bower_components/angular/angular.js":2,"../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":3,"../../bower_components/bootstrap/dist/js/bootstrap.js":4,"../../bower_components/jquery/dist/jquery.js":5}]},{},[6])

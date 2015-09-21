@@ -32,12 +32,12 @@ gulp.task('stylus-portal',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/user.js')
+        gulp.src('./static/js-modify/wx.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
-            .pipe(rename('user.min.js'))
-            .pipe(uglify())
+            .pipe(rename('wx.min.js'))
+            //.pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
 var js_files = ['login','coach','user','subject','position','course','check','wx','backuser','shop'];

@@ -5,6 +5,7 @@ body(ng-controller="wxCtrl")
     include ./lib/nav.jade
     div.container
         button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加常量
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#syncmenu") 推送微信菜单
         table(class="table table-striped")
             tr
                 th 常量名称
@@ -70,3 +71,15 @@ body(ng-controller="wxCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="doDelete()") 删除
+    div#syncmenu.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="同步菜单")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 同步菜单
+                div.modal-body
+                    p 确定要更新菜单么?
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="doSyncmenu()") 更新
