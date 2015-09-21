@@ -3,7 +3,7 @@ include ./lib/header.jade
     link(href="/static/css/portal/personalspace.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/personalspace.js")
 body(ng-controller="personalspaceCtrl")
-    section#index-view
+    section#index-view(ng-if="type=='1'")
         section.banner
             div.avatar(style="background-image:url('{{ person.avatar }}')")
             div.name {{ person.name }}
@@ -26,6 +26,42 @@ body(ng-controller="personalspaceCtrl")
                 span 我的关注
                 span#focus-num {{ person.focusNum }}
                 i.go-right=""
-            div.opt
+            div.opt(ng-click="go('coachapply')")
                 span 成为教练
                 i.go-right=""
+    section#second-view(ng-if="type=='2'")
+        section.banner
+            div.avatar(style="background-image:url('{{ person.avatar }}')")
+            div.name {{ person.name }}
+                span.sex-f(ng-show="person.sex == '1'")
+                span.sex-m(ng-show="person.sex == '0'")
+            div.button-line
+                span xxx
+        section.blank
+            div#hiscourse
+                i#course=""
+                span.title(ng-if="person.sex == '1'") 他的课程
+                span.title(ng-if="person.sex == '0'") 她的课程
+                i.go-right
+            div#show
+                div.title
+                    i#show-icon=""
+                    span 风采展示
+                div.image-area.swiper-container(move)
+                    div.pic-wrap.swiper-wrapper
+                        div.pic.swiper-slide(ng-repeat="i in person.pic",style="background-image:url('{{ i.url }}')")
+            div.desc
+                div.title
+                    i#desc-icon=""
+                    span 个人简介
+                div.desc-inner {{ person.desc }}
+            div.prize
+                div.title
+                    i#prize-icon=""
+                    span 获奖经历
+                div.prize-inner
+                    div.prize-detail(ng-repeat="i in person.prize") {{ i }}
+            div.video
+                video(ng-src="person.video")
+                div.video-desc {{ person.videoDesc }}
+                        

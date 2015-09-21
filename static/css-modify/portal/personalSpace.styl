@@ -1,3 +1,4 @@
+@import "../../../bower_components/swiper/dist/css/swiper.css";
 @import "./lib/header.styl";
 
 section#index-view
@@ -18,7 +19,7 @@ section#index-view
             text-align:center
             margin-top:margin-height
             color:#fff
-            font-size:base-font-size
+            font-size:bigger-font-size
             span.sex-f
                 width:0.05rem
                 height:0.05rem
@@ -112,3 +113,160 @@ section#index-view
                 image-wauto('go-right-black.png')
                 position:absolute
                 right:margin-height-half
+section#second-view
+    font-size:base-font-size
+    section.banner
+        background-color:#333
+        padding-top:margin-height
+        padding-bottom:margin-height
+        width:100%
+        div.avatar
+            width:0.3rem
+            height:0.3rem
+            background-position:center center
+            background-size:auto 100%
+            background-repeat:no-repeat
+            border-radius:100%
+            margin:0 auto
+        div.name
+            text-align:center
+            margin-top:margin-height
+            color:#fff
+            font-size:bigger-font-size
+            span.sex-f
+                width:0.05rem
+                height:0.05rem
+                position:absolute
+                image-hauto('famale.png')
+            span.sex-m
+                width:0.05rem
+                height:0.05rem
+                position:absolute
+                image-hauto('male.png')
+        .button-line
+            text-align:center
+            color:brand-pink
+    section.blank
+        margin-top:margin-height
+        #hiscourse
+            height:0.12rem
+            line-height:0.12rem
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            box-shadow:1px 1px 3px #ccc
+            background-color:#fff
+            color:brand-pink
+            padding-left:0.04rem
+            padding-right:0.04rem
+
+            #course
+                image-wauto('course-icon.png')
+                width:0.06rem
+                height:0.12rem
+                position:absolute
+            span
+                margin-left:0.08rem
+            .go-right
+                width:0.035rem
+                height:0.12rem
+                position:absolute
+                right:0.04rem
+                image-wauto('go-right-pink.png')
+
+        #show
+            margin-top:margin-height-half
+            box-shadow:1px 1px 3px #ccc
+            background-color:#fff
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            .title
+                color:brand-pink
+                height:0.12rem
+                line-height:0.12rem
+                margin-left:0.04rem
+                margin-right:0.04rem
+                border-bottom:1px solid brand-pink
+                #show-icon
+                    width:0.06rem
+                    height:0.12rem
+                    image-wauto('show-icon.png')
+                    position:absolute
+                span
+                    border-bottom:0.01rem solid brand-pink
+                    padding-left:0.08rem
+                    position:absolute
+            .image-area
+                padding-top:margin-height-half
+                padding-bottom:margin-height-half
+                margin-left:0.04rem
+                margin-right:0.04rem
+                height:0.4rem
+                white-space:nowrap
+                overflow:hidden
+                .pic
+                    width:0.4rem
+                    height:0.4rem
+                    background-repeat:no-repeat
+                    background-size:cover
+                    background-position:center
+                    margin-right:0.01rem
+                    :last-child
+                        margin-right:0
+        .desc
+            margin-top:margin-height-half
+            box-shadow:1px 1px 3px #ccc
+            background-color:#fff
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            .title
+                color:brand-pink
+                height:0.12rem
+                line-height:0.12rem
+                margin-left:0.04rem
+                margin-right:0.04rem
+                border-bottom:1px solid brand-pink
+                #desc-icon
+                    width:0.06rem
+                    height:0.12rem
+                    image-wauto('desc-icon.png')
+                    position:absolute
+                span
+                    border-bottom:0.01rem solid brand-pink
+                    padding-left:0.08rem
+                    position:absolute
+            .desc-inner
+                margin:0.04rem
+        .prize
+            margin-top:margin-height-half
+            box-shadow:1px 1px 3px #ccc
+            background-color:#fff
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            .title
+                color:brand-pink
+                height:0.12rem
+                line-height:0.12rem
+                margin-left:0.04rem
+                margin-right:0.04rem
+                border-bottom:1px solid brand-pink
+                #prize-icon
+                    width:0.06rem
+                    height:0.12rem
+                    image-wauto('prize-icon.png')
+                    position:absolute
+                span
+                    border-bottom:0.01rem solid brand-pink
+                    padding-left:0.08rem
+                    position:absolute
+            .prize-inner
+                margin:0.04rem
+        .video
+            margin-top:margin-height-half
+            margin-left:0.04rem
+            margin-right:0.04rem
+            video
+                width:100%
+            .video-desc
+                color:brand-black
+                margin:margin-height-half 0
+                
