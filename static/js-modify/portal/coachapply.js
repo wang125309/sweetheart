@@ -2,6 +2,7 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
+require("./login.js");
 coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapplyCtrl',['$scope',function($scope){
     $scope.skills = [{
         name:"搏击",

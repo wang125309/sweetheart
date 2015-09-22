@@ -1,3 +1,4 @@
+require("./getParams.js");
 require("../../bower_components/angular/angular.js");
 require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
@@ -10,34 +11,26 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
             location.href = "/login.html";
         });
     };
-}])
-.directive('select',function(){
-    return {
-        link : function(scope,element,attr) {
-            jQuery("#subject").multiselect({
-                buttonWidth: '567px',
-                buttonText: function(options, select) {
-                    if (options.length == 0) {
-                        return '请选择项目';
-                    }
-                    else if (options.length > 4) {
-                        return '已选择多余4个项目';
-                    }
-                    else {
-                        var labels = [];
-                        options.each(function() {
-                            if (jQuery(this).attr('label') !== undefined) {
-                                labels.push(jQuery(this).attr('label'));
-                            }
-                            else {
-                                labels.push(jQuery(this).html());
-                            }
-                        });
-                        return labels.join(', ') + '';
-                    }
-                }
-            });
+    per_page = 40;
+    var refrash = function() {
+        p = getQueryParams("p");
+        if (p > 0){
+            start = (p-1) * per_page;
+            $scope.page = parseInt(p,10);
         }
-    }
-});
+        else {
+            start = 0;
+            $scope.page = 1;
+        }
+        jQuery.get("/sys/getCoachList.do?start="+start+"&limit="+per_page,function(data){
+            if ("error_no" in data && data.error_no == '1') {
+                location.href = "/login.html";
+            }
+            $scope.data = data;
+            $scope.count = data.total/per_page;
+            $scope.$apply();
+        });
+    };
+    refrash();
+}])
 coachCtrl.$inject = ['$scope','coachCtrl']; 

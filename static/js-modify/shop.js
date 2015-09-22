@@ -31,18 +31,34 @@ shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',f
             contentType:false,
             success: function(data) {
                 alert("上传成功");
+                refrash();
             },
             error : function(data) {
                 alert("文件上传失败");
             }
         });
-        jQuery.post("/sys/insertSysConstant.do",$scope.add,function(data){
-            if (data.error_no == '0') refrash();
-        });
     };
     $scope.deleteKey = "";
     $scope.delete = function(xkey) {
         $scope.deleteKey = xkey;
+    };
+    $scope.onGood = function(id){
+        jQuery.post("/sys/updateGoodsStatus.do",{
+            "ids":id,
+            "status":1
+        },function(data){
+            console.log(data);
+            refrash();
+        });
+    };
+    $scope.offGood = function(id){
+        jQuery.post("/sys/updateGoodsStatus.do",{
+            "ids":id,
+            "status":2
+        },function(data){
+            console.log(data);
+            refrash();
+        });
     };
     $scope.doDelete = function() {
         jQuery.post("/sys/removeSysConstant.do",{
@@ -68,10 +84,20 @@ shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',f
         $scope.edit.now_stock = now_stock;
     };
     $scope.saveEdit = function() {
-        jQuery.post("/sys/editSysConstant.do",$scope.edit,function(data){
-            console.log(data);
-            refrash();
-        }); 
+        formdata = new FormData(jQuery("#edit-form")[0]);
+        jQuery.ajax({
+            type:"POST",
+            url:"/sys/updateGoodsByParam.do",
+            data:formdata,
+            processData:false,
+            contentType:false,
+            success: function(data) {
+                refrash();
+            },
+            error : function(data) {
+                alert("修改失败");
+            }
+        });
     };
 }]);
 shopCtrl.$inject = ['$scope','shopCtrl']; 
