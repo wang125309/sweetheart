@@ -1,0 +1,62 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    @import "./lib/calendar.styl"
+    .card-information
+        text-align:left
+        position:relative
+        margin:0 0.04rem
+        margin-top:0.04rem
+        padding-bottom:0.15rem
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+        .line
+            padding-left:0.04rem
+            padding-right:0.04rem
+            padding-top:0.04rem
+            .right
+                position:absolute
+                right:0.04rem
+                color:#777
+            .right.ordered
+                color:brand-pink
+        .button-line
+            .change
+                width:50%
+                position:absolute
+                color:#fff
+                background-color:brand-black
+                bottom:0
+                height:0.1rem
+                left:0
+                border:none
+                line-height:0.1rem
+                color:#fff
+                text-align:center
+            .delete
+                width:50%
+                position:absolute
+                color:#fff
+                background-color:brand-pink
+                bottom:0
+                height:0.1rem
+                border:none
+                left:50%
+                line-height:0.1rem
+                color:#fff
+                text-align:center
+    .card-nordered
+        padding-bottom:0
+    .new
+        margin-top:margin-height
+        button
+            width:95%
+            border-radius:0.12rem
+            height:0.12rem
+            text-align:center
+            border:none
+            background-color:brand-pink
+            color:#fff

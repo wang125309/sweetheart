@@ -4,35 +4,56 @@ script(language="javascript",src="/static/js/coach.min.js")
 body(ng-controller="coachCtrl")
     include ./lib/nav.jade
     div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加教练
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加操课教练
+        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(0)") 待审批
+        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(1)") 已审批
+        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(-1)") 全部
         table(class="table table-striped")
             tr
                 th #
                 th 展示名
-                th 真实姓名
+                th 全名  
+                th 教龄
+                th 性别
+                th 身份证号
+                th 手机号
+                th 类型
                 th 操作
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
                 td {{ i.displayname }}
-                td {{ i.realname }}
+                td {{ i.nickname }}
+                td {{ i.age }}
+                td(ng-if="i.gender == '1'") 男
+                td(ng-if="i.gender == '2'") 女
+                td(ng-if="i.gender == '0'") 未知
+                td {{ i.idcard }}
+                td {{ i.phonenum }}
+                td(ng-if="i.type == '0'") 私教  
+                td(ng-if="i.type == '1'") 操课教练  
+                td(ng-if="i.type >= 2") 全能 
                 td
-                    a.view(href="javascript:;") 查看详情
-                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+                    a.view(href="javascript:;") 查看详情 
+                    a.approval(href="javascript:;",data-toggle="modal",data-target="#approval") 通过申请 
+                    a.reject(href="javascript:;",data-toggle="modal",data-target="#reject") 驳回申请 
     
-    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加教练")
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加操课教练")
         div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button",data-dismiss="modal",area-label="Close")
                         span(aria-hidden="true") &times;
-                    h4.modal-title 添加教练
+                    h4.modal-title 添加操课教练
                 div.modal-body
                     div.form-group
-                        label(for="name") 用户名
-                        input#name.form-control(type="text",placeholder="输入教练的用户名")
+                        label(for="name") 名称
+                        input#name.form-control(type="text",placeholder="输入教练的名称")
                     div.form-group
                         label(for="age") 年龄 
                         input#age.form-control(type="text",placeholder="输入教练的年龄")
+                    div.form-group
+                        label(for="images") 头像图片 
+                        input#age.form-control(type="file",placeholder="教练头像")
                     div.form-group
                         label(for="display-name") 展示昵称
                         input#display-name.form-control(type="text",placeholder="输入教练的昵称")
@@ -59,3 +80,27 @@ body(ng-controller="coachCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+    div#approval.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="通过成为教练申请")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 通过成为教练申请
+                div.modal-body
+                    p 确定要通过成为教练申请吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal") 通过
+    div#reject.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="驳回成为教练申请")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 驳回成为教练申请 
+                div.modal-body
+                    p 确定要驳回成为教练申请么？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal") 驳回

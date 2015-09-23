@@ -9,6 +9,7 @@ body(ng-controller="userCtrl")
             tr
                 th #
                 th 昵称
+                th 性别
                 th 手机号
                 th 积分
                 th 关注领域
@@ -16,6 +17,9 @@ body(ng-controller="userCtrl")
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
                 td {{ i.nickname }}
+                td(ng-if="i.gender == 1") 男
+                td(ng-if="i.gender == 2") 女
+                td(ng-if="i.gender == 0") 未知
                 td {{ i.phonenum }}
                 td {{ i.score }}
                 td {{ i.goodat }}

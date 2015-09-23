@@ -1,0 +1,125 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    padding-bottom:0.2rem
+    .banner
+        height:0.5rem
+        background-color:#fff
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-size:cover
+        background-position:center
+    .details
+        margin-top:margin-height-half
+        background:#fff
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        border-left:2px solid brand-pink
+        .line-first
+            margin-left:0.04rem
+            margin-right:0.04rem
+            height:0.12rem
+            line-height:0.12rem
+            i.time-icon
+                image-wauto('time.png')
+                width:0.06rem
+                height:0.12rem
+                position:absolute
+                left:0.04rem
+            .time
+                float:left
+                margin-left:0.08rem
+            .price
+                float:right
+        .line-second
+            margin-left:0.04rem
+            margin-right:0.04rem
+            height:0.12rem
+            line-height:0.12rem
+            i.location-icon
+                image-wauto('location.png')
+                width:0.07rem
+                height:0.12rem
+                position:absolute
+                left:0.035rem
+            .location
+                float:left
+                margin-left:0.08rem
+            button
+                float:right
+                background-color:brand-pink
+                border:none
+                padding-left:0.04rem
+                padding-right:0.04rem
+                height:0.08rem
+                margin-top:0.02rem
+                line-height:0
+                color:#fff
+    .order
+        margin-top:margin-height-half
+        background-color:#fff
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+
+        .title
+            text-align:left
+            height:0.12rem
+            line-height:0.12rem
+            border-left:2px solid brand-pink
+            color:brand-pink
+            padding-left:0.04rem
+        .people
+            padding-left:0.035rem
+            padding-right:0.035rem
+            padding-bottom:0.04rem
+            div.people-ordered-icon
+                image-wauto('people-ordered.png')
+                margin:0.005rem
+                width:0.06rem
+                height:0.06rem
+                float:left
+            div.people-icon
+                image-wauto('people-order.png')
+                margin:0.005rem
+                width:0.06rem
+                height:0.06rem
+                float:left
+    .desc
+        background-color:#fff
+        margin-top:margin-height-half
+        padding-bottom:0.04rem
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        
+        
+        .title
+            text-align:left
+            height:0.12rem
+            line-height:0.12rem
+            border-left:2px solid brand-pink
+            padding-left:0.04rem
+        .desc-details
+            text-align:left
+            padding:0 0.04rem
+            font-size:base-font-size
+            color:#777
+    .order-button
+        position:fixed
+        bottom:0
+        height:0.2rem
+        text-align:center
+        background-color:rgba(0,0,0,0.4)
+        width:100%
+        button
+            background-color:brand-pink
+            border:none
+            height:0.1rem
+            border-radius:0.12rem
+            color:#fff
+            width:90%
+            margin-top:0.05rem
