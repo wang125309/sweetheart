@@ -8,19 +8,13 @@ body(ng-controller="coachCtrl")
         table(class="table table-striped")
             tr
                 th #
-                th 用户名
                 th 展示名
                 th 真实姓名
-                th openid
-                th 注册时间
                 th 操作
-            tr(ng-repeat="i in user")
+            tr(ng-repeat="i in data.root")
                 td {{ i.id }}
-                td {{ i.username }}
-                td {{ i.realname }}
                 td {{ i.displayname }}
-                td {{ i.openid }}
-                td {{ i.datetime }}
+                td {{ i.realname }}
                 td
                     a.view(href="javascript:;") 查看详情
                     a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除

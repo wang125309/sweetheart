@@ -36,7 +36,15 @@ body(ng-controller="personalspaceCtrl")
                 span.sex-f(ng-show="person.sex == '1'")
                 span.sex-m(ng-show="person.sex == '0'")
             div.button-line
-                span xxx
+                div.tags    
+                    span 健身 
+                button#focus
+                    span(ng-show="focus == false") + 加关注
+                    span(ng-show="focus == true") 已关注
+                    i.go-right=""
+                button#sendMessage
+                    span 私信 
+                    i.go-right=""
         section.blank
             div#hiscourse
                 i#course=""

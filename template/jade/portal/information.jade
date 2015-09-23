@@ -6,9 +6,49 @@ body(ng-controller="informationCtrl")
     section#index-view
         div.avatar
             span 头像
-            div.avatar-detail(style="background-image:url('{{ headurl }}')")
+            div.avatar-detail(style="background-image:url('{{ person.headurl }}')")
         div.num
-            div.phone
-                span.name 手机号
+            div.phone.clearfix(ng-click="showBind()")
+                div.name 手机号
+                div.input {{ person.phone }}
+            div.qq.clearfix
+                div.name qq号码
                 div.input
-                    input(type="text")
+                    input(type="text",ng-model="person.qq")
+        div.other
+            div.address.clearfix
+                div.name 地区
+                div.input
+                    input(type="text",ng-model="person.address")
+            div.sex.clearfix(ng-click="showChooseSex($event)")
+                div.name 性别
+                div.sex-f(ng-show="person.sex == '0'") 男
+                    i.male-icon=""
+                div.sex-m(ng-show="person.sex == '1'") 女
+                    i.famale-icon=""
+        div.instrust.clearfix
+            div.name 感兴趣的
+            div.instrust-area
+                button(ng-repeat="i in mySkills") i
+        div.sex-chooser(ng-show="sexChooseShow == true",ng-click="showChooseSex()")
+            div.sex-choose
+                div.title 性别
+                div.unchoose-f(ng-click="chooseSex($event)",ng-show="person.sex == '1'") 男
+                    i.male=""
+                div.choose-f(ng-show="person.sex == '0'") 男
+                    i.male=""
+                div.unchoose-m(ng-click="chooseSex($event)",ng-show="person.sex == '0'") 女
+                    i.famle=""
+                div.choose-m(ng-show="person.sex == '1'") 女
+                    i.famle=""
+        div.binding-phone(ng-show="bindShow == true",ng-click="showBind()")
+            div.bind(ng-click="phoneEdit($event)")
+                div.title 绑定手机号
+                div.phone
+                    input(type="text",ng-model="person.phone",placeholder="手机号")
+                div.credit
+                    input(type="text",ng-model="credit",placeholder="验证码")
+                    button(type="button") 发送验证码
+                div.button-line
+                    button(type="button") 保存
+        button.save(type="button") 保存

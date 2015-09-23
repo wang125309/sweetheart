@@ -1,0 +1,266 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    .avatar
+        height:0.3rem
+        background-color:#fff
+        box-shadow:1px 1px 3px #ccc
+        border-bottom:1px solid #dcdcdc
+        span
+            position:absolute
+            height:0.3rem
+            line-height:0.3rem
+            left:0.04rem
+        .avatar-detail
+            position:absolute
+            right:0.04rem
+            width:0.28rem
+            height:0.28rem
+            margin-top:0.01rem
+            background-size:cover
+            background-position:center
+            background-repeat:no-repeat
+            border-radius:100%
+    .num
+        margin-top:margin-height
+        background-color:#fff
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        .phone
+            .name
+                float:left
+            line-height:0.12rem
+            margin-left:0.04rem
+            margin-right:0.04rem
+            border-bottom:1px solid #dcdcdc
+            .input
+                width:70%
+                float:right
+                input
+                    border:none
+                    background-color:transparent
+                    width:100%
+                    text-align:right
+        .qq
+            .name
+                float:left
+            line-height:0.12rem
+            margin-left:0.04rem
+            margin-right:0.04rem
+            .input
+                width:70%
+                float:right
+                input
+                    border:none
+                    background-color:transparent
+                    width:100%
+                    text-align:right
+    .other
+        margin-top:margin-height
+        background-color:#fff
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        .address
+            .name
+                float:left
+            line-height:0.12rem
+            margin-left:0.04rem
+            margin-right:0.04rem
+            border-bottom:1px solid #dcdcdc
+            .input
+                float:right
+                width:70%
+                input
+                    border:none
+                    background-color:transparent
+                    width:100%
+                    text-align:right
+        .sex
+            .name
+                float:left
+            line-height:0.12rem
+            margin-left:0.04rem
+            margin-right:0.04rem
+            .sex-f
+                float:right
+                padding-right:0.07rem
+                i    
+                    image-wauto('famale.png')
+                    width:0.05rem
+                    height:0.12rem
+                    position:absolute
+                    right:0.04rem
+            .sex-m
+                float:right
+                padding-right:0.07rem
+                i
+                    image-wauto('male.png')
+                    width:0.05rem
+                    height:0.12rem
+                    position:absolute
+                    right:0.04rem
+            .input
+                float:right
+                width:70%
+                input
+                    border:none
+                    background-color:transparent
+                    width:100%
+                    text-align:right
+
+    .instrust
+        background-color:#fff
+        margin-top:margin-height
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        padding-left:0.04rem
+        padding-right:0.04rem
+        .name
+            line-height:0.12rem
+            height:0.12rem
+            float:left
+    .save
+        margin-top:margin-height
+        background-color:brand-pink
+        border:none
+        width:90%
+        height:0.12rem
+        color:#fff
+        text-align:center
+        border-radius:0.12rem
+
+    .sex-chooser
+        position:absolute
+        width:100%
+        height:100%
+        background-color:rgba(0,0,0,0.4)
+        top:0
+        .sex-choose
+            width:0.7rem
+            padding-top:margin-height
+            padding-bottom:margin-height
+            margin:0 auto
+            text-align:center
+            background-color:brand-black
+            margin-top:0.6rem
+            .title
+                color:#fff
+                margin-bottom:margin-height-half
+            .unchoose-f
+                color:brand-blue
+                border-radius:0.12rem
+                height:0.12rem
+                width:0.5rem
+                line-height:0.12rem
+                margin:0 auto
+                border:1px solid transparent
+                i
+                    image-wauto('famale.png')
+                    width:0.04rem
+                    height:0.12rem
+                    margin-left:-0.1rem
+                    position:absolute
+            .choose-f
+                border-radius:0.12rem
+                height:0.12rem
+                width:0.5rem
+                color:brand-blue               
+                line-height:0.12rem
+                border:1px solid brand-pink
+                margin:0 auto
+                i
+                    image-wauto('famale.png')
+                    width:0.04rem
+                    height:0.12rem
+                    margin-left:-0.1rem
+                    position:absolute
+            .unchoose-m
+                border-radius:0.12rem
+                height:0.12rem
+                width:0.5rem
+                color:brand-pink
+                line-height:0.12rem
+                margin:0 auto
+                border:1px solid transparent
+                i
+                    image-wauto('male.png')
+                    width:0.04rem
+                    height:0.12rem
+                    margin-left:-0.1rem
+                    position:absolute
+            .choose-m
+                border-radius:0.12rem
+                height:0.12rem
+                width:0.5rem
+                border:1px solid brand-pink
+                line-height:0.12rem
+                color:brand-pink                
+                margin:0 auto
+                i
+                    image-wauto('male.png')
+                    width:0.04rem
+                    height:0.12rem
+                    margin-left:-0.1rem
+                    position:absolute
+    
+    .binding-phone
+        position:absolute
+        width:100%
+        height:100%
+        background-color:rgba(0,0,0,0.4)
+        top:0
+        .bind
+            width:0.8rem
+            padding-top:margin-height
+            padding-bottom:margin-height
+            margin:0 auto
+            text-align:center
+            background-color:brand-black
+            margin-top:0.5rem
+            text-align:center
+            .title
+                font-size:base-font-size
+                color:#fff
+            .phone
+                margin-top:margin-height-half
+                input
+                    padding:0.01rem
+                    width:80%
+                    background-color:transparent
+                    border:1px solid #fff
+                    border-radius:0.12rem
+                    ::-webkit-input-placeholder
+                        color:#555
+            .credit
+                margin-top:margin-height-half
+                input
+                    width:48%
+                    margin-right:3%
+                    background-color:transparent
+                    border:1px solid #fff
+                    border-radius:0.12rem
+                    padding:0.01rem
+                    ::-webkit-input-placeholder
+                        color:#555
+                button
+                    text-align:center
+                    padding:0.01rem
+                    border-radius:0.12rem
+                    border:1px solid brand-pink
+                    background-color:transparent
+                    color:brand-pink
+            .button-line
+                margin-top:0.1rem
+                button
+                    width:84%
+                    padding:0.01rem
+                    border-radius:0.12rem
+                    border:1px solid brand-pink
+                    background-color:transparent
+                    color:brand-pink
+                    

@@ -1,5 +1,6 @@
-@import "../../../bower_components/swiper/dist/css/swiper.css";
 @import "./lib/header.styl";
+
+
 
 section#index-view
     section.banner
@@ -143,9 +144,55 @@ section#second-view
                 height:0.05rem
                 position:absolute
                 image-hauto('male.png')
-        .button-line
+        div.button-line
+            font-size:base-font-size
+            margin-top:margin-height
             text-align:center
+            white-space:nowrap
             color:brand-pink
+            .tags
+                margin-bottom:0.04rem
+            button#focus
+                height:0.1rem
+                text-align:left
+                margin-right:0.015rem
+                background-color:transparent
+                padding-left:0.08rem
+                padding-right:0.08rem
+                border:1px solid brand-pink
+                color:brand-pink
+                border-radius:0.1rem
+                min-width:40%
+                position:relative
+                span
+                    font-size:base-font-size
+                i.go-right
+                    height:0.06rem
+                    right:0.02rem
+                    width:0.05rem
+                    position:absolute
+                    image-hauto('go-right-pink.png')
+            button#sendMessage
+                height:0.1rem
+                text-align:center
+                margin-left:0.015rem
+                background-color:transparent
+                padding-left:0.08rem
+                padding-right:0.08rem
+                border:1px solid brand-pink
+                color:brand-pink
+                border-radius:0.1rem
+                min-width:40%
+                position:relative
+                span
+                    font-size:base-font-size
+                i.go-right
+                    height:0.06rem
+                    width:0.05rem
+                    right:0.02rem
+                    position:absolute
+                    image-hauto('go-right-pink.png')
+
     section.blank
         margin-top:margin-height
         #hiscourse
@@ -207,6 +254,8 @@ section#second-view
                     width:0.4rem
                     height:0.4rem
                     background-repeat:no-repeat
+                    display:inline-bloc
+                    display:inline-block
                     background-size:cover
                     background-position:center
                     margin-right:0.01rem

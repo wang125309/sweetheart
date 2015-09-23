@@ -5,41 +5,37 @@ nav.navbar.navbar-default
         div.collapse.navbar-collapse
             ul.nav.navbar-nav
                 li(ng-if="nav=='user'",class="active")
-                    a(href="/user.html") 用户管理
+                    a(href="/user.html") 用户
                 li(ng-if="nav!='user'")
-                    a(href="/user.html") 用户管理
+                    a(href="/user.html") 用户
                 li(ng-if="nav=='coach'",class="active")
-                    a(href="/coach.html") 教练管理
+                    a(href="/coach.html") 教练
                 li(ng-if="nav!='coach'")
-                    a(href="/coach.html") 教练管理
+                    a(href="/coach.html") 教练
                 li(ng-if="nav=='subject'",class="active")
-                    a(href="/coach.html") 操课管理
+                    a(href="/coach.html") 操课
                 li(ng-if="nav!='subject'")
-                    a(href="/subject.html") 操课管理
+                    a(href="/subject.html") 操课
                 li(ng-if="nav=='course'",class="active")
-                    a(href="/course.html") 课程管理 
+                    a(href="/course.html") 课程 
                 li(ng-if="nav!='course'")
-                    a(href="/course.html") 课程管理
+                    a(href="/course.html") 课程
                 li(ng-if="nav=='position'",class="active")
-                    a(href="/position.html") 地点管理
+                    a(href="/position.html") 地点
                 li(ng-if="nav!='position'")
-                    a(href="/position.html") 地点管理
-                li(ng-if="nav=='check'",class="active")
-                    a(href="/check.html") 审批管理
-                li(ng-if="nav!='check'")
-                    a(href="/check.html") 审批管理
+                    a(href="/position.html") 地点
                 li(ng-if="nav=='wx'",class="active")
-                    a(href="/wx.html") 常量管理
+                    a(href="/wx.html") 常量
                 li(ng-if="nav!='wx'")
-                    a(href="/wx.html") 常量管理
+                    a(href="/wx.html") 常量
                 li(ng-if="nav=='backuser'",class="active")
-                    a(href="/backuser.html") 后台用户管理
+                    a(href="/backuser.html") 后台用户
                 li(ng-if="nav!='backuser'")
-                    a(href="/backuser.html") 后台用户管理
+                    a(href="/backuser.html") 后台用户
                 li(ng-if="nav=='shop'",class="active")
-                    a(href="/shop.html") 积分商城管理
+                    a(href="/shop.html") 积分商城
                 li(ng-if="nav!='shop'")
-                    a(href="/shop.html") 积分商城管理
+                    a(href="/shop.html") 积分商城
             ul.nav.navbar-nav.navbar-right
                 li
                     a(href="javascript:;",ng-click="logout()") 退出登录 

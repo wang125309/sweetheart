@@ -9,14 +9,16 @@ body(ng-controller="userCtrl")
             tr
                 th #
                 th 昵称
-                th 展示名
-                th openid
+                th 手机号
+                th 积分
+                th 关注领域
                 th 头像
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
                 td {{ i.nickname }}
-                td {{ i.displayname }}
-                td {{ i.openid }}
+                td {{ i.phonenum }}
+                td {{ i.score }}
+                td {{ i.goodat }}
                 td
                     img(ng-src="{{ i.headurl }}",width="70px",height="70px")
         include ./lib/pagination.jade

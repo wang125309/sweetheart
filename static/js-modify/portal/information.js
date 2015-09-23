@@ -3,9 +3,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
-require("./login.js");
-
-personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('personalspaceCtrl',['$scope',function($scope){
+informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informationCtrl',['$scope',function($scope){
     $scope.person = {
         name : "张翼德",
         sex : "1",
@@ -13,7 +11,7 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
         ordered_new : 1,
         score : 3000,
         focusNum : 110,
-        avatar : 'http://sw.importos.com/res/20150917/fa962006c45646939312b7f7dc6ec425.jpg',
+        headurl : 'http://sw.importos.com/res/20150917/fa962006c45646939312b7f7dc6ec425.jpg',
         pic : [{
             url:'http://sw.importos.com/res/20150917/fa962006c45646939312b7f7dc6ec425.jpg' 
         },{
@@ -35,43 +33,39 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
         ],
         videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf'
     };
-    $.get("/api/getUserInfo.do",function(data){
-        if(data.error_no == '0') {
-            if(data.data.iscoach == false) {
-                $scope.type = '1';
-                $scope.person = {
-                    avatar : data.data.headurl,
-                    name : data.data.nickname,
-                    score : data.data.score,
-                }
-                $scope.$apply();
-            }
-            else {
-                $scope.type = '2';
-                $scope.$apply();
-            }
+    $scope.chooseSex = function($event) {
+        $event.stopPropagation();
+        if ($scope.person.sex == '1') {
+            $scope.person.sex = '0';
         }
-    });
+        else {
+            $scope.person.sex = '1';
+        }
+        return false;
+    };
+    $scope.bindShow = false;
+    $scope.showBind = function() {
+        if($scope.bindShow == false) {
+            $scope.bindShow = true;
+        }
+        else {
+            $scope.bindShow = false;
+        }
+    };
+    $scope.phoneEdit = function($event) {
+        $event.stopPropagation();
+    };
+    $scope.sexChooseShow = false;
+    $scope.showChooseSex = function() {
+        if ($scope.sexChooseShow == false) {
+            $scope.sexChooseShow = true;
+        }
+        else {
+            $scope.sexChooseShow = false;
+        }
+    };
     $scope.go = function(space) {
         location.href = '/portal/' + space + '.html';  
     };
-    $scope.type = '2';
-    $scope.focus = true;
-}])
-.directive('move',function(){
-    return {
-        link : function(scope,element,attr) {
-            window.onload = function() {   
-                var swiper = new Swiper('.swiper-container',{
-                    speed : 500,
-                    freeMode : true,
-                    spaceBetween : 10,
-                    slidesPerView : 'auto',
-                    initialSlide : 0
-                });
-            };
-        }
-
-    }
-});
-personalspaceCtrl.$inject = ['$scope','personalspaceCtrl']; 
+}]);
+informationCtrl.$inject = ['$scope','informationCtrl']; 

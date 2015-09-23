@@ -7,6 +7,7 @@ body(ng-controller="shopCtrl")
         button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加商品
         table(class="table table-striped")
             tr
+                th id
                 th(width="100px") 商品名称
                 th(width="300px") 商品描述
                 th 兑换积分
@@ -15,16 +16,21 @@ body(ng-controller="shopCtrl")
                 th 剩余库存
                 th 操作
             tr(ng-repeat="i in data")
+                td {{ i.id }}
                 td {{ i.name }}
                 td {{ i.description }}
                 td {{ i.price }}
-                td {{ i.goods_status }}
+                td(ng-if="i.goods_status=='0'") 新录入
+                td(ng-if="i.goods_status=='1'") 上架中
+                td(ng-if="i.goods_status=='2'") 已下架
+                td(ng-if="i.goods_status>2") 异常
                 td 
-                    img(ng-src="{{ i.pic_res }}")
+                    img(ng-src="{{ i.pic_res.resourceUrl }}")
                 td {{ i.now_stock }}
                 td
                     a.edit-link(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.id,i.name,i.description,i.price,i.now_stock)") 编辑
-                    a(href="#",data-toggle="modal",data-target="#delete",ng-click="delete( i.xkey )") 删除
+                    a(href="#",data-toggle="modal",data-target="#on",ng-click="onGood( i.id )") 上架 
+                    a(href="#",data-toggle="modal",data-target="#off",ng-click="offGood( i.id )") 下架
     div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加商品")
         div.modal-dialog(role="document")
             div.modal-content
@@ -63,19 +69,20 @@ body(ng-controller="shopCtrl")
                     form#edit-form(role="form",method="post",enctype="multipart/form-data")
                         div.form-group
                             label(for="name") 商品名称
-                            input#name.form-control(type="text",placeholder="输入商品名称",ng-model="edit.name")
+                            input#name.form-control(name="name",type="text",placeholder="输入商品名称",ng-model="edit.name",value="{{ edit.name }}")
                         div.form-group
                             label(for="description") 商品详情
-                            input#description.form-control(name="description",type="text",placeholder="输入商品名称",ng-model="edit.description")
+                            input#description.form-control(name="description",type="text",placeholder="输入商品名称",ng-model="edit.description",value="{{ edit.description }}")
                         div.form-group
                             label(for="price") 兑换积分
-                            input#price.form-control(name="price",type="text",placeholder="输入兑换积分",ng-model="edit.price")
+                            input#price.form-control(name="price",type="text",placeholder="输入兑换积分",ng-model="edit.price",value="{{ edit.price }}")
                         div.form-group
                             label(for="inputStock") 剩余库存
-                            input#ingputStock.form-control(name="inputStock",type="text",placeholder="输入剩余库存",ng-model="edit.now_stock")
+                            input#ingputStock.form-control(name="inputStock",type="text",placeholder="输入剩余库存",ng-model="edit.now_stock",value="{{ edit.now_stock }}")
                         div.form-group
                             label(for="file") 商品图片
-                            input#pic(name="wxFile",type="file",ng-model="edit.file")
+                            input#pic(name="wxFile",type="file",ng-model="edit.file",value="{{ edit.file }}")
+                            input#id(name="id",type="hidden",ng-model="edit.id",value="{{ edit.id}}")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-primary(ng-click="saveEdit()",type="button",data-dismiss="modal") 保存
