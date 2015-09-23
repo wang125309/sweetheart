@@ -45547,108 +45547,65 @@ return jQuery;
 }));
 
 },{}],6:[function(require,module,exports){
+require("./getParams.js");
 require("../../bower_components/angular/angular.js");
 require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
 require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
-shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',function($scope){
-    $scope.nav = 'shop';
+coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope',function($scope){
+    $scope.nav = 'coach'; 
     $scope.logout = function() {
         jQuery.get("/sys/logout.do",function(data){
             location.href = "/login.html";
         });
     };
+    per_page = 40;
     var refrash = function() {
-        jQuery.get("/sys/getGoodsList.do",function(data){
+        p = getQueryParams("p");
+        if (p > 0){
+            start = (p-1) * per_page;
+            $scope.page = parseInt(p,10);
+        }
+        else {
+            start = 0;
+            $scope.page = 1;
+        }
+        jQuery.get("/sys/getCoachList.do?start="+start+"&limit="+per_page,function(data){
             if ("error_no" in data && data.error_no == '1') {
                 location.href = "/login.html";
             }
-
-            $scope.data = data.root;
+            $scope.data = data;
+            $scope.count = data.total/per_page;
             $scope.$apply();
         });
     };
     refrash();
-    $scope.save = function() {
-        formdata = new FormData(jQuery("#add-form")[0]);
-        jQuery.ajax({
-            type:"POST",
-            url:"/sys/addGoods.do",
-            data:formdata,
-            processData:false,
-            contentType:false,
-            success: function(data) {
-                alert("上传成功");
-                refrash();
-            },
-            error : function(data) {
-                alert("文件上传失败");
-            }
-        });
-    };
-    $scope.deleteKey = "";
-    $scope.delete = function(xkey) {
-        $scope.deleteKey = xkey;
-    };
-    $scope.onGood = function(id){
-        jQuery.post("/sys/updateGoodsStatus.do",{
-            "ids":id,
-            "status":1
-        },function(data){
-            console.log(data);
+    $scope.getCoach = function(query_status){
+        if(query_status < 0){
             refrash();
-        });
-    };
-    $scope.offGood = function(id){
-        jQuery.post("/sys/updateGoodsStatus.do",{
-            "ids":id,
-            "status":2
-        },function(data){
-            console.log(data);
-            refrash();
-        });
-    };
-    $scope.doDelete = function() {
-        jQuery.post("/sys/removeSysConstant.do",{
-            "xkeys":$scope.deleteKey
-        },function(data){
-            console.log(data);
-            refrash();
-        });
-    };
-    $scope.edit = {
-        id : "",
-        name : "",
-        description : "",
-        price : "",
-        now_stock : ""
-    };
+        }
+        if(query_status == 1 || query_status == 2){
+            jQuery.get("/sys/getCoachList.do?start="+start+"&limit="+per_page+"&status="+query_status,function(data){
+                if ("error_no" in data && data.error_no == '1') {
+                    location.href = "/login.html";
+                }
+                $scope.data = data;
+                $scope.count = data.total/per_page;
+            });
+        }
+    }
+}])
+coachCtrl.$inject = ['$scope','coachCtrl']; 
 
-    $scope.editForm = function(id,name,description,price,now_stock) {
-        $scope.edit.id = id;
-        $scope.edit.name = name;
-        $scope.edit.description = description;
-        $scope.edit.price = price;
-        $scope.edit.now_stock = now_stock;
-    };
-    $scope.saveEdit = function() {
-        formdata = new FormData(jQuery("#edit-form")[0]);
-        jQuery.ajax({
-            type:"POST",
-            url:"/sys/updateGoodsByParam.do",
-            data:formdata,
-            processData:false,
-            contentType:false,
-            success: function(data) {
-                refrash();
-            },
-            error : function(data) {
-                alert("修改失败");
-            }
-        });
-    };
-}]);
-shopCtrl.$inject = ['$scope','shopCtrl']; 
+},{"../../bower_components/angular-animate/angular-animate.js":1,"../../bower_components/angular/angular.js":2,"../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":3,"../../bower_components/bootstrap/dist/js/bootstrap.js":4,"../../bower_components/jquery/dist/jquery.js":5,"./getParams.js":7}],7:[function(require,module,exports){
+window.getQueryParams = function(name,url) {                                         
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS  );
+    var results = regex.exec( url  );
+    return results == null ? null : results[1];
+};
 
-},{"../../bower_components/angular-animate/angular-animate.js":1,"../../bower_components/angular/angular.js":2,"../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":3,"../../bower_components/bootstrap/dist/js/bootstrap.js":4,"../../bower_components/jquery/dist/jquery.js":5}]},{},[6])
+},{}]},{},[6])

@@ -8,15 +8,62 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
         now = new Date();
         date = now.getDate();
         day = now.getDay();
-        for (i=1;i<=14;i++) {
-            now.setDate(now.getDate() + 1);
-            
+        $scope.calendar.push({
+            date : now.getDate(),
+            day : now.getDay(),
+            active : true,
+            today : true
+        });
+        for( i=0 ; i < day ; i++ ) {
+            now.setDate(now.getDate() - 1);
             c = {
                 date : now.getDate(),
-                day : now.getDay()
+                day : now.getDay(),
+                active : false,
+                today : false
             };
-
             $scope.calendar.push(c);
+        }
+        $scope.calendar.reverse();
+        for (i=1;i<=14;i++) {
+            now.setDate(now.getDate() + 1);
+            c = {
+                date : now.getDate(),
+                day : now.getDay(),
+                active : true,
+                today : false
+            };
+            $scope.calendar.push(c);
+        }
+        cl = $scope.calendar.length;
+        for(i=0;i<21-cl;i++) {
+            now.setDate(now.getDate()+1);
+            c = {
+                date : now.getDate(),
+                day : now.getDay(),
+                active : false,
+                today : false
+            };
+            $scope.calendar.push(c);
+        }
+        $scope.cline1 = [];
+        $scope.cline2 = [];
+        $scope.cline3 = []; 
+
+        for(i=0;i< $scope.calendar.length;i++) {
+            console.log(i);
+            if (i < 7) {
+                $scope.cline1.push($scope.calendar[i]);
+            }
+            else if(i>=7&&i<14) {
+                $scope.cline2.push($scope.calendar[i]);
+            }
+            else {
+                $scope.cline3.push($scope.calendar[i]);
+            }
+        }
+        for(i in $scope.cline3) {
+            console.log($scope.cline3[i].date);
         }
     };
     initCalender();

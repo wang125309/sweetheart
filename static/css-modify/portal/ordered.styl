@@ -1,0 +1,44 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:left
+    font-size:base-font-size
+    .card
+        padding:0.04rem
+        margin:0 0.04rem
+        margin-top:0.04rem
+        position:relative
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background:#fff
+        .title
+            color:brand-black
+            padding-bottom:0.04rem
+            border-bottom:1px solid #dcdcdc
+            span.route
+                position:absolute
+                right:0.1rem
+                .route-icon
+                    image-wauto('route.png')
+                    width:0.05rem
+                    height:0.05rem
+                    position:absolute
+        .detail
+            padding-bottom:0.04rem
+            border-bottom:1px solid #dcdcdc
+            .line
+                padding-top:0.04rem
+                color:#777
+                padding-top:0.04rem
+                .right
+                    position:absolute
+                    right:0.04rem
+                    color:brand-pink
+        .bottom
+            padding-top:0.04rem
+            .qrcode
+                position:absolute
+                right:0.04rem
+                image-wauto('qrcode.png')
+                width:0.06rem
+                height:0.06rem

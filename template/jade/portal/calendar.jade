@@ -4,5 +4,8 @@ include ./lib/header.jade
     script(language="javascript",src="/static/js/portal/calendar.js")
 body(ng-controller="calendarCtrl")
     section#index-view
-        div.calendar
-            
+        include ./lib/calendar.jade
+        div.today
+            div.title 今日课程总计:
+                span.num {{ total }}
+
