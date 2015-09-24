@@ -1,0 +1,41 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    .card
+        text-align:left
+        position:relative
+        margin:0 0.02rem
+        margin-top:0.02rem
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+
+        .title
+            border-left:2px solid brand-pink
+            height:0.1rem
+            line-height:0.1rem
+            padding-left:0.04rem
+            color:brand-pink
+            padding-right:0.04rem
+        .dialog
+            margin:0 0.04rem
+            padding:0.02rem 0
+            position:relative
+            border-bottom:1px solid #dcdcdc
+
+
+            .detail
+                color:brand-black
+            .name
+                color:#777
+                font-size:less-font-size
+                margin-top:0.02rem
+                .time
+                    color:#777
+                    position:absolute
+                    right:0
+            
+        :last-child
+            border-bottom:none

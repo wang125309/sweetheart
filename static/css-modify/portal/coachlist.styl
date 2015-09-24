@@ -1,0 +1,75 @@
+@import "./lib/header.styl"
+
+section#index-view
+    font-size:base-font-size
+    div.filter
+        text-align:center
+        background-color:#fff
+        height:0.15rem
+        line-height:0.15rem
+        color:brand-pink
+
+        .pull-down
+            position:absolute
+            border:1px solid #dcdcdc
+            width:0.33rem
+            background-color:#fff
+            box-shadow:1px 1px 3px #ccc
+            div
+                color:brand-black
+                margin:0 0.05rem
+                border-bottom:1px solid #dcdcdc
+                height:0.1rem
+                line-height:0.1rem
+                text-align:center
+                overflow:hidden
+                text-overflow:ellipsis
+                white-space:nowrap
+                a
+                    text-decoration:none
+                    color:brand-black
+            :last-child
+                border-bottom:none
+        span
+            float:left
+            font-size:0.06rem
+            color:#dcdcdc
+        div.left
+            float:left
+            width:0.32rem
+        div.middle
+            float:left
+            width:0.32rem
+        div.right
+            float:left
+            width:0.32rem
+    div.card
+        border:1px solid #dcdcdc
+        margin:0 0.04rem
+        margin-top:margin-height-half
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+        padding:0.02rem
+        height:0.4rem
+        position:relative
+        div.background
+            background-size:cover
+            background-position:center
+            background-repeat:no-repeat
+            height:100%
+            width:100%
+            div.block
+                width:0.3rem
+                float:right
+                height:100%
+                color:#fff
+                background-color:rgba(0,0,0,0.5)
+                text-align:center
+                position:relative
+                .name
+                    margin-top: 0.2rem
+                    margin:0.04rem
+                    padding-bottom:0.05rem
+                    border-bottom:1px solid #fff
+                .position
+                    margin-top:0.16rem

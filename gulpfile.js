@@ -55,11 +55,9 @@ gulp.task('js',function(){
 });
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/control.js')
+    gulp.src('./static/js-modify/portal/evaluatelist.js')
         .pipe(browserify())
-        .pipe(uglify())
         .pipe(gulp.dest('./static/js/portal/'))
-        .pipe(gulp.dest('./static/js'));
 });
 
 gulp.task('jade',function(){

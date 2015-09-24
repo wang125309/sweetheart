@@ -1,0 +1,47 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    .card
+        text-align:left
+        position:relative
+        margin:0 0.02rem
+        margin-top:0.02rem
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+        .title
+            border-left:2px solid brand-pink
+            height:0.1rem
+            line-height:0.1rem
+            padding-left:0.04rem
+            color:brand-pink
+            padding-right:0.04rem
+        .textarea
+            .love
+                padding-left:0.04rem
+                div
+                    display:inline-block
+                    width:0.06rem
+                    height:0.06rem
+                    margin-right:0.01rem
+                .love-icon-active
+                    image-wauto('love-icon-active.png')
+                .love-icon
+                    image-wauto('love-icon.png')
+            textarea
+                width:92%
+                margin:4%
+                border:1px solid brand-pink
+                height:0.35rem
+                resize:none
+    button
+        margin-top:margin-height
+        width:95%
+        border-radius:0.12rem
+        height:0.12rem
+        text-align:center
+        border:none
+        background-color:brand-pink
+        color:#fff

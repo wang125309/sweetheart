@@ -1,0 +1,92 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    padding-bottom:0.2rem
+    .card
+        text-align:left
+        position:relative
+        padding:0.04rem
+        margin:0 0.02rem
+        margin-top:0.02rem
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+        .right
+            float:right
+        .time-chooser
+            font-size:bigger-font-size
+            border-bottom:1px solid #dcdcdc
+            height:0.24rem
+            .name
+                font-size:base-font-size
+                float:left
+            .timer
+                float:left
+                color:#777
+                text-align:center
+                .swiper-slide
+                    padding:0 0.01rem
+                .noon,.hour,.minute,.pipe
+                    float:left
+                    height:0.2rem
+                .pipe
+                    line-height:0.2rem
+                    color:brand-pink
+                .noon,.hour,.minute
+                    height:0.2rem
+                    overflow:hidden
+                    padding-left:0.01rem
+                    padding-right:0.01rem
+                .swiper-slide-active
+                    color:brand-pink
+                    border-top:1px solid brand-pink
+                    border-bottom:1px solid brand-pink
+            .to
+                float:left
+                height:0.2rem
+                color:brand-pink
+                line-height:0.2rem
+        .price
+            border-bottom:1px solid #dcdcdc
+            height:0.2rem
+            line-height:0.2rem
+            .name
+                float:left
+            .right
+                float:right
+                input
+                    border:1px solid brand-pink
+                    height:0.08rem
+                    line-height:0.08rem
+                    border-radius:2px
+                    width:0.25rem
+                    margin-right:0.01rem
+                color:brand-pink
+        .address
+            margin-top:0.04rem
+            .name
+                float:left
+                line-height:0.2rem
+                height:0.2rem
+            .right
+                float:right
+                color:brand-pink
+                textarea
+                    resize:none
+                    border:1px solid brand-pink
+                    border-radius:2px
+                    height:0.2rem
+                    width:0.6rem
+        
+    button
+        background-color:brand-pink
+        border:none
+        height:0.1rem
+        border-radius:0.12rem
+        color:#fff
+        width:90%
+        margin-top:0.05rem
+
+
