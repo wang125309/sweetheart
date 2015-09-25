@@ -55,7 +55,7 @@ gulp.task('js',function(){
 });
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/evaluatelist.js')
+    gulp.src('./static/js-modify/portal/coach.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
 });
