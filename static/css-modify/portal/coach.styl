@@ -1,0 +1,139 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    padding-bottom:0.2rem
+    div.video
+        video
+            width:92%
+            margin:0.04rem
+            border:1px solid #dcdcdc
+            box-shadow:1px 1px 3px #ccc
+    .details
+        margin-left:0.02rem
+        margin-right:0.02rem
+        border-top:1px solid #dcdcdc
+        border-bottom:1px solid #dcdcdc
+        border-right:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+        border-left:2px solid brand-pink
+        position:relative
+        height:0.24rem
+        text-align:left
+        .avatar
+            border-radius:100%
+            width:0.2rem
+            height:0.2rem
+            background-position:center
+            background-size:cover
+            position:absolute
+            left:0.04rem
+            top:0.02rem
+        .right-area
+            position:absolute
+            left:0.32rem
+            .line
+                color:brand-pink
+                margin-top:0.04rem
+                .name
+                    display:inline-block
+                .price
+                    display:inline-block
+                .skill
+                    display:inline-block
+                button
+                    border:none
+                    color:#fff
+                    padding:0.01rem 0.04rem
+                    background-color:brand-pink
+                    text-align:center 
+    .card
+        text-align:left
+        position:relative
+        margin:0 0.02rem
+        margin-top:0.02rem
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        background-color:#fff
+
+        .title
+            border-left:2px solid brand-pink
+            height:0.1rem
+            line-height:0.1rem
+            padding-left:0.04rem
+            color:brand-pink
+            padding-right:0.04rem
+        .dialog
+            margin:0 0.04rem
+            padding:0.02rem 0
+            position:relative
+            border-bottom:1px solid #dcdcdc
+            .detail
+                color:brand-black
+            .name
+                color:#777
+                font-size:less-font-size
+                margin-top:0.02rem
+                .time
+                    color:#777
+                    position:absolute
+                    right:0
+            
+        :last-child
+            border-bottom:none
+    .freetime
+        margin-top:0.04rem
+        .title
+            margin-top:0.02rem
+            margin-left:0.02rem
+            text-align:left
+            color:brand-pink
+
+        .detail
+            margin-top:0.02rem
+            background-color:brand-black
+            margin-left:0.02rem
+            margin-right:0.02rem
+            position:relative
+            margin-bottom:0.3rem
+            .left-bar
+                height:100%
+                float:left
+                .item
+                    width:0.2rem
+                    height:0.1rem
+                    line-height:0.1rem
+                    bottom:1px solid #dcdcdc
+                    color:#fff
+                    background-color:rgb(190,190,190)
+                .item.active
+                    color:brand-pink
+                    border-left:2px solid brand-pink
+                    background-color:brand-black
+            .right-content
+                float:left
+                .time
+                    margin-top:0.02rem
+                    margin-left:0.1rem
+                    border:1px solid #fff
+                    padding:0.02rem 0.05rem
+                    border-radius:0.2rem
+                    color:#fff
+                    background-color:transparent
+    .order-button
+        position:fixed
+        bottom:0
+        height:0.2rem
+        text-align:center
+        background-color:rgba(0,0,0,0.4)
+        width:100%
+        button
+            background-color:brand-pink
+            border:none
+            height:0.1rem
+            border-radius:0.12rem
+            color:#fff
+            width:90%
+            margin-top:0.05rem

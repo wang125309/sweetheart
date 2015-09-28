@@ -41,17 +41,16 @@ body(ng-controller="coachapplyCtrl")
             section#image-message
                 div.left-title 风采展示图片（请上传个人生活照，仅支持9图以内）
                 div.image-area
-                    div.pic(ng-repeat="i in pics")
-                        div.picture(style="background-image:url('{{ i.url }}')")
+                    div.pic(ng-repeat="i in pics track by $index")
+                        div.picture(style="{{ i.image }}")
                         i.close=""
-                    div.add-pic=""
+                    input(file-upload,ng-repeat="i in images track by $index",type="file",name="pic",id="input{{ $index + 1 }}")
+                    div.add-pic(ng-click="addPic()")=""
             section#video-message
                 div.left-title="视频展示"
-                div.add-video=""
+                div.add-video(ng-click="addVideo()")=""
+                input#video(type="file",name="video")
                 textarea(placeholder="视频描述")
             section#footer
                 div Tip：信息越完善，申请通过的几率越大哦~
                 button#submit 提交申请
-                
-
-            

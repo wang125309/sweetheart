@@ -32,6 +32,7 @@ section#index-view
                 background-color:transparent
                 border:none
                 width:0.6rem
+                -webkit-user-select:initial
     #personal-message,#award-message,#skill-message,#image-message,#video-message
         .left-title
             border-left:0.01rem solid brand-pink
@@ -50,6 +51,7 @@ section#index-view
             border:1px solid #dcdcdc
             margin:0 0.02rem
             margin-top:0.02rem
+            -webkit-user-select:initial
     #skill-message
         margin-bottom:0.02rem
         background-color:transparent
@@ -119,7 +121,24 @@ section#index-view
             display:inline-block
             margin-left:0.02rem
             margin-top:0.02rem
-        
+        input[name='pic']
+            visibility:hidden
+            height:0
+            width:0
+        .pic
+            display:inline-block
+            margin-left:0.02rem
+            margin-top:0.02rem
+            > div
+                background-repeat:no-repeat
+                background-size:cover
+                background-position:center
+                width:0.2rem
+                height:0.2rem
+        #video
+            visibility:hidden
+            height:0
+            width:0
     #footer
         text-align:center
         div 
