@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en" ng-app="sweetheart"><head><meta name="viewport" content="width=device-width,user-scalable=no,user-scalable=0,inital-scale=1.0"><meta http-equiv="Content-Type" content="text/html" charset="utf-8"><meta name="format-detection" content="telephone=no"><script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script>!(function() {
+    var rem;
+    rem = function() {
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+    };
+    rem();
+    window.addEventListener('resize', rem, false);
+    var _hmt = _hmt || []
+})();</script><title>评价 </title><link href="/static/css/portal/evaluatelist.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/evaluatelist.js"></script></head></html><body ng-controller="evaluatelistCtrl"><section id="index-view"><div class="card"><div class="title">综合评价</div><div ng-repeat="i in dialogs" class="dialog"><div class="detail">{{ i.detail }}</div><div class="name">{{ i.name }}<span class="time">{{ i.time }}</span></div></div></div></section></body>

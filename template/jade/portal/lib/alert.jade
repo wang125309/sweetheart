@@ -1,0 +1,5 @@
+div.alertMenu(ng-show="alert.show==true")
+    div.inner {{ alert.text }}
+    div.button-line
+        div.button-left(ng-click="alert.ok()") {{ alert.sure }}
+        div.button-right(ng-click="alert.not()") {{ alert.cancel }}

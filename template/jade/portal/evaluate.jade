@@ -1,0 +1,23 @@
+include ./lib/header.jade
+    title 评价 
+    link(href="/static/css/portal/evaluate.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/evaluate.js")
+body(ng-controller="evaluateCtrl")
+    section#index-view
+        div.card
+            div.title 评价
+            div.textarea
+                div.love
+                    div.love1.love-icon-active(ng-show="getstatus(1)==false",ng-click="light(1)")=""
+                    div.love1.love-icon(ng-show="getstatus(1)==true",ng-click="light(1)")=""
+                    div.love2.love-icon-active(ng-show="getstatus(2)==false",ng-click="light(2)")=""
+                    div.love2.love-icon(ng-show="getstatus(2)==true",ng-click="light(2)")=""
+                    div.love3.love-icon-active(ng-show="getstatus(3)==false",ng-click="light(3)")=""
+                    div.love3.love-icon(ng-show="getstatus(3)==true",ng-click="light(3)")=""
+                    div.love4.love-icon-active(ng-show="getstatus(4)==false",ng-click="light(4)")=""
+                    div.love4.love-icon(ng-show="getstatus(4)==true",ng-click="light(4)")=""
+                    div.love5.love-icon-active(ng-show="getstatus(5)==false",ng-click="light(5)")=""
+                    div.love5.love-icon(ng-show="getstatus(5)==true",ng-click="light(5)")=""
+                textarea=""
+        
+        button.evaluate(type="button") 评价

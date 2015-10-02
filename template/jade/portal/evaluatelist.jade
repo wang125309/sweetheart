@@ -1,0 +1,14 @@
+include ./lib/header.jade
+    title 评价 
+    link(href="/static/css/portal/evaluatelist.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/evaluatelist.js")
+body(ng-controller="evaluatelistCtrl")
+    section#index-view
+        div.card
+            div.title 综合评价
+            div.dialog(ng-repeat="i in dialogs")
+                div.detail {{ i.detail }}
+                div.name {{ i.name }}
+                    span.time {{ i.time }}
+
+            

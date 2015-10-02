@@ -1,0 +1,39 @@
+include ./lib/header.jade
+    title 私教 
+    link(href="/static/css/portal/coach.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/coach.js")
+body(ng-controller="coachCtrl")
+    section#index-view
+        div.video
+            video.video(ng-src="{{ video }}")
+        div.details
+            div.avatar(style="background-image:url('{{ avatar }}')")
+            div.right-area
+                div.line
+                    div.name {{ person.name }}
+                        span.sex-m(ng-show="person.sex=='0'")
+                        span.sex-f(ng-show="person.sex=='1'")
+                    div.price {{ person.price }}
+                div.line
+                    div.skill 擅长{{ skills }}
+                    button + 关注
+        
+        div.card
+            div.title 综合评价
+            div.dialog(ng-repeat="i in dialogs")
+                div.detail {{ i.detail }}
+                div.name {{ i.name }}
+                    span.time {{ i.time }}
+        
+        div.freetime
+            div.title 可预约的时间 
+            div.detail.clearfix
+                div.left-bar.clearfix
+                    div.item(ng-if="i.active == false",ng-repeat="i in date") {{ i.text }}
+                    div.item.active(ng-if="i.active == true",ng-repeat="i in date") {{ i.text }}
+                div.right-content.clearfix
+                    div.time(ng-repeat="i in times") {{ i }}
+
+        div.order-button
+            button(type="button") 预约
+                    

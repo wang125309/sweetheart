@@ -32,6 +32,30 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
         });
     };
     refrash();
+    $scope.optid = function(uid,id) {
+        $scope.id = id;
+        $scope.user_id = uid;
+    };
+    $scope.passCoachApply = function() {
+        jQuery.get("/sys/approvalCoach.do?coach_id="+$scope.id+"&user_id="+$scope.user_id+"&pass=true",function(data){
+            if(data.error_no != '0') {
+                alert("后台异常");
+            }
+            else {
+                refrash();
+            }
+        });
+    };
+    $scope.rejectCoachApply = function() {
+        jQuery.get("/sys/approvalCoach.do?coach_id="+$scope.id+"&user_id="+$scope.user_id+"&pass=false",function(data){
+            if(data.error_no != '0') {
+                alert("后台异常");
+            }
+            else {
+                refrash();
+            }
+        });
+    };
     $scope.getCoach = function(query_status){
         if(query_status < 0){
             refrash();
@@ -43,6 +67,7 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
                 }
                 $scope.data = data;
                 $scope.count = data.total/per_page;
+                $scope.$apply();
             });
         }
     }

@@ -5,14 +5,16 @@ body(ng-controller="coachCtrl")
     include ./lib/nav.jade
     div.container
         button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加操课教练
-        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(0)") 待审批
-        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(1)") 已审批
+        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(1)") 待审批
+        button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(2)") 已通过 
         button.btn.btn-primary#add-btn(type="button",ng-click="getCoach(-1)") 全部
         table(class="table table-striped")
             tr
                 th #
                 th 展示名
                 th 全名  
+                th 昵称  
+                th 状态  
                 th 教龄
                 th 性别
                 th 身份证号
@@ -23,19 +25,23 @@ body(ng-controller="coachCtrl")
                 td {{ i.id }}
                 td {{ i.displayname }}
                 td {{ i.nickname }}
+                td {{ i.stUserEntity.nickname }}
+                td(ng-if="i.status == '0'") 待审核
+                td(ng-if="i.status == '1'") 已通过
+                td(ng-if="i.status == '2'") 已驳回
                 td {{ i.age }}
                 td(ng-if="i.gender == '1'") 男
                 td(ng-if="i.gender == '2'") 女
-                td(ng-if="i.gender == '0'") 未知
+                td(ng-if="i.gender != '1' && i.gender != '2'") 未知
                 td {{ i.idcard }}
                 td {{ i.phonenum }}
                 td(ng-if="i.type == '0'") 私教  
                 td(ng-if="i.type == '1'") 操课教练  
-                td(ng-if="i.type >= 2") 全能 
+                td(ng-if="i.type != '0' && i.type != '1'") 全能 
                 td
                     a.view(href="javascript:;") 查看详情 
-                    a.approval(href="javascript:;",data-toggle="modal",data-target="#approval") 通过申请 
-                    a.reject(href="javascript:;",data-toggle="modal",data-target="#reject") 驳回申请 
+                    a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.stUserEntity.id,i.id)") 通过 
+                    a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.stUserEntity.id,i.id)",data-target="#reject") 取消通过 
     
     div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加操课教练")
         div.modal-dialog(role="document")
@@ -91,7 +97,7 @@ body(ng-controller="coachCtrl")
                     p 确定要通过成为教练申请吗？
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 通过
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="passCoachApply()") 通过
     div#reject.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="驳回成为教练申请")
         div.modal-dialog(role="document")
             div.modal-content
@@ -103,4 +109,4 @@ body(ng-controller="coachCtrl")
                     p 确定要驳回成为教练申请么？
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 驳回
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="rejectCoachApply()") 驳回

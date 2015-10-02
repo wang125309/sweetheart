@@ -1,0 +1,37 @@
+include ./lib/header.jade
+    title 私教列表 
+    link(href="/static/css/portal/coachlist.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/coachlist.js")
+body(ng-controller="coachlistCtrl")
+    section#index-view
+        div.filter.clearfix
+            div.left(ng-click="filter_location($event)") 场地：{{ location }}
+                div.pull-down.location(ng-show="location_pull_down==true")
+                    div.location-detail(ng-repeat="i in locations",ng-click="chooseLocation(i)")
+                        a(href="#") {{ i }}
+            span |
+            div.middle(ng-click="filter_sex($event)") 性别：{{ sex }}
+                div.pull-down.sex(ng-show="sex_pull_down==true")
+                    div.sex-detail(ng-click="chooseSex($event,1)")
+                        a(href="#") 男
+                    div.sex-detail(ng-click="chooseSex($event,2)")
+                        a(href="#") 女
+                    div.sex-detail(ng-click="chooseSex($event,0)")
+                        a(href="#") 不限
+            span |
+            div.right(ng-click="filter_subject($event)") 专业：{{ subject }}
+                div.pull-down.subject(ng-show="subject_pull_down==true")
+                    div.subject-detail(ng-click="chooseSubject($event,0,'不限')")
+                        a(href="#") 不限
+                    div.subject-detail(ng-repeat="i in subjects",ng-click="chooseSubject($event,i.id,i.display)")
+                        a(href="#") {{ i.display }}
+        div.card(ng-repeat="i in cards",ng-click="goPersonSpace(i.id)")
+            div.background(style="background-image:url('{{ i.url }}')")
+                div.block
+                    div.name {{ i.name }}
+                        span.sex-f(ng-show="i.sex=='0'")=""
+                        span.sex-m(ng-show="i.sex=='1'")=""
+                    div.skill {{ i.skill }}
+                    div.location {{ i.location }}
+                        span.location-icon=""
+        

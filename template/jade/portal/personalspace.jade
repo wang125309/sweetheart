@@ -57,7 +57,7 @@ body(ng-controller="personalspaceCtrl")
                     span 风采展示
                 div.image-area.swiper-container(move)
                     div.pic-wrap.swiper-wrapper
-                        div.pic.swiper-slide(ng-repeat="i in person.pic",style="background-image:url('{{ i.url }}')")
+                        div.pic.swiper-slide(ng-repeat="i in person.pic",style="background-image:url('{{ i.res_url }}')")
             div.desc
                 div.title
                     i#desc-icon=""
@@ -68,8 +68,8 @@ body(ng-controller="personalspaceCtrl")
                     i#prize-icon=""
                     span 获奖经历
                 div.prize-inner
-                    div.prize-detail(ng-repeat="i in person.prize") {{ i }}
+                    div.prize-detail {{ person.prize }}
             div.video
-                video(ng-src="person.video")
+                video(ng-src="{{ person.video }}",controls="controls", webkit-playsinline)
                 div.video-desc {{ person.videoDesc }}
                         

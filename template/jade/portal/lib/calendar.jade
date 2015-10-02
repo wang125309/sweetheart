@@ -1,0 +1,24 @@
+div.calendar
+    ul.title
+        li 日
+        li 一
+        li 二
+        li 三
+        li 四
+        li 五
+        li 六
+    ul
+        li(ng-repeat="i in cline1")
+            a.today(href="#",ng-if="i.today == true") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            a.unactive(href="#",ng-if="i.active == false") {{ i.date }}
+    ul
+        li(ng-repeat="i in cline2")
+            a.today(href="#",ng-if="i.today == true") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            a.unactive(href="#",ng-if="i.active == false") {{ i.date }}
+    ul
+        li(ng-repeat="i in cline3")
+            a.today(href="#",ng-if="i.today == true") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            a.unactive(href="#",ng-if="i.active == false") {{ i.date }}

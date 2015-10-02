@@ -3,49 +3,84 @@ include ./lib/header.jade
     link(href="/static/css/portal/coachapply.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/coachapply.js")
 body(ng-controller="coachapplyCtrl")
+
     section#index-view
-        form#apply-form(method="post",role="form",enctype="multipart/form-data")
-            section#base-message
-                div.base-title
-                    span 基本信息
-                div.real-name.message-line.clearfix
-                    span 真实姓名
-                    input(type="text",name="realname",ng-model="coach.realname")
-                div.mobile.message-line.clearfix
-                    span 电话
-                    input(type="text",name="mobile",ng-model="coach.mobile")
-                div.mobile.message-line.clearfix
-                    span 昵称
-                    input(type="text",name="nickname",ng-model="coach.nickname")
-                div.mobild.message-line.clearfix
-                    span 生日
-                    input(type="text",name="birthday",ng-model="coach.birthday")
-                div.card.message-line.clearfix
-                    span 证件号
-                    input(type="text",name="card",ng-model="coach.card")
-            section#personal-message
-                div.base-title
-                    span 个人简介
-                textarea(placeholder="必填，100字以上")
-            section#award-message
-                div.base-title
-                    span 获奖经历
-                textarea(placeholder="（选填）")
-            section#skill-message
-                div.left-title 专长
-                    span.more-skill-down(ng-show="skillShow==true")=""
-                    span.more-skill-up(ng-show="skillShow==false")=""
-                div.skills-area
-                    button.unchoose(ng-show="i.choose==false",ng-click="chooseSkill(i.id)",ng-repeat="i in skills") {{ i.name }}
-                    button.choose(ng-show="i.choose==true",ng-click="chooseSkill(i.id)",ng-repeat="i in skills") {{ i.name }}
+        div.processing(ng-show="processing==true")
+            p {{ uploadingText }}
+        include ./lib/alert.jade
+        div.sex-chooser(ng-show="sexChooseShow == true",ng-click="showChooseSex()")
+            div.sex-choose
+                div.title 性别
+                div.unchoose-f(ng-click="chooseSex($event)",ng-show="person.sex == '1'") 男
+                    i.male=""
+                div.choose-f(ng-show="person.sex == '0'") 男
+                    i.male=""
+                div.unchoose-m(ng-click="chooseSex($event)",ng-show="person.sex == '0'") 女
+                    i.famle=""
+                div.choose-m(ng-show="person.sex == '1'") 女
+                    i.famle=""
+        section#base-message
+            div.base-title
+                span 基本信息
+            div.real-name.message-line.clearfix
+                span 真实姓名
+                input(type="text",name="realname",ng-model="coach.realname")
+            div.mobile.message-line.clearfix
+                span 昵称
+                input(type="text",name="displayname",ng-model="coach.displayname")
+            div.sex.message-line.clearfix(ng-click="showChooseSex()")
+                span 性别
+                input(type="hidden",name="sex",ng-model="coach.sex")
+            div.age.message-line.clearfix
+                span 年龄 
+                input(type="text",name="age",ng-model="coach.age")
+            div.card.message-line.clearfix
+                span 证件号
+                input(type="text",name="idcard",ng-model="coach.idcard")
+        section#personal-message
+            div.base-title
+                span 个人简介
+            textarea(name="description",ng-model="coach.description",placeholder="必填，100字以上")
+        section#award-message
+            div.base-title
+                span 获奖经历
+            textarea(name="winning",ng-model="coach.winning",placeholder="（选填）")
+        section#skill-message
+            div.left-title 专长
+                span.more-skill-down(ng-show="skillShow==true")=""
+                span.more-skill-up(ng-show="skillShow==false")=""
+            div.skills-area
+                span(ng-repeat="i in skills")
+                    button(class="{{ i.class }}",ng-click="chooseSkill(i.id)") {{ i.name }}
+                input(type="hidden",ng-model="coach.skills",name="goodat",value="{{ coach.skills }}")
+        form#avatar-form(method="post",role="form",enctype="multipart/form-data")
+            section#image-message
+                div.left-title 头像图片（将展示在您的个人中心）
+                div.image-area
+                    div.pic(ng-show="avatarUploaded==true")
+                        div.picture(style="{{ avatar }}")
+                        i.close=""
+                    input(avatar-upload,type="file",name="images",id="avatar-input")
+                    div.add-pic(ng-click="addAvatar()")=""
+        form#banner-form(method="post",role="form",enctype="multipart/form-data")
+            section#image-message
+                div.left-title 列表页图片（将作为您的形象照展示在教练列表页，建议使用比例16/9的宽图片）
+                div.image-area
+                    div.pic(ng-show="bannerUploaded==true")
+                        div.picture(style="{{ banner }}")
+                        i.close=""
+                    input(banner-upload,type="file",name="images",id="banner-input")
+                    div.add-pic(ng-click="addBanner()")=""
+        form#image-form(method="post",role="form",enctype="multipart/form-data")
             section#image-message
                 div.left-title 风采展示图片（请上传个人生活照，仅支持9图以内）
                 div.image-area
                     div.pic(ng-repeat="i in pics track by $index")
                         div.picture(style="{{ i.image }}")
                         i.close=""
-                    input(file-upload,ng-repeat="i in images track by $index",type="file",name="pic",id="input{{ $index + 1 }}")
+                    input(file-upload,ng-repeat="i in images track by $index",type="file",name="images",id="input{{ $index + 1 }}")
                     div.add-pic(ng-click="addPic()")=""
+        form#video-form(method="post",role="form",enctype="multipart/form-data")
             section#video-message
                 div.left-title="视频展示"
                 div.add-video(ng-click="addVideo()")=""
@@ -53,4 +88,4 @@ body(ng-controller="coachapplyCtrl")
                 textarea(placeholder="视频描述")
             section#footer
                 div Tip：信息越完善，申请通过的几率越大哦~
-                button#submit 提交申请
+                button#submit(ng-click="save()") 提交申请

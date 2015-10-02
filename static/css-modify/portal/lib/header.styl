@@ -48,6 +48,47 @@ image-hauto(image)
     background-repeat:no-repeat
     background-position:center
 
+animate(name,time,delay,count)
+    -webkit-animation-name : name
+    -webkit-backface-visibility : hidden
+    -webkit-animation-duration : time
+    -webkit-animation-iteration-count : count
+    -webkit-animation-fill-mode : both
+    -webkit-animation-delay:delay
+
+.alertMenu
+    width:70%
+    position:fixed
+    top:30%
+    margin-left:15%
+    border:1px solid #dcdcdc
+    border-radius:3px
+    box-shadow:1px 1px 3px #ccc
+    background-color:#fff
+    .inner
+        padding:0.1rem
+        
+    .button-line
+        border-top:1px solid #dcdcdc
+        position:relative
+        text-align:center
+        height:0.15rem
+        .button-left
+            position:absolute
+            width:50%
+            height:0.15rem
+            line-height:0.15rem
+            left:0
+            color:#FF5a89
+            border-right:1px solid #dcdcdc
+
+        .button-right
+            position:absolute
+            width:50%
+            height:0.15rem
+            line-height:0.15rem
+            right:0
+
 lest-font-size = 0.037rem
 less-font-size = 0.04rem
 base-font-size = 0.043rem

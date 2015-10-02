@@ -1,0 +1,22 @@
+include ./lib/header.jade
+    title 我的课程 
+    link(href="/static/css/portal/ordered.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/ordered.js")
+body(ng-controller="orderedCtrl")
+    section#index-view
+        div.card(ng-repeat="i in card")
+            div.title {{ i.title }}
+                span.route 导航
+                    i.route-icon=""
+            div.detail
+                div.line 课程
+                    span.right {{ i.course }}
+                div.line 时间
+                    span.right {{ i.time }}
+                div.line 地址
+                    span.right {{ i.address }}
+                div.line 联系电话
+                    span.right {{ i.phone }}
+            div.bottom
+                div.name 单号{{ i.id }}
+                    span.qrcode=""

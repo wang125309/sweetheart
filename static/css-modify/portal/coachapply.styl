@@ -1,6 +1,23 @@
 @import "./lib/header.styl"
-
+input
+    -webkit-user-select:initial
 section#index-view
+    .processing
+        position:fixed
+        height:100%
+        width:100%
+        background-color:rgba(0,0,0,0.5)
+        top:0
+        image-auto('uploading.gif')
+        background-position:center
+        background-size:20% auto
+        p
+            font-size:0.04rem
+            position:absolute
+            bottom:37%
+            color:#fff
+            width:100%
+            text-align:center
     font-size:base-font-size
     .base-title
         font-size:bigger-font-size
@@ -121,7 +138,7 @@ section#index-view
             display:inline-block
             margin-left:0.02rem
             margin-top:0.02rem
-        input[name='pic']
+        input[name='images']
             visibility:hidden
             height:0
             width:0

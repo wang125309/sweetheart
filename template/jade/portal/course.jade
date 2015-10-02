@@ -1,0 +1,28 @@
+include ./lib/header.jade
+    title 课程详情 
+    link(href="/static/css/portal/course.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/course.js")
+body(ng-controller="courseCtrl")
+    section#index-view
+        div.banner(style="background-image:url('{{ banner }}')")=""
+        div.details
+            div.line-first.clearfix
+                i.time-icon=""
+                div.time {{ time }}
+                div.price {{ price }}/课时
+            div.line-second.clearfix
+                i.location-icon=""
+                div.location {{ location }}
+                button(type="button") +加关注
+        div.order
+            div.title 预约人数{{ ready }}/{{ total }}
+            div.people.clearfix
+                div.people-ordered-icon(ng-repeat="i in ps track by $index",ng-show="i==true")=""
+                div.people-icon(ng-repeat="i in ps track by $index",ng-show="i==false")=""
+        div.desc
+            div.title 课程介绍
+            div.desc-details {{ desc }}
+        div.consult=""
+        div.order-button
+            button(type="button") 预约
+                    

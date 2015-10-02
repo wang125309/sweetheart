@@ -55,7 +55,7 @@ gulp.task('js',function(){
 });
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/coachapply.js')
+    gulp.src('./static/js-modify/portal/information.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
 });
@@ -64,6 +64,7 @@ gulp.task('jade',function(){
     gulp.src('./template/jade/*.jade')
         .pipe(jade())
         .pipe(gulp.dest('./template/'))
+        .pipe(uglify())
 });
 
 gulp.task('jade-portal',function(){

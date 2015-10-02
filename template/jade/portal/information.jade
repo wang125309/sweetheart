@@ -10,11 +10,12 @@ body(ng-controller="informationCtrl")
         div.num
             div.phone.clearfix(ng-click="showBind()")
                 div.name 手机号
-                div.input {{ person.phone }}
+                div.input
+                    div {{ person.phone }}
             div.qq.clearfix
                 div.name qq号码
                 div.input
-                    input(type="text",ng-model="person.qq")
+                    input(type="number",ng-model="person.qq")
         div.other
             div.address.clearfix
                 div.name 地区
@@ -26,29 +27,24 @@ body(ng-controller="informationCtrl")
                     i.male-icon=""
                 div.sex-m(ng-show="person.sex == '1'") 女
                     i.famale-icon=""
-        div.instrust.clearfix
+        div.instrust.clearfix(ng-click="showSkillChoose()")
             div.name 感兴趣的
-            div.instrust-area
-                button(ng-repeat="i in mySkills") i
-        div.sex-chooser(ng-show="sexChooseShow == true",ng-click="showChooseSex()")
-            div.sex-choose
-                div.title 性别
-                div.unchoose-f(ng-click="chooseSex($event)",ng-show="person.sex == '1'") 男
-                    i.male=""
-                div.choose-f(ng-show="person.sex == '0'") 男
-                    i.male=""
-                div.unchoose-m(ng-click="chooseSex($event)",ng-show="person.sex == '0'") 女
-                    i.famle=""
-                div.choose-m(ng-show="person.sex == '1'") 女
-                    i.famle=""
+            div.inner
+                button(type="button",ng-repeat="i in skillsed") {{ i.display }}
+        div.skill-chooser(ng-show="skillChooseShow == true",ng-click="showSkillChoose()")
+            div.skills(ng-show="skillChooseShow == true",class="{{ skillClass }}")
+                div.skill-inner
+                    button(ng-repeat="i in skills.data",ng-click="addSkill($event,{{ i }})") {{ i.display }}
+                div.button-line
+                    button.save(ng-click="saveSkills()",type="button") 保存
         div.binding-phone(ng-show="bindShow == true",ng-click="showBind()")
-            div.bind(ng-click="phoneEdit($event)")
+            div.bind(class="{{ bindingClass }}",ng-show="bindShow==true",ng-click="phoneEdit($event)")
                 div.title 绑定手机号
                 div.phone
-                    input(type="text",ng-model="person.phone",placeholder="手机号")
-                div.credit
-                    input(type="text",ng-model="credit",placeholder="验证码")
-                    button(type="button") 发送验证码
+                    input(type="number",ng-model="person.phone",placeholder="手机号")
+                div.credit.clearfix
+                    input(type="number",ng-model="credit",placeholder="验证码")
+                    button(type="button",ng-click="sendCode()") {{ sendText }}
                 div.button-line
-                    button(type="button") 保存
+                    button(type="button",ng-click="savePhone()") 保存
         button.save(type="button") 保存

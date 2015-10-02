@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en" ng-app="sweetheart"><head><meta name="viewport" content="width=device-width,user-scalable=no,user-scalable=0,inital-scale=1.0"><meta http-equiv="Content-Type" content="text/html" charset="utf-8"><meta name="format-detection" content="telephone=no"><script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script>!(function() {
+    var rem;
+    rem = function() {
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+    };
+    rem();
+    window.addEventListener('resize', rem, false);
+    var _hmt = _hmt || []
+})();</script><title>我的课程 </title><link href="/static/css/portal/ordered.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/ordered.js"></script></head></html><body ng-controller="orderedCtrl"><section id="index-view"><div ng-repeat="i in card" class="card"><div class="title">{{ i.title }}<span class="route">导航<i class="route-icon"></i></span></div><div class="detail"><div class="line">课程<span class="right">{{ i.course }}</span></div><div class="line">时间<span class="right">{{ i.time }}</span></div><div class="line">地址<span class="right">{{ i.address }}</span></div><div class="line">联系电话<span class="right">{{ i.phone }}</span></div></div><div class="bottom"><div class="name">单号{{ i.id }}<span class="qrcode"></span></div></div></div></section></body>

@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en" ng-app="sweetheart"><head><meta name="viewport" content="width=device-width,user-scalable=no,user-scalable=0,inital-scale=1.0"><meta http-equiv="Content-Type" content="text/html" charset="utf-8"><meta name="format-detection" content="telephone=no"><script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script>!(function() {
+    var rem;
+    rem = function() {
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+    };
+    rem();
+    window.addEventListener('resize', rem, false);
+    var _hmt = _hmt || []
+})();</script><title>课程详情 </title><link href="/static/css/portal/course.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/course.js"></script></head></html><body ng-controller="courseCtrl"><section id="index-view"><div style="background-image:url('{{ banner }}')" class="banner"></div><div class="details"><div class="line-first clearfix"><i class="time-icon"></i><div class="time">{{ time }}</div><div class="price">{{ price }}/课时</div></div><div class="line-second clearfix"><i class="location-icon"></i><div class="location">{{ location }}</div><button type="button">+加关注</button></div></div><div class="order"><div class="title">预约人数{{ ready }}/{{ total }}</div><div class="people clearfix"><div ng-repeat="i in ps track by $index" ng-show="i==true" class="people-ordered-icon"></div><div ng-repeat="i in ps track by $index" ng-show="i==false" class="people-icon"></div></div></div><div class="desc"><div class="title">课程介绍</div><div class="desc-details">{{ desc }}</div></div><div class="consult"></div><div class="order-button"><button type="button">预约</button></div></section></body>
