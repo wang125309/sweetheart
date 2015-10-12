@@ -1,0 +1,8 @@
+include ./lib/header.jade
+    title HELLOW WORLD 
+    link(href="/static/css/portal/hellow.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/hellow.js")
+body(ng-controller="hellowCtrl")
+    div.hellow {{ world }}
+    button(type="button",ng-click="connectToBack()") click me to connect server
+    

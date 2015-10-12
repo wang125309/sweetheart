@@ -2,36 +2,53 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
+require("../getParams.js");
 controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl',['$scope',function($scope){
+    $scope.date = []; 
+    setDateToLocalStorage = function(year,month,date) {
+        localStorage['date'] = year + '-' + month + '-' + date;
+    };
     initCalender = function() {
         $scope.calendar = [];
         now = new Date();
         date = now.getDate();
         day = now.getDay();
+        
         $scope.calendar.push({
+            year : now.getFullYear(),
+            month : now.getMonth()+1,
             date : now.getDate(),
             day : now.getDay(),
             active : true,
-            today : true
+            today : true,
+            can : false
         });
+        setDateToLocalStorage(now.getFullYear(),now.getMonth()+1,now.getDate());
         for( i=0 ; i < day ; i++ ) {
             now.setDate(now.getDate() - 1);
             c = {
+                year : now.getFullYear(),
+                month : now.getMonth()+1,
                 date : now.getDate(),
                 day : now.getDay(),
                 active : false,
-                today : false
+                today : false,
+                can : false
             };
             $scope.calendar.push(c);
         }
         $scope.calendar.reverse();
+        now.setDate(now.getDate()+day);
         for (i=1;i<=14;i++) {
             now.setDate(now.getDate() + 1);
             c = {
+                year : now.getFullYear(),
+                month : now.getMonth()+1,
                 date : now.getDate(),
                 day : now.getDay(),
                 active : true,
-                today : false
+                today : false,
+                can : false
             };
             $scope.calendar.push(c);
         }
@@ -39,10 +56,13 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
         for(i=0;i<21-cl;i++) {
             now.setDate(now.getDate()+1);
             c = {
+                year : now.getFullYear(),
+                month : now.getMonth()+1,
                 date : now.getDate(),
                 day : now.getDay(),
                 active : false,
-                today : false
+                today : false,
+                can : false
             };
             $scope.calendar.push(c);
         }
@@ -62,23 +82,78 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
                 $scope.cline3.push($scope.calendar[i]);
             }
         }
-        for(i in $scope.cline3) {
-            console.log($scope.cline3[i].date);
-        }
     };
     initCalender();
-    $scope.cards = [{
-        time : 'AM 8:00 - AM 10:00',
-        price : '135每小时',
-        address : '台湾',
-        status : '0',
-        id : 0
-    },{
-        time : 'AM 8:00 - AM 10:00',
-        price : '135每小时',
-        address : '台湾',
-        status : '1',
-        id : 1
-    }];
+    $scope.newTime = function() {
+        location.href = "/portal/newcourse.html";
+    };
+    var frashCalendar = function() {
+        $.get("/api/getPersonalClassListByCoach.do?coach_id="+getQueryParams("coach_id"),function(data){
+            $scope.data = data.data.list;
+            $scope.self = data.data.self;
+            for(i in $scope.data) {
+                $scope.date.push($scope.data[i].date);
+            }
+            for(i in $scope.cline1) {
+                for(j in $scope.date) {
+                    if($scope.date[j].split("-")[2] == $scope.cline1[i].date) {
+                        $scope.cline1[i].can = true;
+                    }
+                }
+            }
+            for(i in $scope.cline2) {
+                for(j in $scope.date) {
+                    if($scope.date[j].split("-")[2] == $scope.cline2[i].date) {
+                        $scope.cline2[i].can = true;                
+                    }
+                }
+            }
+            for(i in $scope.cline3) {
+                for(j in $scope.date) {
+                    if($scope.date[j].split("-")[2] == $scope.cline3[i].date) {
+                        $scope.cline3[i].can = true;                
+                    }
+                }
+            }
+
+            $scope.$apply();
+        });
+    };
+    $scope.changeToDate = function( date , can ) {
+        for(i in $scope.cline1) {
+            if($scope.cline1[i].date == date) {
+                $scope.cline1[i].today = true;
+                setDateToLocalStorage($scope.cline1[i].year,$scope.cline1[i].month,$scope.cline1[i].date);
+            }
+            else {
+                $scope.cline1[i].today = false;
+            }
+        }
+        for(i in $scope.cline2) {
+            if($scope.cline2[i].date == date) {
+                $scope.cline2[i].today = true;
+                setDateToLocalStorage($scope.cline2[i].year,$scope.cline2[i].month,$scope.cline2[i].date);
+            }
+            else {
+                $scope.cline2[i].today = false;
+            }
+        }
+        for(i in $scope.cline3) {
+            if($scope.cline3[i].date == date) {
+                $scope.cline3[i].today = true;
+                setDateToLocalStorage($scope.cline3[i].year,$scope.cline3[i].month,$scope.cline3[i].date);
+            }
+            else {
+                $scope.cline3[i].today = false;
+            }
+        }
+        for(i in $scope.data) {
+            if($scope.data[i].date.split("-")[2] == date) {
+                $scope.cards = $scope.data[i].classes;
+                break;
+            }
+        }
+    };
+    frashCalendar();
 }]);
 controlCtrl.$inject = ['$scope','controlCtrl']; 

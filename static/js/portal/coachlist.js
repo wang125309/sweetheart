@@ -34341,7 +34341,8 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
                     sex : data.data[i].gender,
                     url : data.data[i].horizontalimg,
                     location : '北京',
-                    id : data.data[i].userid
+                    id : data.data[i].userid,
+                    cid : data.data[i].id
                 });
             }
             $scope.$apply();
@@ -34367,12 +34368,10 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
         $scope.filterSubject = id;
         refrash($scope.filterSex,$scope.filterSubject,subject);
     };
-    $scope.goPersonSpace = function(id) {
-        location.href = "/portal/personalspace.html?id=" + id;
+    $scope.goPersonSpace = function(id,cid) {
+        if(id) location.href = "/portal/coach.html?id=" + id+"&coachid=" + cid;
     };
     $scope.locations = ["北京","日本","深蓝健身俱乐部","绿色俱乐部"];
-    
-
     $scope.location = $scope.locations[0];
     $scope.sex = "不限";
     $scope.filter_location = function($event) {

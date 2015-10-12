@@ -25,7 +25,7 @@ body(ng-controller="coachlistCtrl")
                         a(href="#") 不限
                     div.subject-detail(ng-repeat="i in subjects",ng-click="chooseSubject($event,i.id,i.display)")
                         a(href="#") {{ i.display }}
-        div.card(ng-repeat="i in cards",ng-click="goPersonSpace(i.id)")
+        div.card(ng-repeat="i in cards",ng-click="goPersonSpace(i.id,i.cid)")
             div.background(style="background-image:url('{{ i.url }}')")
                 div.block
                     div.name {{ i.name }}

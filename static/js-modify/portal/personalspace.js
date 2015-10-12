@@ -38,7 +38,8 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
                     desc: data.data.coachinfo.description,
                     prize : data.data.coachinfo.winning,
                     video : data.data.coachinfo.video,
-                    videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf'
+                    videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf',
+                    coachid : data.data.coach_id
                 };
                 $scope.type = '2';
                 $scope.$apply();
@@ -50,6 +51,9 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
     };
     $scope.type = '2';
     $scope.focus = true;
+    $scope.goCoach = function() {
+        location.href = '/portal/control.html?coach_id=' + $scope.person.coachid;
+    };
 }])
 .directive('move',function(){
     return {

@@ -5,38 +5,38 @@ include ./lib/header.jade
 body(ng-controller="controlCtrl")
     section#index-view
         include ./lib/calendar.jade
-        div.card-information(ng-if="card.status == '1'",ng-repeat="card in cards")
+        div.card-information(ng-if="self=='1'",ng-repeat="card in cards")
             div.line 课程时间
-                span.right(ng-show="card.status == '0'") {{ card.time }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.time }}
+                span.right(ng-show="card.reserved == '0'") {{ card.time }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.hour }}
             div.line 课程价格
-                span.right(ng-show="card.status == '0'") {{ card.price }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.price }}
+                span.right(ng-show="card.reserved == '0'") {{ card.cost }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.price }}
             div.line 课程地址
-                span.right(ng-show="card.status == '0'") {{ card.address }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.address }}
+                span.right(ng-show="card.reserved == '0'") {{ card.address }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.address }}
             div.line 课程状态
-                span.right(ng-if="card.status == '0'") 未预约
-                span.right(ng-if="card.status == '1'") 已预约
-            div.button-line(ng-if="card.status == '1'")
+                span.right(ng-if="card.reserved == '0'") 未预约
+                span.right(ng-if="card.reserved == '1'") 已预约
+            div.button-line
+                div.change(ng-click="change(card.id)") 修改
+                div.delete(ng-click="delete(card.id)") 删除
+        div.card-information.card-nordered(ng-if="self=='0'",ng-repeat="card in cards")
+            div.line 课程时间
+                span.right(ng-show="card.reserved == '0'") {{ card.time }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.time }}
+            div.line 课程价格
+                span.right(ng-show="card.reserved == '0'") {{ card.cost }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.price }}
+            div.line 课程地址
+                span.right(ng-show="card.reserved == '0'") {{ card.address }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.address }}
+            div.line 课程状态
+                span.right(ng-if="card.reserved == '0'") 未预约
+                span.right(ng-if="card.reserved == '1'") 已预约
+            div.button-line(ng-if="self == '1'")
                 div.change(ng-click="change(card.id)") 修改
                 div.delete(ng-click="change(card.id)") 删除
-        div.card-information.card-nordered(ng-if="card.status == '0'",ng-repeat="card in cards")
-            div.line 课程时间
-                span.right(ng-show="card.status == '0'") {{ card.time }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.time }}
-            div.line 课程价格
-                span.right(ng-show="card.status == '0'") {{ card.price }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.price }}
-            div.line 课程地址
-                span.right(ng-show="card.status == '0'") {{ card.address }}
-                span.right.ordered(ng-show="card.status == '1'") {{ card.address }}
-            div.line 课程状态
-                span.right(ng-if="card.status == '0'") 未预约
-                span.right(ng-if="card.status == '1'") 已预约
-            div.button-line(ng-if="card.status == '1'")
-                div.change(ng-click="change(card.id)") 修改
-                div.delete(ng-click="change(card.id)") 删除
-        div.new
+        div.new(ng-if="self == true")
             button(type="button",ng-click="newTime()") + 新增课程
             

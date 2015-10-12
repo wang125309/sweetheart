@@ -9,16 +9,19 @@ div.calendar
         li 六
     ul
         li(ng-repeat="i in cline1")
-            a.today(href="#",ng-if="i.today == true") {{ i.date }}
-            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            i.active(ng-show="i.can == true",ng-click="changeToDate(i.date,i.can)")
+            a.today(href="#",ng-if="i.today == true",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
             a.unactive(href="#",ng-if="i.active == false") {{ i.date }}
     ul
         li(ng-repeat="i in cline2")
-            a.today(href="#",ng-if="i.today == true") {{ i.date }}
-            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            i.active(ng-show="i.can == true",ng-click="changeToDate(i.date,i.can)")
+            a.today(href="#",ng-if="i.today == true",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
             a.unactive(href="#",ng-if="i.active == false") {{ i.date }}
     ul
         li(ng-repeat="i in cline3")
-            a.today(href="#",ng-if="i.today == true") {{ i.date }}
-            a.active(href="#",ng-if="i.active == true && i.today == false") {{ i.date }}
+            i.active(ng-show="i.can == true",ng-click="changeToDate(i.date,i.can)")
+            a.today(href="#",ng-if="i.today == true",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
+            a.active(href="#",ng-if="i.active == true && i.today == false",ng-click="changeToDate(i.date,i.can)") {{ i.date }}
             a.unactive(href="#",ng-if="i.active == false") {{ i.date }}

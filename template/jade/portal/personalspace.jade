@@ -48,8 +48,8 @@ body(ng-controller="personalspaceCtrl")
         section.blank
             div#hiscourse
                 i#course=""
-                span.title(ng-if="person.sex == '1'") 他的课程
-                span.title(ng-if="person.sex == '0'") 她的课程
+                span.title(ng-if="person.sex == '1'",ng-click="goCoach()") 他的课程
+                span.title(ng-if="person.sex == '0'",ng-click="goCoach()") 她的课程
                 i.go-right
             div#show
                 div.title

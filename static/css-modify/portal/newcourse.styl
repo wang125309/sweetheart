@@ -1,5 +1,6 @@
 @import "./lib/header.styl"
-
+input,textarea
+    -webkit-user-select:initial
 section#index-view
     text-align:center
     font-size:base-font-size
@@ -8,6 +9,7 @@ section#index-view
         text-align:left
         position:relative
         padding:0.04rem
+        
         margin:0 0.02rem
         margin-top:0.02rem
         border:1px solid #dcdcdc
@@ -19,6 +21,7 @@ section#index-view
             font-size:bigger-font-size
             border-bottom:1px solid #dcdcdc
             height:0.24rem
+            padding-top:0.04rem
             .name
                 font-size:base-font-size
                 float:left
@@ -79,6 +82,21 @@ section#index-view
                     border-radius:2px
                     height:0.2rem
                     width:0.6rem
+        .courseName
+            border-bottom:1px solid #dcdcdc
+            padding-bottom:0.04rem
+            .name
+                float:left
+            .right
+                float:right
+                input
+                    border:1px solid brand-pink
+                    height:0.08rem
+                    line-height:0.08rem
+                    border-radius:2px
+                    margin-right:0.01rem
+                    color:brand-black
+                color:brand-pink
         
     button
         background-color:brand-pink
@@ -88,5 +106,3 @@ section#index-view
         color:#fff
         width:90%
         margin-top:0.05rem
-
-

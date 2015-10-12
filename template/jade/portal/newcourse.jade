@@ -9,13 +9,9 @@ body(ng-controller="newcourseCtrl")
                 div.name.clearfix 课程时间
                 div.right
                     div.timer.clearfix
-                        div#snoon.noon.swiper-container.clearfix
-                            div.swiper-wrapper
-                                div.am.swiper-slide A.M.
-                                div.pm.swiper-slide P.M.
                         div#shour.hour.swiper-container.clearfix
                             div.swiper-wrapper
-                                -   for (var hour = 0; hour <= 12; hour ++)
+                                -   for (var hour = 0; hour <= 24; hour ++)
                                         div(class="hour"+hour).swiper-slide=hour<10?'0'+hour:hour
                         div.pipe.clearfix :
                         div#sminute.minute.swiper-container.clearfix
@@ -24,27 +20,30 @@ body(ng-controller="newcourseCtrl")
                                         div(class="minus"+minute).swiper-slide=minute<10?'0'+minute:minute
                     div.to -
                     div.timer.clearfix
-                        div#tnone.noon.swiper-container.clearfix
-                            div.swiper-wrapper
-                                div.am.swiper-slide A.M.
-                                div.pm.swiper-slide P.M.
                         div#thour.hour.swiper-container.clearfix
                             div.swiper-wrapper
-                                -   for (var hour = 0; hour <= 12; hour ++)
+                                -   for (var hour = 0; hour <= 24; hour ++)
                                         div(class="hour"+hour).swiper-slide=hour<10?'0'+hour:hour
                         div.pipe.clearfix :
                         div#tminute.minute.swiper-container.clearfix
                             div.swiper-wrapper
                                 -   for (var minute = 0; minute < 60 ; minute ++)
                                         div(class="minus"+minute).swiper-slide=minute<10?'0'+minute:minute
+                            input(type="hidden",ng-model="course.begintime")
+                            input(type="hidden",ng-model="course.endtime")
             div.price.clearfix
                 div.name 课程价格
                 div.right
-                    input(type="text")
+                    input(type="text",ng-model="course.cost")
                     span 元/课时
             div.address.clearfix
                 div.name 课程地址
                 div.right
-                    textarea=""
-        button#add(type="button") + 新增
+                    textarea(ng-model="course.address")=""
+            div.address.clearfix
+                div.name 课程描述
+                div.right
+                    textarea(ng-model="course.description")=""
+            
+        button#add(type="button",ng-click="newCourse()") + 新增
                     

@@ -5,7 +5,7 @@ include ./lib/header.jade
 body(ng-controller="coachCtrl")
     section#index-view
         div.video
-            video.video(ng-src="{{ video }}")
+            video.video(ng-src="{{ video }}",controls="controls",webkit-playsinline)
         div.details
             div.avatar(style="background-image:url('{{ avatar }}')")
             div.right-area
@@ -14,7 +14,7 @@ body(ng-controller="coachCtrl")
                         span.sex-m(ng-show="person.sex=='0'")
                         span.sex-f(ng-show="person.sex=='1'")
                     div.price {{ person.price }}
-                div.line
+                div.line.clearfix
                     div.skill 擅长{{ skills }}
                     button + 关注
         
@@ -29,11 +29,11 @@ body(ng-controller="coachCtrl")
             div.title 可预约的时间 
             div.detail.clearfix
                 div.left-bar.clearfix
-                    div.item(ng-if="i.active == false",ng-repeat="i in date") {{ i.text }}
-                    div.item.active(ng-if="i.active == true",ng-repeat="i in date") {{ i.text }}
+                    div.item(ng-if="i.active == false",ng-repeat="i in date",ng-click="changeToDate( i.id )") {{ i.displaydate }}
+                    div.item.active(ng-if="i.active == true",ng-repeat="i in date") {{ i.displaydate }}
                 div.right-content.clearfix
-                    div.time(ng-repeat="i in times") {{ i }}
+                    div.time(ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
 
         div.order-button
-            button(type="button") 预约
+            button(type="button",ng-click="order()") 预约
                     
