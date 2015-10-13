@@ -9,7 +9,6 @@ section#index-view
         position:relative
         margin:0 0.04rem
         margin-top:0.04rem
-        padding-bottom:0.15rem
         border:1px solid #dcdcdc
         box-shadow:1px 1px 3px #ccc
         background-color:#fff
@@ -23,6 +22,8 @@ section#index-view
                 color:#777
             .right.ordered
                 color:brand-pink
+            &:nth-last-child(2)
+                padding-bottom:0.04rem
         .button-line
             .change
                 width:50%
@@ -48,8 +49,17 @@ section#index-view
                 line-height:0.1rem
                 color:#fff
                 text-align:center
-    .card-nordered
-        padding-bottom:0.04rem
+        .message
+            border-top:1px solid #dcdcdc
+            color:#777
+            .username
+                float:left
+                line-height:0.1rem
+                margin-left:0.04rem
+            .phone
+                float:right
+                line-height:0.1rem
+                margin-right:0.04rem
     .new
         margin-top:margin-height
         button

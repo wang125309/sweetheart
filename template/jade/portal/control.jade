@@ -4,8 +4,9 @@ include ./lib/header.jade
     script(language="javascript",src="/static/js/portal/control.js")
 body(ng-controller="controlCtrl")
     section#index-view
+        include ./lib/alert.jade
         include ./lib/calendar.jade
-        div.card-information(ng-if="self=='1'",ng-repeat="card in cards")
+        div.card-information(ng-if="card.reserved == '0'",ng-repeat="card in cards")
             div.line 课程时间
                 span.right(ng-show="card.reserved == '0'") {{ card.time }}
                 span.right.ordered(ng-show="card.reserved == '1'") {{ card.hour }}
@@ -21,7 +22,7 @@ body(ng-controller="controlCtrl")
             div.button-line
                 div.change(ng-click="change(card.id)") 修改
                 div.delete(ng-click="delete(card.id)") 删除
-        div.card-information.card-nordered(ng-if="self=='0'",ng-repeat="card in cards")
+        div.card-information.card-nordered(ng-if="card.reserved == '1'",ng-repeat="card in cards")
             div.line 课程时间
                 span.right(ng-show="card.reserved == '0'") {{ card.time }}
                 span.right.ordered(ng-show="card.reserved == '1'") {{ card.time }}
@@ -34,9 +35,9 @@ body(ng-controller="controlCtrl")
             div.line 课程状态
                 span.right(ng-if="card.reserved == '0'") 未预约
                 span.right(ng-if="card.reserved == '1'") 已预约
-            div.button-line(ng-if="self == '1'")
-                div.change(ng-click="change(card.id)") 修改
-                div.delete(ng-click="change(card.id)") 删除
-        div.new(ng-if="self == true")
+            div.message.clearfix
+                div.username {{ card.userEntity.nickname }}
+                div.phone {{ card.userEntity.phonenum }}
+        div.new
             button(type="button",ng-click="newTime()") + 新增课程
             

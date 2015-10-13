@@ -18,5 +18,8 @@ orderedCtrl = angular.module('sweetheart',['ngAnimate']).controller('orderedCtrl
         phone : '18548758751',
         id : 'AJK42145456'
     }];
+    $.get("/api/getMyAllOrder.do",function(data){
+        $scope.card = data.data;
+    });
 }]);
 orderedCtrl.$inject = ['$scope','orderedCtrl']; 
