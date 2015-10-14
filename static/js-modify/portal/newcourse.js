@@ -86,10 +86,10 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
                         makeSwiper('#tminute.swiper-container',em,data);
                     }
                     else {
-                        makeSwiper('#shour .swiper-container',0);
-                        makeSwiper('#thour .swiper-container',0);
-                        makeSwiper('#sminute .swiper-container',0);
-                        makeSwiper('#tminute .swiper-container',0);
+                        makeSwiper('#shour.swiper-container',0);
+                        makeSwiper('#thour.swiper-container',0);
+                        makeSwiper('#sminute.swiper-container',0);
+                        makeSwiper('#tminute.swiper-container',0);
                     }
                 };
                 if(id) {

@@ -6,4 +6,4 @@
     rem();
     window.addEventListener('resize', rem, false);
     var _hmt = _hmt || []
-})();</script><title>评价 </title><link href="/static/css/portal/evaluatelist.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/evaluatelist.js"></script></head></html><body ng-controller="evaluatelistCtrl"><section id="index-view"><div class="card"><div class="title">综合评价</div><div ng-repeat="i in dialogs" class="dialog"><div class="detail">{{ i.detail }}</div><div class="name">{{ i.name }}<span class="time">{{ i.time }}</span></div></div></div></section></body>
+})();</script><title>评价 </title><link href="/static/css/portal/evaluatelist.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/evaluatelist.js"></script></head></html><body ng-controller="evaluatelistCtrl"><section id="index-view"><div class="card"><div class="title">综合评价</div><div ng-repeat="i in dialogs" class="dialog"><div class="detail">{{ i.comment }}</div><div class="name">{{ i.stUserEntity.nickname }}<span class="time">{{ i.edate | date : 'yyyy-MM-dd a HH:mm' }}</span></div></div></div></section></body>

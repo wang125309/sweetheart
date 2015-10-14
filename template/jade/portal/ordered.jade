@@ -5,18 +5,17 @@ include ./lib/header.jade
 body(ng-controller="orderedCtrl")
     section#index-view
         div.card(ng-repeat="i in card")
-            div.title {{ i.title }}
+            div.title {{ i.stCoachEntity.displayname }}
                 span.route 导航
                     i.route-icon=""
             div.detail
                 div.line 课程
-                    span.right {{ i.course }}
+                    span.right {{ i.desc }}
                 div.line 时间
-                    span.right {{ i.time }}
+                    span.right {{ i.begintime | date : 'yyyy-MM-dd a HH:mm' }} - {{ i.endtime | date : 'a HH:mm' }}
                 div.line 地址
                     span.right {{ i.address }}
-                div.line 联系电话
-                    span.right {{ i.phone }}
             div.bottom
-                div.name 单号{{ i.id }}
-                    span.qrcode=""
+                div.name 单号 {{ i.id }}
+                    span.qrcode(ng-if="i.status == 'paying'")=""
+                    button.evaluate(type="button",ng-click="goEvaluate(i.id,i.coach_id)") 评价

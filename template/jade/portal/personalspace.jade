@@ -3,6 +3,7 @@ include ./lib/header.jade
     link(href="/static/css/portal/personalspace.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/personalspace.js")
 body(ng-controller="personalspaceCtrl")
+    include ./lib/alert.jade
     section#index-view(ng-if="type=='1'")
         section.banner
             div.avatar(style="background-image:url('{{ person.avatar }}')")
@@ -37,9 +38,9 @@ body(ng-controller="personalspaceCtrl")
                 span.sex-m(ng-show="person.sex == '0'")
             div.button-line
                 div.tags    
-                    span 健身 
+                    span(ng-repeat="skill in skills") {{ skill.display }} 
                 button#focus
-                    span(ng-show="focus == false") + 加关注
+                    span(ng-show="focus == false",ng-click="focusOn()") + 加关注
                     span(ng-show="focus == true") 已关注
                     i.go-right=""
                 button#sendMessage
@@ -50,6 +51,7 @@ body(ng-controller="personalspaceCtrl")
                 i#course=""
                 span.title(ng-if="person.sex == '1'",ng-click="goCoach()") 他的课程
                 span.title(ng-if="person.sex == '0'",ng-click="goCoach()") 她的课程
+                span.title(ng-if="person.sex == '0'",ng-click="goControl()") 我的课程
                 i.go-right
             div#show
                 div.title

@@ -40,8 +40,8 @@ body(ng-controller="coachCtrl")
                 td(ng-if="i.type != '0' && i.type != '1'") 全能 
                 td
                     a.view(href="javascript:;") 查看详情 
-                    a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.stUserEntity.id,i.id)") 通过 
-                    a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.stUserEntity.id,i.id)",data-target="#reject") 取消通过 
+                    a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.userid,i.id)") 通过 
+                    a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#reject") 取消通过 
     
     div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加操课教练")
         div.modal-dialog(role="document")

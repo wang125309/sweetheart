@@ -7,8 +7,8 @@ body(ng-controller="evaluatelistCtrl")
         div.card
             div.title 综合评价
             div.dialog(ng-repeat="i in dialogs")
-                div.detail {{ i.detail }}
-                div.name {{ i.name }}
-                    span.time {{ i.time }}
+                div.detail {{ i.comment }}
+                div.name {{ i.stUserEntity.nickname }}
+                    span.time {{ i.edate | date : 'yyyy-MM-dd a HH:mm' }}
 
             

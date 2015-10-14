@@ -34457,7 +34457,7 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
         window.alertShow("确定删除这个时段的课程吗？",function(){
             $.get("/api/deletePersonalClassById.do?id="+id,function(data){
                 if(data.error_no == '0') {
-                    changeToDate($scope.currentDate,false);
+                    frashCalendar(0,1);
                 }
                 else {
                     window.alertShow("遇到问题，删除失败");
@@ -34472,8 +34472,8 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
     $scope.newTime = function() {
         location.href = "/portal/newcourse.html";
     };
-    var frashCalendar = function() {
-        $.get("/api/getPersonalClassListByCoach.do?coach_id="+getQueryParams("coach_id"),function(data){
+    var frashCalendar = function( first , fun ) {
+        $.get("/api/getPersonalClassListBySession.do",function(data){
             $scope.data = data.data.list;
             $scope.self = data.data.self;
             for(i in $scope.data) {
@@ -34500,13 +34500,18 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
                     }
                 }
             }
-            now = new Date();
-            changeToDate(now.getDate(),false);
+            if (first) {
+                now = new Date();
+                changeToDate(now.getDate(),false);
+            }
+            if (fun) {
+                changeToDate($scope.currentDate,false);
+            } 
             $scope.$apply();
         });
     };
 
-    frashCalendar();
+    frashCalendar(1);
 }]);
 controlCtrl.$inject = ['$scope','controlCtrl']; 
 

@@ -3,6 +3,7 @@ include ./lib/header.jade
     link(href="/static/css/portal/evaluate.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/evaluate.js")
 body(ng-controller="evaluateCtrl")
+    include ./lib/alert.jade
     section#index-view
         div.card
             div.title 评价
@@ -18,6 +19,6 @@ body(ng-controller="evaluateCtrl")
                     div.love4.love-icon(ng-show="getstatus(4)==true",ng-click="light(4)")=""
                     div.love5.love-icon-active(ng-show="getstatus(5)==false",ng-click="light(5)")=""
                     div.love5.love-icon(ng-show="getstatus(5)==true",ng-click="light(5)")=""
-                textarea=""
+                textarea(ng-model="information")=""
         
-        button.evaluate(type="button") 评价
+        button.evaluate(type="button",ng-click="evaluate()") 评价

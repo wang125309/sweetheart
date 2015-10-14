@@ -34309,10 +34309,22 @@ window.$ === undefined && (window.$ = Zepto)
 })(Zepto)
 
 },{}],5:[function(require,module,exports){
+window.getQueryParams = function(name,url) {                                         
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS  );
+    var results = regex.exec( url  );
+    return results == null ? null : results[1];
+};
+
+},{}],6:[function(require,module,exports){
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
+require("../getParams.js");
+require("./lib/alert.js");
 evaluateCtrl = angular.module('sweetheart',['ngAnimate']).controller('evaluateCtrl',['$scope',function($scope){
     now = 5;
     $scope.getstatus = function(n) {
@@ -34326,9 +34338,74 @@ evaluateCtrl = angular.module('sweetheart',['ngAnimate']).controller('evaluateCt
     };
     $scope.light = function(n) {
         now = n;
-        console.log(n);
+    };
+    $scope.evaluate = function() {
+        var par = {
+            values : now,
+            comment : $scope.information  
+        };
+        personalclass_id = getQueryParams("personalclass_id");
+        public_id = getQueryParams("public_id");
+        coach_id = getQueryParams("coach_id");
+        if(personalclass_id) {
+            par.personalclass_id = personalclass_id;
+        }
+        if(public_id) {
+            par.public_id = public_id;
+        }
+        if(coach_id) {
+            par.coach_id = coach_id;
+        }
+        $.post("/api/insertEvaluation.do",par,function(data){
+            if(data.error_no == '0') {
+                address = "";
+                if(personalclass_id) {
+                    address += "personalclass_id="+personalclass_id;
+                }
+                if(public_id) {
+                    if(address.length) {
+                        address += "&";
+                    }
+                    address += "public_id="+public_id;
+                }
+                if(coach_id) {
+                    if(address.length) {
+                        address += "&";
+                    }
+                    address += "coach_id="+coach_id;
+                }
+                
+                window.alertShow("您的评论已经记录",function(){
+                    location.href = "/portal/evaluatelist.html?"+address;
+                });
+                $scope.alert = window.alert;
+                $scope.$apply();
+            }
+            else {
+                window.alertShow(data.data.message);
+                $scope.alert = window.alert;
+                $scope.$apply();
+            }
+        });
     };
 }]);
 evaluateCtrl.$inject = ['$scope','evaluateCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4}]},{},[5])
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"../getParams.js":5,"./lib/alert.js":7}],7:[function(require,module,exports){
+window.alertShow = function(text,okfun) {
+    window.alert = {
+        text : text, 
+        sure : "确定",
+        cancel : "取消",
+        show : true,
+        ok : function() {
+            window.alert.show = false;
+            okfun();
+        },
+        not : function() {
+            window.alert.show = false;
+        }
+    };
+};
+
+},{}]},{},[6])

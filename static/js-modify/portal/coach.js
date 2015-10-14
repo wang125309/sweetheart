@@ -19,6 +19,17 @@ coachCtrl = angular.module('sweetheart',[]).controller('coachCtrl',['$scope',fun
         $scope.skills = goodat;
         $scope.$apply();
     });
+    $.get("/api/getEvaluation.do",{
+        coach_id : coach_id
+    },function(data){
+        if(data.error_no == '0') {
+            $scope.dialogs = data.data;
+            $scope.$apply();
+        }
+    });
+    $scope.goEvaluate = function() {
+        location.href = "/portal/evaluatelist.html?coach_id=" + coach_id;
+    };
     $.get("/api/getPersonalClassListDateByCoach.do?coach_id="+coach_id,function(data){
         $scope.date = data.data;
         date = '';
@@ -66,15 +77,7 @@ coachCtrl = angular.module('sweetheart',[]).controller('coachCtrl',['$scope',fun
         }
         return ;
     };
-    $scope.dialogs = [{
-        detail: "首先，从此处下载django-CKEditor: https://github.com/shaunsephton/django-ckeditor，解压下载的文件，安装到django中，（即：从命令行进入刚刚下载解压缩的文件，运行python setup.py install，系统就会自动完成安装。",
-        name : "张飞",
-        time : "2015.6.8 15:38"
-    },{
-        detail: "首先，从此处缩的文件，运行python setup.py install，系统就会自动完成安装。",
-        name : "张飞",
-        time : "2015.6.8 15:38"
-    }];
+
     now = new Date();
 }]);
 coachCtrl.$inject = ['$scope','coachCtrl']; 

@@ -3,8 +3,8 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
-require("./login.js");
 require("../getParams.js");
+require("./lib/alert.js");
 personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('personalspaceCtrl',['$scope',function($scope){
 
     p = {};
@@ -14,45 +14,67 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
             id : id 
         };
     }
-    $.get("/api/getUserInfo.do",p,function(data){
-        if(data.error_no == '0') {
-            if(data.data.iscoach == false) {
-                $scope.type = '1';
-                $scope.person = {
-                    avatar : data.data.headurl,
-                    name : data.data.nickname,
-                    score : data.data.score,
+    var refrash = function() {
+        $.get("/api/getUserInfo.do",p,function(data){
+            if(data.error_no == '0') {
+                if(data.data.iscoach == false) {
+                    $scope.type = '1';
+                    $scope.person = {
+                        avatar : data.data.headurl,
+                        name : data.data.nickname,
+                        score : data.data.score,
+                    }
+                    $scope.$apply();
                 }
-                $scope.$apply();
+                else {
+                    $scope.person = {
+                        name : data.data.coachinfo.displayname,
+                        sex : data.data.gender,
+                        ordered : 50,
+                        ordered_new : 1,
+                        score : data.data.score,
+                        focusNum : data.data.coachinfo.likecount,
+                        
+                        avatar : data.data.coachinfo.headimg,
+                        pic : data.data.coachinfo.imagesUrlList, 
+                        desc: data.data.coachinfo.description,
+                        prize : data.data.coachinfo.winning,
+                        video : data.data.coachinfo.video,
+                        videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf',
+                        coachid : data.data.coach_id,
+
+                    };
+                    $scope.focus = data.data.coachinfo.like;
+                    $scope.skills = data.data.coachinfo.goodats;
+                    $scope.type = '2';
+                    $scope.$apply();
+                }
             }
-            else {
-                $scope.person = {
-                    name : data.data.coachinfo.displayname,
-                    sex : data.data.gender,
-                    ordered : 50,
-                    ordered_new : 1,
-                    score : data.data.score,
-                    focusNum : 110,
-                    avatar : data.data.coachinfo.headimg,
-                    pic : data.data.coachinfo.imagesUrlList, 
-                    desc: data.data.coachinfo.description,
-                    prize : data.data.coachinfo.winning,
-                    video : data.data.coachinfo.video,
-                    videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf',
-                    coachid : data.data.coach_id
-                };
-                $scope.type = '2';
-                $scope.$apply();
-            }
-        }
-    });
+        });
+    };
+    refrash();
+    $scope.focusOn = function() {
+        alertShow("确定要加关注吗？",function(){
+            $.get("/api/likeCoach.do?coach_id="+$scope.person.coachid,function(data){
+                if(data.error_no == '0') {
+                    alertShow("关注成功");
+                    $scope.alert = window.alert;
+                    refrash();
+                    $scope.$apply();
+                }
+            });
+        });
+        $scope.alert = window.alert;
+    };
     $scope.go = function(space) {
         location.href = '/portal/' + space + '.html';  
     };
     $scope.type = '2';
-    $scope.focus = true;
     $scope.goCoach = function() {
-        location.href = '/portal/control.html?coach_id=' + $scope.person.coachid;
+        location.href = '/portal/coach.html?coach_id=' + $scope.person.coachid+"&id="+id;
+    };
+    $scope.goControl = function() {
+        location.href = '/portal/control.html';
     };
 }])
 .directive('move',function(){
