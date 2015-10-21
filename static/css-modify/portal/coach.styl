@@ -1,5 +1,6 @@
 @import "./lib/header.styl"
-
+body
+    font-size:base-font-size
 section#index-view
     text-align:center
     font-size:base-font-size
@@ -33,21 +34,35 @@ section#index-view
             top:0.02rem
         .right-area
             position:absolute
-            left:0.32rem
-            width:60%
+            left:0.29rem
+            width:63%
             height:0.16rem
+            .price
+                position:absolute
+                right:0.04rem
+                margin-top:-0.06rem
             .line
                 color:brand-pink
-                margin-top:0.04rem
+                margin-top:0.03rem
                 .skill
-                    float:left        
+                    float:left
+                    font-size:0.038rem
+                    width:0.4rem
                 button
                     border:none
                     color:#fff
-                    padding:0.01rem 0.04rem
+                    padding:0.01rem 0.03rem
                     background-color:brand-pink
                     text-align:center
                     float:right
+    .ask
+        position:fixed
+        image-wauto("ask.png")
+        bottom:0.3rem
+        z-index:1000
+        right:0.04rem
+        height:0.15rem
+        width:0.15rem
     .card
         text-align:left
         position:relative
@@ -110,7 +125,7 @@ section#index-view
                     bottom:1px solid #dcdcdc
                     color:#fff
                     background-color:rgb(190,190,190)
-                .item.active
+                .item.true
                     color:brand-pink
                     border-left:2px solid brand-pink
                     background-color:brand-black
@@ -118,12 +133,19 @@ section#index-view
                 float:left
                 .time
                     margin-top:0.01rem
+                    margin-bottom:0.01rem
                     margin-left:0.1rem
                     border:1px solid #fff
-                    padding:0.01rem 0.05rem
+                    padding:0.01rem 0.1rem
                     border-radius:0.2rem
                     color:#fff
                     background-color:transparent
+                .time.active
+                    border:1px solid brand-pink
+                    color:brand-pink
+                .time.unable
+                    border:1px solid #666666
+                    color:#666666
     .order-button
         position:fixed
         bottom:0

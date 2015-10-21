@@ -2,9 +2,9 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
-require("./login.js");
 coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapplyCtrl',['$scope',function($scope){
     $scope.skills = [];
+    $scope.videoUpload = "上传视频";
     var refrash = function() {
         $.get("/api/getGoodat.do",function(data){
             for(i in data.data) {
@@ -37,6 +37,8 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
         winning : '',
         skills : ''
     };
+    $scope.creditUpText = '+ 点击上传';
+    $scope.creditDownText = '+ 点击上传';
     $scope.chooseSkill = function(id) {
         for(i in $scope.skills) {
             if($scope.skills[i].id == id) {
@@ -78,6 +80,12 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
     };
     $scope.addBanner = function() {
         $("#banner-input").click();
+    };
+    $scope.addCreditUp = function() {
+        $("#credit-up").click();
+    };
+    $scope.addCreditDown = function() {
+        $("#credit-down").click();
     };
     var alertShow = function(text,okfun) {
         $scope.alert = {
@@ -132,9 +140,10 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
             alertShow("ajax错误，头像上传失败");
         },"头像上传失败","头像上传中...");
     };
+
     var insertBanner = function() {
         formUpload("/api/insertCoachImagesHorizontal.do","#banner-form",function(){
-            insertVideo();
+            insertCard();
         },function(){
             alertShow("ajax错误，展示图上传失败");
         },"展示图上传失败","展示图上传中...");
@@ -150,9 +159,16 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
             alertShow("ajax错误，视频上传失败");
         },"视频上传失败","视频上传中...");
     };
+    var insertCard = function() {
+        formUpload("/api/insertCoachImagesIDCardImage.do","#credit-form",function(){
+            insertVideo();
+        },function(){
+            alertShow("ajax错误，认证照片上传失败");
+        },"认证照片上传失败","认证照片上传中");
+    };
     var insertImages = function() {
         formUpload("/api/insertCoachImages.do","#image-form",function(){
-            insertAvatar();
+            insertVideo();
         },function(){
             alertShow("ajax错误，生活照上传失败");
         },"生活照上传失败","生活照上传中...");
@@ -174,6 +190,17 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
         } 
     };
 }])
+.directive('videoUpload',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function(){
+                f = element[0].value.split("\\");
+                scope.videoUpload = f[f.length - 1];
+                scope.$apply();
+            });
+        }
+    }
+})
 .directive('fileUpload',function(){
     return {
         link : function(scope,element,attr) {
@@ -223,6 +250,40 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
                     upload_image = event.target.result;
                     scope.banner = 'background-image:url("'+ upload_image +'")';
                     scope.bannerUploaded = true;
+                    scope.$apply();
+                }
+            });
+        }
+    }
+})
+.directive('creditUploadUp',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function() {
+                var fReader = new FileReader();
+                file_element = $("#credit-up")[0];
+                fReader.readAsDataURL(file_element.files[0]);
+                fReader.onloadend = function(event) {
+                    upload_image = event.target.result;
+                    scope.creditUpImage = 'background-image:url("'+ upload_image +'")';
+                    scope.creditUpText = '';
+                    scope.$apply();
+                }
+            });
+        }
+    }
+})
+.directive('creditUploadDown',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function() {
+                var fReader = new FileReader();
+                file_element = $("#credit-down")[0];
+                fReader.readAsDataURL(file_element.files[0]);
+                fReader.onloadend = function(event) {
+                    upload_image = event.target.result;
+                    scope.creditDownImage = 'background-image:url("'+ upload_image +'")';
+                    scope.creditDownText = '';
                     scope.$apply();
                 }
             });

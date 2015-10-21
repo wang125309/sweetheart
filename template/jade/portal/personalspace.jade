@@ -11,9 +11,9 @@ body(ng-controller="personalspaceCtrl")
                 span.sex-f(ng-show="person.sex == '1'")
                 span.sex-m(ng-show="person.sex == '0'")
             div.button-line
-                button#order-button
+                button#order-button(ng-click="goMyOrdered()")
                     i#order-button-icon=""
-                    span 预约课程
+                    span 我的预约
                     span {{ person.ordered }}
                     i#new(ng-show="person.ordered_new == 1")
                     i.go-right=""
@@ -23,14 +23,14 @@ body(ng-controller="personalspaceCtrl")
                     span {{ person.score }}
                     i.go-right=""
         section.blank
-            div.opt
+            div.opt(ng-click="goMyFocus()")
                 span 我的关注
                 span#focus-num {{ person.focusNum }}
                 i.go-right=""
             div.opt(ng-click="go('coachapply')")
                 span 成为教练
                 i.go-right=""
-    section#second-view(ng-if="type=='2'")
+    section#second-view(ng-if="type=='2'",ng-show="details==false")
         section.banner
             div.avatar(style="background-image:url('{{ person.avatar }}')")
             div.name {{ person.name }}
@@ -40,18 +40,23 @@ body(ng-controller="personalspaceCtrl")
                 div.tags    
                     span(ng-repeat="skill in skills") {{ skill.display }} 
                 button#focus
-                    span(ng-show="focus == false",ng-click="focusOn()") + 加关注
-                    span(ng-show="focus == true") 已关注
+                    span(ng-show="focus == false && self == false",ng-click="focusOn()") + 加关注
+                    span(ng-show="focus == true && self == false") 已关注
+                    span(ng-show="self == true") 关注我的 
                     i.go-right=""
                 button#sendMessage
                     span 私信 
                     i.go-right=""
         section.blank
-            div#hiscourse
+            div#hiscourse(ng-if="self == false && (person.sex == '1' || person.sex == '0')",ng-click="goCoach()")
                 i#course=""
-                span.title(ng-if="person.sex == '1'",ng-click="goCoach()") 他的课程
-                span.title(ng-if="person.sex == '0'",ng-click="goCoach()") 她的课程
-                span.title(ng-if="person.sex == '0'",ng-click="goControl()") 我的课程
+                span.title 他的课程
+            div#hiscourse(ng-if="self == false && person.sex == '2'",ng-click="goCoach()")
+                i#course=""
+                span.title 她的课程
+            div#hiscourse(ng-if="self == true",ng-click="goControl()")
+                i#course=""
+                span.title 我的课程
                 i.go-right
             div#show
                 div.title
@@ -59,7 +64,7 @@ body(ng-controller="personalspaceCtrl")
                     span 风采展示
                 div.image-area.swiper-container(move)
                     div.pic-wrap.swiper-wrapper
-                        div.pic.swiper-slide(ng-repeat="i in person.pic",style="background-image:url('{{ i.res_url }}')")
+                        div.pic.swiper-slide(ng-repeat="i in person.pic",style="background-image:url('{{ i.res_url }}')",ng-click="showDetails($index)")
             div.desc
                 div.title
                     i#desc-icon=""
@@ -72,6 +77,9 @@ body(ng-controller="personalspaceCtrl")
                 div.prize-inner
                     div.prize-detail {{ person.prize }}
             div.video
-                video(ng-src="{{ person.video }}",controls="controls", webkit-playsinline)
-                div.video-desc {{ person.videoDesc }}
-                        
+                video(ng-src="{{ person.video }}",poster="/static/image/video.jpg",controls="controls", webkit-playsinline,height="250px")
+    div.image-details-background(ng-show="details==true",ng-click="hideDetails()")
+        div.image-slide.swiper-container(move)
+            div.swiper-wrapper
+                div.image.swiper-slide(ng-repeat="i in person.pic",style="background-image:url({{ i.res_url }})")
+            div.swiper-pagination=""

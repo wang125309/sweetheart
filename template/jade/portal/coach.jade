@@ -3,21 +3,23 @@ include ./lib/header.jade
     link(href="/static/css/portal/coach.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/coach.js")
 body(ng-controller="coachCtrl")
+    include ./lib/alert.jade
     section#index-view
         div.video
-            video.video(ng-src="{{ video }}",controls="controls",webkit-playsinline)
+            video.video(ng-src="{{ video }}",poster="/static/image/video.jpg",controls="controls",height="200px",webkit-playsinline)
         div.details
-            div.avatar(style="background-image:url('{{ avatar }}')")
+            div.avatar(style="background-image:url('{{ avatar }}')",ng-click="goPersonalSpace()")
             div.right-area
-                div.line
+                div.line(ng-click="goPersonalSpace()")
                     div.name {{ person.name }}
                         span.sex-m(ng-show="person.sex=='0'")
                         span.sex-f(ng-show="person.sex=='1'")
-                    div.price {{ person.price }}
+                    div.price {{ cost }}
                 div.line.clearfix
-                    div.skill 擅长{{ skills }}
-                    button + 关注
-        
+                    div.skill 擅长 : {{ skills }}
+                    button(ng-if="self==false&&like==false",ng-click="likeCoach()") + 关注
+                    button(ng-if="self==false&&like==true") 已关注 
+                    button(ng-if="self==true") 粉丝 
         div.card
             div.title 综合评价
                 div.more(ng-click="goEvaluate()") 更多
@@ -30,11 +32,12 @@ body(ng-controller="coachCtrl")
             div.title 可预约的时间 
             div.detail.clearfix
                 div.left-bar.clearfix
-                    div.item(ng-if="i.active == false",ng-repeat="i in date",ng-click="changeToDate( i.id )") {{ i.displaydate }}
-                    div.item.active(ng-if="i.active == true",ng-repeat="i in date") {{ i.displaydate }}
+                    div.item(class="{{ i.active }}",ng-repeat="i in date | orderBy : 'date' ",ng-click="changeToDate( i.date )") {{ i.displaydate }}
                 div.right-content.clearfix
-                    div.time(class="{{ i.class }}",ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
+                    div.time(class="{{ i.class }}",ng-if="i.reserved == false",ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
+                    div.time.unable(ng-if="i.reserved == true",ng-repeat="i in times") {{ i.time }}
 
+        //div.ask(ng-click="ask()")=""
         div.order-button
             button(type="button",ng-click="order()") 预约
-                    
+

@@ -1,12 +1,13 @@
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
+require("../../../bower_components/angular-sanitize/angular-sanitize.min.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../getParams.js");
 require("./lib/alert.js");
-personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('personalspaceCtrl',['$scope',function($scope){
-
+require("./login.js");
+personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).controller('personalspaceCtrl',['$scope','$sce',function($scope,$sce){
     p = {};
     id = window.getQueryParams('id');
     if(id){
@@ -14,6 +15,9 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
             id : id 
         };
     }
+    $scope.goMyOrdered = function() {
+        location.href = "/portal/ordered.html";
+    };
     var refrash = function() {
         $.get("/api/getUserInfo.do",p,function(data){
             if(data.error_no == '0') {
@@ -34,18 +38,22 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
                         ordered_new : 1,
                         score : data.data.score,
                         focusNum : data.data.coachinfo.likecount,
-                        
                         avatar : data.data.coachinfo.headimg,
                         pic : data.data.coachinfo.imagesUrlList, 
                         desc: data.data.coachinfo.description,
                         prize : data.data.coachinfo.winning,
-                        video : data.data.coachinfo.video,
-                        videoDesc : 'dsfsadfsfdasdfsdfsdfsadfdsafsadf',
+                        video : $sce.trustAsResourceUrl(data.data.coachinfo.video),
                         coachid : data.data.coach_id,
-
+                        
                     };
                     $scope.focus = data.data.coachinfo.like;
                     $scope.skills = data.data.coachinfo.goodats;
+                    if(id) {
+                        $scope.self = data.data.self;
+                    }
+                    else {
+                        $scope.self = true;
+                    }
                     $scope.type = '2';
                     $scope.$apply();
                 }
@@ -53,16 +61,18 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
         });
     };
     refrash();
+    $scope.goMyFocus = function() {
+        alertShow("疯狂开发中");
+        $scope.alert = window.alert;
+    };
     $scope.focusOn = function() {
-        alertShow("确定要加关注吗？",function(){
-            $.get("/api/likeCoach.do?coach_id="+$scope.person.coachid,function(data){
-                if(data.error_no == '0') {
-                    alertShow("关注成功");
-                    $scope.alert = window.alert;
-                    refrash();
-                    $scope.$apply();
-                }
-            });
+        $.get("/api/likeCoach.do?coach_id="+$scope.person.coachid,function(data){
+            if(data.error_no == '0') {
+                alertShow("关注成功");
+                $scope.alert = window.alert;
+                refrash();
+                $scope.$apply();
+            }
         });
         $scope.alert = window.alert;
     };
@@ -71,10 +81,31 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
     };
     $scope.type = '2';
     $scope.goCoach = function() {
-        location.href = '/portal/coach.html?coach_id=' + $scope.person.coachid+"&id="+id;
+        location.href = '/portal/coach.html?coachid=' + $scope.person.coachid+"&id="+id;
     };
     $scope.goControl = function() {
         location.href = '/portal/control.html';
+    };
+    $scope.details = false;
+    $scope.showDetails = function(i) {
+        $scope.details = true;
+        if(!bigswiper) {
+            setTimeout(function(){
+                bigswiper = new Swiper('.image-slide.swiper-container',{
+                    speed:5,
+                    initialSlide : i,
+                    slidesPerView : 1,
+                    pagination : '.swiper-pagination'
+                });
+            },500);
+        }
+        else {
+            bigswiper.slideTo(i,0,false);
+        }
+    };
+    var bigswiper;
+    $scope.hideDetails = function() {
+        $scope.details = false;
     };
 }])
 .directive('move',function(){
@@ -82,16 +113,18 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate']).controller('perso
         link : function(scope,element,attr) {
             window.onload = function() {
                 setTimeout(function(){
-                    var swiper = new Swiper('.swiper-container',{
+                    var swiper = new Swiper('.image-area.swiper-container',{
                         speed : 10,
                         freeMode : true,
                         spaceBetween : 10,
                         slidesPerView : 'auto',
                     });
-                },2000);
+
+                },500);
             };
         }
 
     }
 });
+
 personalspaceCtrl.$inject = ['$scope','personalspaceCtrl']; 

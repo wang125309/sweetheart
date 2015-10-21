@@ -12,6 +12,7 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
         });
     };
     per_page = 40;
+    $scope.filterText = "全部";
     var refrash = function() {
         p = getQueryParams("p");
         if (p > 0){
@@ -58,6 +59,7 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
     };
     $scope.getCoach = function(query_status){
         if(query_status < 0){
+            $scope.filterText = "全部";
             refrash();
         }
         if(query_status == 1 || query_status == 2){
@@ -65,11 +67,22 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
                 if ("error_no" in data && data.error_no == '1') {
                     location.href = "/login.html";
                 }
+                if(query_status == 1) {
+                    $scope.filterText = '待审批';
+                }
+                else {
+                    $scope.filterText = '已通过';
+                }
                 $scope.data = data;
                 $scope.count = data.total/per_page;
                 $scope.$apply();
             });
         }
-    }
+    };
+    $scope.addVApply = function() {
+        jQuery.get("/sys/setCoachVic.do?coach_id="+$scope.id,function(data){
+             
+        });
+    };
 }])
 coachCtrl.$inject = ['$scope','coachCtrl']; 

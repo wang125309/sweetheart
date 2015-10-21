@@ -37669,6 +37669,7 @@ require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
 require("./login.js");
+require("./lib/alert.js");
 newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourseCtrl',['$scope',function($scope){
     id = getQueryParams("id");
     if(id) {
@@ -37682,11 +37683,33 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
         $scope.edit = false;
     }   
     $scope.newCourse = function() {
-        $.post("/api/openNewPersonalClass.do",$scope.course,function(data){
-            if(data.error_no == '0') {
-                location.href = "/portal/personalspace.html";
+        var check = function() {
+            if(/^\d+$/.test($scope.course.cost)) {
+                bh = $scope.course.begintime.split("-")[3];
+                eh = $scope.course.endtime.split("-")[3];
+                bm = $scope.course.begintime.split("-")[4];
+                em = $scope.course.endtime.split("-")[4];
+                if(parseInt(bh)*60 + parseInt(bm) > parseInt(eh)*60 +parseInt(em)) {
+                    return "开始时间不能大于结束时间";
+                }
             }
-        });
+            else {
+                return "价格必须是数字";
+            }
+            return true;
+        }
+        ckres = check();
+        if(ckres == true) {
+            $.post("/api/openNewPersonalClass.do",$scope.course,function(data){
+                if(data.error_no == '0') {
+                    location.href = "/portal/personalspace.html";
+                }
+            });
+        }
+        else {
+            alertShow(ckres);
+            $scope.alert = window.alert;
+        }
     };
     date = new Date();
     $scope.course = {
@@ -37771,7 +37794,24 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
 });
 newcourseCtrl.$inject = ['$scope','newcourseCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/swiper/dist/js/swiper.js":3,"../../../bower_components/zepto/zepto.js":4,"../../../bower_components/zeptojs/src/touch.js":5,"../getParams.js":6,"./login.js":8}],8:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/swiper/dist/js/swiper.js":3,"../../../bower_components/zepto/zepto.js":4,"../../../bower_components/zeptojs/src/touch.js":5,"../getParams.js":6,"./lib/alert.js":8,"./login.js":9}],8:[function(require,module,exports){
+window.alertShow = function(text,okfun) {
+    window.alert = {
+        text : text, 
+        sure : "确定",
+        cancel : "取消",
+        show : true,
+        ok : function() {
+            window.alert.show = false;
+            okfun();
+        },
+        not : function() {
+            window.alert.show = false;
+        }
+    };
+};
+
+},{}],9:[function(require,module,exports){
 $.get('/wxlogin/hasLogin.do',function(data){
     if(data.error_no == '0' && data.data == false) {
         location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);

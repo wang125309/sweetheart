@@ -8,17 +8,6 @@ body(ng-controller="coachapplyCtrl")
         div.processing(ng-show="processing==true")
             p {{ uploadingText }}
         include ./lib/alert.jade
-        div.sex-chooser(ng-show="sexChooseShow == true",ng-click="showChooseSex()")
-            div.sex-choose
-                div.title 性别
-                div.unchoose-f(ng-click="chooseSex($event)",ng-show="person.sex == '1'") 男
-                    i.male=""
-                div.choose-f(ng-show="person.sex == '0'") 男
-                    i.male=""
-                div.unchoose-m(ng-click="chooseSex($event)",ng-show="person.sex == '0'") 女
-                    i.famle=""
-                div.choose-m(ng-show="person.sex == '1'") 女
-                    i.famle=""
         section#base-message
             div.base-title
                 span 基本信息
@@ -28,11 +17,8 @@ body(ng-controller="coachapplyCtrl")
             div.mobile.message-line.clearfix
                 span 昵称
                 input(type="text",name="displayname",ng-model="coach.displayname")
-            div.sex.message-line.clearfix(ng-click="showChooseSex()")
-                span 性别
-                input(type="hidden",name="sex",ng-model="coach.sex")
             div.age.message-line.clearfix
-                span 年龄 
+                span 教龄 
                 input(type="text",name="age",ng-model="coach.age")
             div.card.message-line.clearfix
                 span 证件号
@@ -60,7 +46,7 @@ body(ng-controller="coachapplyCtrl")
                     div.pic(ng-show="avatarUploaded==true")
                         div.picture(style="{{ avatar }}")
                         i.close=""
-                    input(avatar-upload,type="file",name="images",id="avatar-input")
+                    input(avatar-upload,type="file",name="images",id="avatar-input",accept="image/*")
                     div.add-pic(ng-click="addAvatar()")=""
         form#banner-form(method="post",role="form",enctype="multipart/form-data")
             section#image-message
@@ -69,7 +55,7 @@ body(ng-controller="coachapplyCtrl")
                     div.pic(ng-show="bannerUploaded==true")
                         div.picture(style="{{ banner }}")
                         i.close=""
-                    input(banner-upload,type="file",name="images",id="banner-input")
+                    input(banner-upload,type="file",name="images",id="banner-input",accept="image/*")
                     div.add-pic(ng-click="addBanner()")=""
         form#image-form(method="post",role="form",enctype="multipart/form-data")
             section#image-message
@@ -78,14 +64,24 @@ body(ng-controller="coachapplyCtrl")
                     div.pic(ng-repeat="i in pics track by $index")
                         div.picture(style="{{ i.image }}")
                         i.close=""
-                    input(file-upload,ng-repeat="i in images track by $index",type="file",name="images",id="input{{ $index + 1 }}")
+                    input(file-upload,ng-repeat="i in images track by $index",type="file",name="images",id="input{{ $index + 1 }}",accept="image/*")
                     div.add-pic(ng-click="addPic()")=""
         form#video-form(method="post",role="form",enctype="multipart/form-data")
             section#video-message
                 div.left-title="视频展示"
-                div.add-video(ng-click="addVideo()")=""
-                input#video(type="file",name="video")
-                textarea(placeholder="视频描述")
+                div.add-video(ng-click="addVideo()") {{ videoUpload }}
+                input#video(type="file",name="video",video-upload,accept="video/*")
+        form#credit-form(method="post",role="form",enctype="multipart/form-data")
+            section#credit-message
+                div.left-title="身份信息照片"
+                section#credit-up-message
+                    div.example=""
+                    div.credit-button(style="{{ creditUpImage }}",ng-click="addCreditUp()") {{ creditUpText }}
+                    input#credit-up(type="file",name="images",credit-upload-up,accept="image/*")
+                section#credit-down-message
+                    div.example=""
+                    div.credit-button(style="{{ creditDownImage }}",ng-click="addCreditDown()") {{ creditDownText }}
+                    input#credit-down(type="file",name="images",credit-upload-down,accept="image/*")
             section#footer
                 div Tip：信息越完善，申请通过的几率越大哦~
                 button#submit(ng-click="save()") 提交申请

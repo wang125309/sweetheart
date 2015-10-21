@@ -1,0 +1,28 @@
+include ./lib/header.jade
+    title 我的关注 
+    link(href="/static/css/portal/focuslist.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/focuslist.js")
+body(ng-controller="focuslistCtrl")
+    section#index-view
+        div.tab
+            div.left
+                div(class="{{ activeCourse }}") 课程
+            div.right
+                div(class="{{ activeCoach }}") 私教
+        div.course-list(ng-show="type==1")=""
+        div.coach-list(ng-show="type==2")
+            div.line(ng-repeat="i in coachlist")
+                div.avatar-area
+                    div.avatar(style="background-image:url('{{ i.avatar }}')")
+                div.message-area
+                    div.line-first
+                        span.name {{ i.name }}
+                        span.sex-f(ng-if="i.gender == '1'")=""
+                        span.sex-m(ng-if="i.gender == '2'")=""
+                        span.skill-area
+                            span.skill(ng-repeat="j in i.skills") {{ j.display }}
+                    div.line-second
+                        span.location-icon=""
+                        span.address {{ i.address }}
+
+                div.go-right=""

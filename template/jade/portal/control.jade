@@ -28,7 +28,7 @@ body(ng-controller="controlCtrl")
                 span.right.ordered(ng-show="card.reserved == '1'") {{ card.time }}
             div.line 课程价格
                 span.right(ng-show="card.reserved == '0'") {{ card.cost }}
-                span.right.ordered(ng-show="card.reserved == '1'") {{ card.price }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.cost }}
             div.line 课程地址
                 span.right(ng-show="card.reserved == '0'") {{ card.address }}
                 span.right.ordered(ng-show="card.reserved == '1'") {{ card.address }}

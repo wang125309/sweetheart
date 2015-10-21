@@ -4,6 +4,7 @@ include ./lib/header.jade
     script(language="javascript",src="/static/js/portal/information.js")
 body(ng-controller="informationCtrl")
     section#index-view
+        include ./lib/alert.jade
         div.avatar
             span 头像
             div.avatar-detail(style="background-image:url('{{ person.headurl }}')")
@@ -21,20 +22,14 @@ body(ng-controller="informationCtrl")
                 div.name 地区
                 div.input
                     input(type="text",ng-model="person.address")
-            div.sex.clearfix(ng-click="showChooseSex($event)")
-                div.name 性别
-                div.sex-f(ng-show="person.sex == '0'") 男
-                    i.male-icon=""
-                div.sex-m(ng-show="person.sex == '1'") 女
-                    i.famale-icon=""
-        div.instrust.clearfix(ng-click="showSkillChoose()")
+        div.instrust.clearfix(ng-click="showSkillChoose($event)")
             div.name 感兴趣的
             div.inner
                 button(type="button",ng-repeat="i in skillsed") {{ i.display }}
-        div.skill-chooser(ng-show="skillChooseShow == true",ng-click="showSkillChoose()")
-            div.skills(ng-show="skillChooseShow == true",class="{{ skillClass }}")
+        div.skill-chooser(ng-show="skillChooseShow == true",ng-click="showSkillChoose($event)")
+            div.skills(ng-show="skillChooseShow == true")
                 div.skill-inner
-                    button(ng-repeat="i in skills.data",ng-click="addSkill($event,{{ i }})") {{ i.display }}
+                    button(ng-repeat="i in skills.data",ng-click="addSkill($event,i)",class="{{ i.select }}") {{ i.display }}
                 div.button-line
                     button.save(ng-click="saveSkills()",type="button") 保存
         div.binding-phone(ng-show="bindShow == true",ng-click="showBind()")
@@ -47,4 +42,4 @@ body(ng-controller="informationCtrl")
                     button(type="button",ng-click="sendCode()") {{ sendText }}
                 div.button-line
                     button(type="button",ng-click="savePhone()") 保存
-        button.save(type="button") 保存
+        button.save(type="button",ng-click="saveInformation()") 保存

@@ -1,6 +1,12 @@
 @import "./lib/header.styl"
 input,textarea
     -webkit-user-select:initial
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none !important
+    margin: 0
+
 section#index-view
     text-align:center
     font-size:base-font-size
@@ -97,6 +103,8 @@ section#index-view
                     margin-right:0.01rem
                     color:brand-black
                 color:brand-pink
+    textarea,input
+        color:#777 !important
         
     button
         background-color:brand-pink

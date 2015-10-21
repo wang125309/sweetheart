@@ -8,6 +8,7 @@ section#index-view
         width:100%
         background-color:rgba(0,0,0,0.5)
         top:0
+        z-index:10000
         image-auto('uploading.gif')
         background-position:center
         background-size:20% auto
@@ -122,12 +123,15 @@ section#index-view
             font-size:lest-font-size
             padding-left:0.01rem
         .add-video
-            width:0.2rem
-            height:0.2rem
-            image-auto('video-add-icon.png')
+            height:0.08rem
             margin-left:0.02rem
             margin-top:0.02rem
-            display:inline-block
+            margin-right:0.02rem
+            line-height:0.08rem
+            color:brand-pink
+            font-size:less-font-size
+            text-align:center
+            border:1px dashed brand-pink
             + textarea
                 height : 0.19rem
                 width: 71% 
@@ -156,6 +160,78 @@ section#index-view
             visibility:hidden
             height:0
             width:0
+    #credit-form
+        #credit-message
+            background-color:#fff
+            position:relative
+            margin: 0 auto
+            z-index:5
+            margin-top:margin-height-half
+            width:96%
+            .left-title
+                border-left:0.01rem solid brand-pink 
+                color:brand-pink
+                font-size:lest-font-size
+                padding-left:0.01rem
+        #credit-up-message
+            margin-top:margin-height-half
+            position:relative
+            height:0.6rem
+            .example
+                position:absolute
+                width:0.45rem
+                border:1px dashed brand-pink
+                left:4%
+                top:0
+                height:0.5457rem
+                image-wauto('coachapply-up.png')
+            .credit-button
+                position:absolute
+                width:45%
+                left:52%
+                top:0
+                height:0.5457rem
+                text-align:center
+                font-size:less-font-size
+                border:1px dashed brand-pink
+                background-position:center
+                background-repeat:no-repeat
+                background-size:cover
+                line-height:0.5457rem
+                color:brand-pink
+            #credit-up
+                visibility:hidden
+                height:0
+                width:0
+        #credit-down-message
+            position:relative
+            height:0.6rem
+            .example
+                position:absolute
+                border:1px dashed brand-pink
+                width:0.45rem
+                left:4%
+                top:0
+                height:0.5457rem
+                image-wauto('coachapply-down.png')
+            .credit-button
+                position:absolute
+                width:45%
+                left:52%
+                top:0
+                height:0.5457rem
+                border:1px dashed brand-pink
+                background-position:center
+                background-repeat:no-repeat
+                text-align:center
+                font-size:less-font-size
+                background-size:cover
+                line-height:0.5457rem
+                color:brand-pink
+            #credit-down
+                visibility:hidden
+                height:0
+                width:0
     #footer
         text-align:center
         div 

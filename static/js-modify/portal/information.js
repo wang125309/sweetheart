@@ -4,7 +4,7 @@ require("../../../bower_components/angular-touch/angular-touch.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
-require("./login.js");
+require("./lib/alert.js");
 informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informationCtrl',['$scope',function($scope){
     $scope.person = {};
     var init = function() {
@@ -12,7 +12,10 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
             $scope.person.sex = data.data.gender;
             $scope.person.nickname = data.data.nickname;
             $scope.person.headurl = data.data.headurl;
-            $scope.person.phone= data.data.phonenum;
+            $scope.person.phone= parseInt(data.data.phonenum);
+            $scope.person.qq = parseInt(data.data.qq);
+            $scope.person.address = data.data.location;
+            $scope.skillsed = data.data.goodats;
             $scope.$apply();
         });
         $.get("/api/getGoodat.do",function(data){
@@ -35,11 +38,9 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
     $scope.showBind = function() {
         if($scope.bindShow == false) {
             $scope.bindShow = true;
-            $scope.bindingClass = 'enter';
         }
         else {
             $scope.bindShow = false;
-            $scope.bindingClass = '';
         }
     };
     $scope.phoneEdit = function($event) {
@@ -82,7 +83,9 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
                     $scope.$apply();
                 }
                 else {
-                    alert("您的请求发送太频繁");
+                    alertShow("您的请求发送太频繁");
+                    $scope.alert = window.alert;
+                    $scope.$apply();
                 }
             });
         }
@@ -100,14 +103,13 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
         });
     };
     $scope.skillChooseShow = false;
-    $scope.showSkillChoose = function() {
+    $scope.showSkillChoose = function($event) {
+        $event.stopPropagation();
         if($scope.skillChooseShow == false) {
             $scope.skillChooseShow = true;
-            $scope.skillClass = 'enter';
         }
         else {
             $scope.skillChooseShow = false;
-            $scope.skillClass = '';
         }
     };
     $scope.skillsed = [];
@@ -121,6 +123,42 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
             }
         }
         if(!flag)   $scope.skillsed.push(skill);
+        for(i in $scope.skills.data) {
+            if($scope.skills.data[i].id == skill.id) {
+                if("select" in $scope.skills.data[i] && $scope.skills.data[i].select == "active") {
+                    $scope.skills.data[i].select = "";
+                }
+                else {
+                    $scope.skills.data[i].select  = "active" ;
+                }
+            }
+        }
+        return false;
+    };
+    $scope.saveInformation = function() {
+        $.post("/api/completionUserInfo.do",{
+            location:$scope.person.address,
+            qq : $scope.person.qq,
+            goodat : function() {
+                res = '';
+                for(i in $scope.skillsed) {
+                    res += $scope.skillsed[i].id + ',';
+                }
+                res = res.substring(0,res.length-1);
+                return res;
+            }()
+        },function(data){
+            if(data.error_no == '0') {
+                alertShow("信息更新成功");
+                $scope.alert = window.alert;
+                $scope.$apply();
+            }
+            else {
+                alertShow(data.data.message);
+                $scope.alert = window.alert;
+                $scope.$apply();
+            }
+        });
     };
     $scope.go = function(space) {
         location.href = '/portal/' + space + '.html';  

@@ -31,7 +31,15 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
                     url : data.data[i].horizontalimg,
                     location : '北京',
                     id : data.data[i].userid,
-                    cid : data.data[i].id
+                    cid : data.data[i].id,
+                    skill : function() {
+                        res = "";
+                        for(j in data.data[i].goodats) {
+                            res += data.data[i].goodats[j].display + ",";
+                        }
+                        res = res.substring(0,res.length-1);
+                        return res;
+                    }()
                 });
             }
             $scope.$apply();

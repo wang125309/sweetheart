@@ -4,3 +4,92 @@ section#index-view
     text-align:center
     font-size:base-font-size
     @import "./lib/calendar.styl"
+    div.background-black
+        position:absolute
+        z-index:50
+        width:100%
+        height:100%
+        background-color:rgba(0,0,0,0.4)
+    div.filter
+        position:relative
+        z-index:100
+        text-align:center
+        background-color:#fff
+        height:0.15rem
+        line-height:0.15rem
+        color:brand-pink
+        span
+            float:left
+            font-size:0.06rem
+            color:#dcdcdc
+        div.left
+            float:left
+            width:0.32rem
+            .addr-menu
+                position:absolute
+                border-top:1px solid #dcdcdc
+                border-bottom:1px solid #dcdcdc
+                z-index:1000
+                width:100%
+                box-shadow:1px 1px 3px #ccc
+                color:#777
+                background-color:#fff
+                .addr-line
+                    text-align:left
+                    border-bottom:1px solid #dcdcdc
+                    margin:0 0.04rem
+                    font-size:less-font-size
+                    line-height:0.1rem
+                    padding:0 0.04rem
+                    &:last-child
+                        border-bottom:none
+                .active
+                    color:brand-pink
+        div.middle
+            float:left
+            width:0.32rem
+        div.right
+            float:left
+            width:0.32rem
+    div.today
+        margin:0 0.02rem
+        background-color:#fff
+        box-shadow:1px 1px 3px #ccc
+        padding-bottom:0.04rem
+        position:relative
+        .title
+            text-align:left
+            border-left:3px solid brand-pink
+            padding-left:0.04rem
+        .today-course
+            .red-point
+                position:absolute
+                width:8px
+                height:8px
+                box-shadow:1px 1px 3px brand-pink
+                left:0
+                margin-left:0.03rem
+                z-index:100
+                background-color:brand-pink
+                border-radius:100%
+            border-left:2px solid #d1d1d1
+            margin-left:0.04rem
+        .card
+            image-wauto('backwhite.png')
+            width:95%
+            height:0.4rem
+            position:relative
+            margin-top:0.04rem
+            border-radius:5px
+            background-color:#eee
+            .red-point
+                margin-top:0.07rem
+                margin-left:-0.015rem
+            .card-detail
+                position:absolute
+                height:100%
+                width:97%
+                right:0
+                background-repeat:no-repeat
+                background-size:100% auto
+                background-position:absolute

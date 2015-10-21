@@ -4,6 +4,7 @@ include ./lib/header.jade
     script(language="javascript",src="/static/js/portal/newcourse.js")
 body(ng-controller="newcourseCtrl")
     section#index-view
+        include ./lib/alert.jade
         div.card.clearfix(move)
             div.time-chooser.move.cleafix
                 div.name.clearfix 课程时间
@@ -34,7 +35,7 @@ body(ng-controller="newcourseCtrl")
             div.price.clearfix
                 div.name 课程价格
                 div.right
-                    input(type="text",ng-model="course.cost")
+                    input(type="number",ng-model="course.cost")
                     span 元/课时
             div.address.clearfix
                 div.name 课程地址

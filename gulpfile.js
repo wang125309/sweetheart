@@ -32,12 +32,12 @@ gulp.task('stylus-portal',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/coach.js')
+        gulp.src('./static/js-modify/portal/calendar.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
             .pipe(rename('coach.min.js'))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
 var js_files = ['login','coach','user','subject','position','course','check','wx','backuser','shop'];
@@ -55,7 +55,7 @@ gulp.task('js',function(){
 });
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/control.js')
+    gulp.src('./static/js-modify/portal/calendar.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
         .pipe(uglify())
