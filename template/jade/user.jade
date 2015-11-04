@@ -4,7 +4,14 @@ script(language="javascript",src="/static/js/user.min.js")
 body(ng-controller="userCtrl")
     include ./lib/nav.jade
     div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#sync") 同步微信用户 
+        div.row
+            div.col-lg-9
+                button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#sync") 同步微信用户
+            div.col-lg-3
+                div.input-group
+                    input#search.form-control(type="text",placeholder="搜索微信名...",ng-modle="queryString")
+                    span.input-group-btn
+                        button.btn.btn-default(type="button",ng-click="search()") 搜索
         table(class="table table-striped",style="margin-top:20px;")
             tr
                 th #
@@ -14,6 +21,7 @@ body(ng-controller="userCtrl")
                 th 积分
                 th 关注领域
                 th 头像
+                th 操作
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
                 td {{ i.nickname }}

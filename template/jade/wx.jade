@@ -5,7 +5,7 @@ body(ng-controller="wxCtrl")
     include ./lib/nav.jade
     div.container
         button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加常量
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#syncmenu") 推送微信菜单
+        button.btn.btn-primary#send-btn.pull-right(type="button",data-toggle="modal",data-target="#syncmenu") 推送微信菜单
         table(class="table table-striped")
             tr
                 th 常量名称

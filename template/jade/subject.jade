@@ -3,8 +3,9 @@ link(href="/static/css/subject.css",rel="stylesheet",type="text/css")
 script(language="javascript",src="/static/js/subject.min.js")
 body(ng-controller="subjectCtrl")
     include ./lib/nav.jade
+    div.process(ng-show="process==true")=""
     div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加课程
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add",ng-click="addMenu()") 添加课程
         table(class="table table-striped")
             tr
                 th #
@@ -14,18 +15,20 @@ body(ng-controller="subjectCtrl")
                 th 课程地点
                 th 容纳人数
                 th 已报名人数
+                th 价格
                 th 操作
-            tr(ng-repeat="i in user")
+            tr(ng-repeat="i in data")
                 td {{ i.id }}
                 td {{ i.name }}
-                td {{ i.starttime }}
-                td {{ i.endtime }}
-                td {{ i.position }}
-                td {{ i.total }}
-                td {{ i.already }}
+                td {{ i.begintime | date : 'yyyy-MM-dd HH:mm' }}
+                td {{ i.endtime | date : 'yyyy-MM-dd HH:mm' }}
+                td {{ i.placeEntity.place_name }}
+                td {{ i.user_count }}
+                td {{ i.order_count }}
+                td {{ i.cost }}
                 td
-                    a.edit(href="javascript:;") 编辑
-                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
+                    a.edit(href="javascript:;",ng-click="optid(i.id)",data-toggle="modal",data-target="#add") 编辑
+                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete",ng-click="deleteid(i.id)") 删除
     
     div#add.modal.fade.bs-example-modal-sm(role="dialog",datepicker,tabindex="-1",aria-labelledby="添加课程")
         div.modal-dialog(role="document")
@@ -33,37 +36,54 @@ body(ng-controller="subjectCtrl")
                 div.modal-header
                     button.close(type="button",data-dismiss="modal",area-label="Close")
                         span(aria-hidden="true") &times;
-                    h4.modal-title 添加课程
+                    h4.modal-title {{ optText }}
                 div.modal-body
                     div.form-group
                         label(for="name") 课程名称 
-                        input#name.form-control(type="text",placeholder="输入课程名称")
+                        input#name.form-control(type="text",placeholder="输入课程名称",ng-model="course.name")
                     div.form-group
                         label(for="total") 容纳人数
-                        input#total.form-control(type="text",placeholder="输入容纳人数")
+                        input#total.form-control(type="text",placeholder="输入容纳人数",ng-model="course.user_count")
+                    div.form-group
+                        label(for="total") 价格
+                        input#cost.form-control(type="text",placeholder="输入价格",ng-model="course.cost")
                     div.form-group
                         label(for="position") 所在场地
-                        select#subject(select,multiple="multiple")
-                            option(value="1") 南京
-                            option(value="2") 北京
-                            option(value="3") 东京
-                            option(value="4") 西京
+                        select.subject#position(select)
+                            option(ng-repeat="i in places",value="{{ i.id }}") {{ i.place_name }}
+                        input#address_id(type="hidden",value="{{ course.address_id }}")
                     div.form-group
                         label(for="starttime") 开始时间
-                        div.input-append.date(data-date-format="yyyy-mm-dd hh:ii")
-                            input.span2.form-control#starttime(size="16",type="text")
+                        div.input-append.date(data-date-format="yyyy-mm-dd-hh-ii")
+                            input.span2.form-control#starttime(size="16",type="text",ng-model="course.begintime")
                             span.add-on
                                 i.icon-th
                     div.form-group
                         label(for="endtime") 结束时间
-                        div.input-append.date(data-date-format="yyyy-mm-dd hh:ii")
-                            input.span2.form-control#endtime(size="16",type="text")
+                        div.input-append.date(data-date-format="yyyy-mm-dd-hh-ii")
+                            input.span2.form-control#endtime(size="16",type="text",ng-model="course.endtime")
                             span.add-on
                                 i.icon-th
-
+                    div.form-group
+                        label(for="subject") 擅长的项目
+                        div
+                            select.subject#subject(select,multiple="multiple")
+                                option(value="{{ i.id }}",ng-repeat="i in skills") {{ i.display }}
+                    div.form-group
+                        label(for="video") 视频文件
+                        div
+                            form#video-form(method="post", enctype="multipart/form-data")
+                                input#video(type="file",accept="video/*",name="video")
+                                input(type="hidden",name="publicclass_id",value="{{ publicclass_id }}")
+                    div.form-group
+                        label(for="video") 视频封面图
+                        div
+                            form#image-form(method="post", enctype="multipart/form-data")
+                                input#image(type="file",accept="image/*",name="poster")
+                                input(type="hidden",name="publicclass_id",value="{{ publicclass_id }}")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="openPublicClass()") 保存
     div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除课程")
         div.modal-dialog(role="document")
             div.modal-content
@@ -72,7 +92,7 @@ body(ng-controller="subjectCtrl")
                         span(aria-hidden="true") &times;
                     h4.modal-title 删除课程
                 div.modal-body
-                    p 确定要删除课程游泳吗？
+                    p 确定要删除课程吗？
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="delete()") 删除

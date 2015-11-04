@@ -32,11 +32,11 @@ gulp.task('stylus-portal',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/portal/calendar.js')
+        gulp.src('./static/js-modify/subject.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
-            .pipe(rename('coach.min.js'))
+            .pipe(rename('subject.min.js'))
             .pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
@@ -50,12 +50,13 @@ gulp.task('js',function(){
             .pipe(gulp.dest('./static/js'))
             .pipe(rename(js_files[i]+'.min.js'))
             .pipe(uglify())
-            .pipe(gulp.dest('./static/js'));
+            .pipe(gulp.dest('./static/js'));    
     }
 });
 
+
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/calendar.js')
+    gulp.src('./static/js-modify/portal/ordered.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
         .pipe(uglify())
@@ -72,3 +73,4 @@ gulp.task('jade-portal',function(){
         .pipe(jade())
         .pipe(gulp.dest('./template/portal/'))
 });
+

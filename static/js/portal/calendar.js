@@ -34309,22 +34309,28 @@ window.$ === undefined && (window.$ = Zepto)
 })(Zepto)
 
 },{}],5:[function(require,module,exports){
+window.getQueryParams = function(name,url) {                                         
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS  );
+    var results = regex.exec( url  );
+    return results == null ? null : results[1];
+};
+
+},{}],6:[function(require,module,exports){
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
+require("../getParams.js");
 calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCtrl',['$scope',function($scope){
-
     require("./lib/alert.js");
     $scope.date = [];
     $scope.backShow = false;
     $scope.addrShow = false;
-    $scope.cards = [{
-        background : '/res/20151014/4fbb77a927254f16a80ac2ff6fe7c5ae.jpeg'
-    },{
-        background : '/res/20151014/4fbb77a927254f16a80ac2ff6fe7c5ae.jpeg'
-    
-    }];
+    pid = getQueryParams("addr_id");
+
     $scope.showAddr = function($event) {
         $event.stopPropagation();
         if($scope.backShow == false) {
@@ -34336,37 +34342,100 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
             $scope.addrShow = false;
         }
     };
-    $scope.addrs = [{
-        active : "active",
-        name : '不限'
-    },{
-        active : "",
-        name : '北京伯乐铺子健身中心'
-    },{
-        active : "",
-        name : '北京吃饱健身中心'
-    },{
-        active : "",
-        name : '北京有缘健身中心'
-    }];
-    setDateToLocalStorage = function(year,month,date) {
+    $scope.showSub = function($event) {
+        $event.stopPropagation();
+        if($scope.backShow == false) {
+            $scope.backShow = true;
+            $scope.subShow = true;
+        }
+        else {
+            $scope.backShow = false;
+            $scope.subShow = false;
+        }
+    };
+    var getMenu = function() {
+        $scope.addrs = [];
+        $.get("/api/getAllPlace.do",function(data){
+            for(i in data.data) {
+                j = {};
+                j.name = data.data[i].place_name;
+                j.id = data.data[i].id;
+                if(data.data[i].id == pid) {
+                    j.active = "active";
+                    $scope.location = j.name;
+                }
+                else {
+                    j.active = "";
+                }
+                $scope.addrs.push(j); 
+            }
+
+        });
+        $.get("/api/getGoodat.do",function(data){
+            $scope.subjs = data.data;
+            for(i in $scope.subjs) {
+                $scope.subjs[i].active = "";
+            }
+            $scope.subjs.push({
+                display:'不限',
+                active:"active",
+                id : 0
+            });
+        });
+    };
+    $scope.subject = '不限';
+    $scope.type = '不限';
+    getMenu();
+
+    $scope.goAddr = function(id) {
+        location.href = "/portal/calendar.html?addr_id="+id;
+    };
+    $scope.goSub = function(id) {
+        $scope.goodat_id = id;
+        changeToDate($scope.currentDate , false, id);
+    };
+    var setDateToLocalStorage = function(year,month,date) {
         localStorage['calendar'] = year + '-' + month + '-' + date;
     };
-    changeToDate = function( date , can ) {
+    var changeToDate = function( date , can , sub) {
         $scope.currentDate = date;
+        var getSubQuery = function(i,num) {
+            if(num == 1) {
+                line = $scope.cline1;
+            }
+            else if(num == 2) {
+                line = $scope.cline2;
+            }
+            else {
+                line = $scope.cline3;
+            }
+            queryString = "/api/getPublicClassListByDate.do?address_id="+pid+"&date="+line[i].year+"-"+line[i].month+"-"+line[i].date; 
+            return sub || $scope.goodat_id ? queryString  +"&goodat_id="+$scope.goodat_id : queryString ;
+        };
+
         for(i in $scope.cline1) {
             if($scope.cline1[i].date == date) {
                 $scope.cline1[i].today = true;
-                setDateToLocalStorage($scope.cline1[i].year,$scope.cline1[i].month,$scope.cline1[i].date);
+                $.get(getSubQuery(i,1),function(data){
+                    $scope.cards = data.data;
+                    "classes" in $scope.cards && $scope.cards.classes.length ? $scope.cardShow = true : $scope.cardShow = false;
+                    $scope.$apply();
+                });
             }
             else {
                 $scope.cline1[i].today = false;
             }
         }
+
         for(i in $scope.cline2) {
             if($scope.cline2[i].date == date) {
                 $scope.cline2[i].today = true;
-                setDateToLocalStorage($scope.cline2[i].year,$scope.cline2[i].month,$scope.cline2[i].date);
+            
+                $.get(getSubQuery(i,2),function(data){
+                    $scope.cards = data.data;
+                    "classes" in $scope.cards && $scope.cards.classes.length ? $scope.cardShow = true : $scope.cardShow = false;
+                    $scope.$apply();
+                });
             }
             else {
                 $scope.cline2[i].today = false;
@@ -34375,12 +34444,17 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
         for(i in $scope.cline3) {
             if($scope.cline3[i].date == date) {
                 $scope.cline3[i].today = true;
-                setDateToLocalStorage($scope.cline3[i].year,$scope.cline3[i].month,$scope.cline3[i].date);
+                $.get(getSubQuery(i,3),function(data){
+                    $scope.cards = data.data;
+                    "classes" in $scope.cards && $scope.cards.classes.length ? $scope.cardShow = true : $scope.cardShow = false;
+                    $scope.$apply();
+                });
             }
             else {
                 $scope.cline3[i].today = false;
             }
         }
+
     };
     $scope.changeToDate = changeToDate;
     initCalender = function() {
@@ -34398,6 +34472,7 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
             today : true,
             can : false
         });
+
         setDateToLocalStorage(now.getFullYear(),now.getMonth()+1,now.getDate());
         for( i=0 ; i < day ; i++ ) {
             now.setDate(now.getDate() - 1);
@@ -34459,13 +34534,22 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
         }
     };
     initCalender();
+    $scope.goCourse = function(id) {
+        location.href = "/portal/course.html?id="+id;
+    };
     $scope.change = function(id) {
         location.href = "/portal/newcourse.html?id="+id;
     };
     var frashCalendar = function( first , fun ) {
-        $.get("/api/getPersonalClassListBySession.do",function(data){
-            $scope.data = data.data.list;
-            $scope.self = data.data.self;
+        $.get("/api/getPublicClassListDateByAddress.do?address_id="+pid,function(data){
+            $scope.data = data.data;
+            console.log($scope.data);
+            now = new Date();
+            $.get("/api/getPublicClassListByDate.do?address_id="+pid+"&date="+now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate(),function(data){
+                $scope.cards = data.data;
+                "classes" in $scope.cards && $scope.cards.classes.length ? $scope.cardShow = true : $scope.cardShow = false;
+                $scope.$apply();
+            });
             for(i in $scope.data) {
                 $scope.date.push($scope.data[i].date);
             }
@@ -34497,15 +34581,18 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
             if (fun) {
                 changeToDate($scope.currentDate,false);
             } 
+
             $scope.$apply();
         });
+
+
     };
 
     frashCalendar(1);
 }]);
 calendarCtrl.$inject = ['$scope','calendarCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"./lib/alert.js":6}],6:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"../getParams.js":5,"./lib/alert.js":7}],7:[function(require,module,exports){
 window.alertShow = function(text,okfun) {
     window.alert = {
         text : text, 
@@ -34522,4 +34609,4 @@ window.alertShow = function(text,okfun) {
     };
 };
 
-},{}]},{},[5])
+},{}]},{},[6])

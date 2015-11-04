@@ -4,16 +4,18 @@ include ./lib/header.jade
     script(language="javascript",src="/static/js/portal/course.js")
 body(ng-controller="courseCtrl")
     section#index-view
-        div.banner(style="background-image:url('{{ banner }}')")=""
+        include ./lib/alert.jade
+        div.video
+            video.video(ng-src="{{ video }}",poster="{{ banner }}",controls="controls",height="200px",webkit-playsinline)
         div.details
             div.line-first.clearfix
                 i.time-icon=""
-                div.time {{ time }}
+                div.time {{ bgtime | date : 'yyyy-MM-dd a hh:mm' }} - {{ edtime | date : 'hh:mm' }}
                 div.price {{ price }}/课时
             div.line-second.clearfix
                 i.location-icon=""
                 div.location {{ location }}
-                button(type="button") +加关注
+                //button(type="button") +加关注
         div.order
             div.title 预约人数{{ ready }}/{{ total }}
             div.people.clearfix
@@ -24,5 +26,5 @@ body(ng-controller="courseCtrl")
             div.desc-details {{ desc }}
         div.consult=""
         div.order-button
-            button(type="button") 预约
+            button(type="button",ng-click="order()") 预约
                     

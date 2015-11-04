@@ -8,20 +8,27 @@ body(ng-controller="calendarCtrl")
         div.filter.clearfix
             div.left(ng-click="showAddr($event)") 场地：{{ location }}
                 div.addr-menu(ng-show="addrShow==true")
-                    div.addr-line(class="{{ i.active }}",ng-repeat="i in addrs") {{ i.name }}
+                    div.addr-line(class="{{ i.active }}",ng-repeat="i in addrs",ng-click="goAddr(i.id)") {{ i.name }}
             span |
-            div.middle 专业：{{ subject }}
+            div.middle(ng-click="showSub($event)") 专业：{{ subject }}
+                div.subject-menu(ng-show="subShow == true")
+                    div.subj-line(class="{{ i.active }}",ng-repeat="i in subjs",ng-click="goSub(i.id)") {{ i.display }}
             span |
             div.right 课程类型：{{ type }}
+                div.type-menu(ng-show="typeShow == true")
+                    div.type-line(class="{{ i.active }}",ng-repeat="i in types") {{ i.name }}
         include ./lib/alert.jade
         include ./lib/calendar.jade
-        div.today
+        div.today(ng-show="cardShow == true")
             div.title 今日课程总计:
                 span.num {{ total }}
             div.today-course
                 span.red-point=""
-                div.card(ng-repeat="card in cards")
-                    div.card-detail(style="background-image:url('{{ card.background }}');")
+                div.card(ng-repeat="card in cards.classes",ng-click="goCourse(card.id)")
+                    div.card-detail(style="background-image:url('{{ card.poster }}');")
                         div.bottom-bar
-                            
+                            span.left {{ card.time }}
+                            span.center {{ card.name }}
+                            span.right {{ card.cost }}元/课时 
+                            span.go-right=""
                     span.red-point=""

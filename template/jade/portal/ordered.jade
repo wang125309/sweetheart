@@ -1,9 +1,16 @@
 include ./lib/header.jade
-    title 我的课程 
+    title 我的订单 
     link(href="/static/css/portal/ordered.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/ordered.js")
 body(ng-controller="orderedCtrl")
     section#index-view
+        div.qrcode-back(ng-show="qrcodeShow == true",ng-click="showQrcode()")
+            img.qrcode(ng-src="{{ qrcode }}")
+        div.tabs
+            div.tab(class="{{ active[1] }}",ng-click="goType(1)") 待支付
+            div.tab(class="{{ active[2] }}",ng-click="goType(2)") 待到场
+            div.tab(class="{{ active[3] }}",ng-click="goType(3)") 待评价
+            div.tab(class="{{ active[4] }}",ng-click="goType(4)") 已结束
         div.card(ng-repeat="i in card")
             div.title {{ i.stCoachEntity.displayname }}
                 span.route 导航
@@ -17,5 +24,8 @@ body(ng-controller="orderedCtrl")
                     span.right {{ i.address }}
             div.bottom
                 div.name 单号 {{ i.id }}
-                    span.qrcode(ng-if="i.status == 'paying'")=""
-                    button.evaluate(type="button",ng-click="goEvaluate(i.id,i.coach_id)") 评价
+                    span.qrcode(ng-if="i.orderstatus == 'payed'",ng-click="showQrcode($index)")=""
+                    button.evaluate(type="button",ng-if="i.orderstatus == 'finish'",ng-click="goEvaluate(i.id,i.coach_id)") 评价
+                    button.pay(type="button",ng-if="i.orderstatus == 'neworder'",ng-click="goPay(i.id)") 去支付
+                    button.paying(type="button",ng-if="i.orderstatus == 'paying'",ng-click="goPay(i.id)") 去支付
+                    button.cancelpay(type="button",ng-if="i.orderstatus == 'paying'") 取消支付

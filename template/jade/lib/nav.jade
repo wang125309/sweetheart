@@ -17,9 +17,9 @@ nav.navbar.navbar-default
                 li(ng-if="nav!='subject'")
                     a(href="/subject.html") 操课
                 li(ng-if="nav=='course'",class="active")
-                    a(href="/course.html") 课程 
+                    a(href="/course.html") 专业 
                 li(ng-if="nav!='course'")
-                    a(href="/course.html") 课程
+                    a(href="/course.html") 专业
                 li(ng-if="nav=='position'",class="active")
                     a(href="/position.html") 地点
                 li(ng-if="nav!='position'")
@@ -36,6 +36,10 @@ nav.navbar.navbar-default
                     a(href="/shop.html") 积分商城
                 li(ng-if="nav!='shop'")
                     a(href="/shop.html") 积分商城
+                li(ng-if="nav=='scan'",class="active")
+                    a(href="/scan.html") 支付扫码设备
+                li(ng-if="nav!='scan'")
+                    a(href="/scan.html") 支付扫码设备
             ul.nav.navbar-nav.navbar-right
                 li
                     a(href="javascript:;",ng-click="logout()") 退出登录 

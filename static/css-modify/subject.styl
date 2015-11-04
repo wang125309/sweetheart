@@ -1,7 +1,7 @@
 @import '../css/nav.css';
 @import '../../bower_components/bootstrap/dist/css/bootstrap.min.css';
+@import '../../bower_components/smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css';
 @import '../../bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css';
-@import '../../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 body
     background-color:#fff
@@ -10,5 +10,19 @@ body
         margin-top:20px
         border:1px solid #dcdcdc
         .view
-            margin-right:5p
+            margin-right:5px
+        .edit
+            margin-right:5px
+    .process
+        position:absolute
+        height:100%
+        width:100%
+        top:0
+        z-index:1000
+        background-color:rgba(0,0,0,0.5)
+        background-position:center
+        background-size:36px auto
+        background-image:url('/static/image/uploading.gif')
+        background-repeat:no-repeat
+        
 

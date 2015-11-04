@@ -6,13 +6,13 @@ section#index-view
     @import "./lib/calendar.styl"
     div.background-black
         position:absolute
-        z-index:50
+        z-index:1000
         width:100%
         height:100%
         background-color:rgba(0,0,0,0.4)
     div.filter
         position:relative
-        z-index:100
+        z-index:10000
         text-align:center
         background-color:#fff
         height:0.15rem
@@ -25,6 +25,9 @@ section#index-view
         div.left
             float:left
             width:0.32rem
+            text-overflow:ellipsis
+            overflow:hidden
+            white-space:nowrap
             .addr-menu
                 position:absolute
                 border-top:1px solid #dcdcdc
@@ -48,6 +51,27 @@ section#index-view
         div.middle
             float:left
             width:0.32rem
+            .subject-menu
+                position:absolute
+                border-top:1px solid #dcdcdc
+                border-bottom:1px solid #dcdcdc
+                z-index:1000
+                width:100%
+                box-shadow:1px 1px 3px #ccc
+                color:#777
+                background-color:#fff
+                left:0
+                .subj-line
+                    text-align:left
+                    border-bottom:1px solid #dcdcdc
+                    margin:0 0.04rem
+                    font-size:less-font-size
+                    line-height:0.1rem
+                    padding:0 0.04rem
+                    &:last-child
+                        border-bottom:none
+                .active
+                    color:brand-pink
         div.right
             float:left
             width:0.32rem
@@ -60,7 +84,7 @@ section#index-view
         .title
             text-align:left
             border-left:3px solid brand-pink
-            padding-left:0.04rem
+            padding-left:0.02rem
         .today-course
             .red-point
                 position:absolute
@@ -93,3 +117,31 @@ section#index-view
                 background-repeat:no-repeat
                 background-size:100% auto
                 background-position:absolute
+            .bottom-bar
+                position:absolute
+                bottom:0
+                background-color:rgba(0,0,0,0.8)
+                color:#fff
+                left:0
+                right:0
+                font-size:less-font-size
+                text-align:left
+                line-height:0.07rem
+                span
+                    display:inline-block
+                    padding:0 0.005rem
+                    vertical-align:bottom
+                .center
+                    width:30%
+                    text-overflow:ellipsis
+                    overflow:hidden
+                    white-space:nowrap
+                    text-align:center
+                    margin:0 0.01rem
+                .go-right
+                    image-wauto('details.png')
+                    height:0.07rem
+                    width:0.01rem
+                    position:absolute
+                    right:0.01rem
+

@@ -3,65 +3,98 @@ link(href="/static/css/position.css",rel="stylesheet",type="text/css")
 script(language="javascript",src="/static/js/position.min.js")
 body(ng-controller="positionCtrl")
     include ./lib/nav.jade
-    div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加地点
+    div.container.clearfix
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加场地
+        button.btn.btn-primary.pull-right#add-btn(type="button",data-toggle="modal",data-target="#sync") 同步场地到微信菜单
         table(class="table table-striped")
             tr
                 th #
-                th 用户名
-                th 展示名
-                th 真实姓名
-                th openid
-                th 注册时间
+                th 场地名称
+                th 详细地址
+                th 在微信菜单中展示
                 th 操作
-            tr(ng-repeat="i in user")
+            tr(ng-repeat="i in data.root")
                 td {{ i.id }}
-                td {{ i.username }}
-                td {{ i.realname }}
-                td {{ i.displayname }}
-                td {{ i.openid }}
-                td {{ i.datetime }}
+                td {{ i.place_name }}
+                td {{ i.description }}
+                td(ng-if="i.issynctoweixin==0")="未同步"
+                td(ng-if="i.issynctoweixin==1")="已同步"
                 td
-                    a.view(href="javascript:;") 查看详情
-                    a.delete(href="javascript:;",data-toggle="modal",data-target="#delete") 删除
-    
-    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加教练")
+                    a.edit(href="javascript:;",data-toggle="modal",data-target="#edit",ng-click="optid(i.id,1)") 编辑
+                    a.delete(href="javascript:;",data-toggle="modal",ng-click="optid(i.id)",data-target="#delete") 删除
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加场地")
         div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button",data-dismiss="modal",area-label="Close")
                         span(aria-hidden="true") &times;
-                    h4.modal-title 添加教练
+                    h4.modal-title 添加场地
                 div.modal-body
                     div.form-group
-                        label(for="name") 用户名
-                        input#name.form-control(type="text",placeholder="输入教练的用户名")
+                        label(for="name") 场地名称 
+                        input#name.form-control(type="text",placeholder="输入场地名称",ng-model="place.place_name")
                     div.form-group
-                        label(for="age") 年龄 
-                        input#age.form-control(type="text",placeholder="输入教练的年龄")
+                        label(for="description") 详细地址 
+                        input#description.form-control(type="text",placeholder="输入详细地址",ng-model="place.description")
                     div.form-group
-                        label(for="display-name") 展示昵称
-                        input#display-name.form-control(type="text",placeholder="输入教练的昵称")
-                    div.form-group
-                        label(for="subject") 擅长的项目
+                        label 同步到微信菜单
                         div
-                            select#subject(select,multiple="multiple")
-                                option(value="1") 搏击
-                                option(value="2") 散打
-                                option(value="3") 游泳
-                                option(value="4") 举重
+                            label.radio-inline 
+                                input(type="radio",name="syncRadio",value="0",ng-model="place.issynctoweixin") 
+                                | 不同步
+                            label.radio-inline
+                                input(type="radio",name="syncRadio",value="1",ng-model="place.issynctoweixin")
+                                | 同步到微信
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
-    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除教练")
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="add()") 保存
+    div#edit.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="编辑场地")
         div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button",data-dismiss="modal",area-label="Close")
                         span(aria-hidden="true") &times;
-                    h4.modal-title 删除教练
+                    h4.modal-title 编辑场地
                 div.modal-body
-                    p 确定要删除教练Jam吗？
+                    div.form-group
+                        label(for="name") 场地名称 
+                        input#name.form-control(type="text",placeholder="输入场地名称",ng-model="place.place_name")
+                    div.form-group
+                        label(for="description") 详细地址 
+                        input#description.form-control(type="text",placeholder="输入详细地址",ng-model="place.description")
+                    div.form-group
+                        label 同步到微信菜单
+                        div
+                            label.radio-inline 
+                                input(type="radio",name="syncRadio",value="0",ng-model="place.issynctoweixin") 
+                                | 不同步
+                            label.radio-inline
+                                input(type="radio",name="syncRadio",value="1",ng-model="place.issynctoweixin")
+                                | 同步到微信
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="edit()") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除场地")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除场地
+                div.modal-body
+                    p 确定要删除这个场地吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="delete()") 删除
+    div#sync.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="同步到微信菜单")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 同步菜单
+                div.modal-body
+                    p 确定要同步到微信菜单吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="sync()") 确定
