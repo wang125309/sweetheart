@@ -4,7 +4,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
-require("./login.js");
+//require("./login.js");
 require("./lib/alert.js");
 newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourseCtrl',['$scope',function($scope){
     id = getQueryParams("id");
@@ -17,7 +17,30 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
     }
     else {
         $scope.edit = false;
-    }   
+    }
+    $.get("/api/getAllPlace.do",function(data){
+        $scope.locations = data.data;
+        for (i in $scope.locations) {
+            $scope.locations[i].active = '';
+        }
+        $scope.locations[0].active = 'active';
+        $scope.location = $scope.locations[0].place_name;
+        $scope.$apply();
+    });
+    $scope.chooseLocation = function(id) {
+        for(i in $scope.locations) {
+            $scope.locations[i].active = '';
+        }
+        $scope.locations[id].active = 'active';
+        $scope.location = $scope.locations[id].place_name;
+        $scope.course.address = $scope.locations[id].id;
+    };
+    $scope.showLocationChooser = function() {
+        $scope.showLocation = true;
+    };
+    $scope.hideLocationChooser = function() {
+        $scope.showLocation = false;
+    };
     $scope.newCourse = function() {
         var check = function() {
             if(/^\d+$/.test($scope.course.cost)) {

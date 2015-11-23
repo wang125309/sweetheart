@@ -31158,7 +31158,7 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
     $scope.goEvaluate = function() {
         location.href = "/portal/evaluatelist.html?coach_id=" + coach_id;
     };
-    $.get("/api/getPersonalClassListDateByCoach.do?coach_id="+coach_id,function(data){
+    $.get("/api/getPersonalClassListDateByCoach.do?coach_id="+window.getQueryParams("coachid"),function(data){
         $scope.date = data.data;
         date = '';
         for(i in $scope.date) {
@@ -31166,7 +31166,7 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
                 date = $scope.date[i].date;
             }
         }
-        $.get("/api/getPersonalClassListByDate.do?coach_id="+coach_id+"&date="+date,function(d){
+        $.get("/api/getPersonalClassListByDate.do?coach_id="+window.getQueryParams("coachid")+"&date="+date,function(d){
             $scope.times = d.data.classes;        
             $scope.$apply();
         });
@@ -31178,7 +31178,8 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
         for(i in $scope.times) {
             if($scope.times[i].id == id) {
                 $scope.times[i].class = "active";
-                $scope.cost = $scope.times[i].cost + '元';
+                $scope.cost = $scope.times[i].cost + '甜心币';
+                $scope.location = '地址：' + $scope.times[i].address.place_name;
                 console.log($scope.cost);
             }
             else {

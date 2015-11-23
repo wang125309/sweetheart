@@ -37668,7 +37668,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
-require("./login.js");
+//require("./login.js");
 require("./lib/alert.js");
 newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourseCtrl',['$scope',function($scope){
     id = getQueryParams("id");
@@ -37681,7 +37681,30 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
     }
     else {
         $scope.edit = false;
-    }   
+    }
+    $.get("/api/getAllPlace.do",function(data){
+        $scope.locations = data.data;
+        for (i in $scope.locations) {
+            $scope.locations[i].active = '';
+        }
+        $scope.locations[0].active = 'active';
+        $scope.location = $scope.locations[0].place_name;
+        $scope.$apply();
+    });
+    $scope.chooseLocation = function(id) {
+        for(i in $scope.locations) {
+            $scope.locations[i].active = '';
+        }
+        $scope.locations[id].active = 'active';
+        $scope.location = $scope.locations[id].place_name;
+        $scope.course.address = $scope.locations[id].id;
+    };
+    $scope.showLocationChooser = function() {
+        $scope.showLocation = true;
+    };
+    $scope.hideLocationChooser = function() {
+        $scope.showLocation = false;
+    };
     $scope.newCourse = function() {
         var check = function() {
             if(/^\d+$/.test($scope.course.cost)) {
@@ -37794,7 +37817,7 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
 });
 newcourseCtrl.$inject = ['$scope','newcourseCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/swiper/dist/js/swiper.js":3,"../../../bower_components/zepto/zepto.js":4,"../../../bower_components/zeptojs/src/touch.js":5,"../getParams.js":6,"./lib/alert.js":8,"./login.js":9}],8:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/swiper/dist/js/swiper.js":3,"../../../bower_components/zepto/zepto.js":4,"../../../bower_components/zeptojs/src/touch.js":5,"../getParams.js":6,"./lib/alert.js":8}],8:[function(require,module,exports){
 window.alertShow = function(text,okfun) {
     window.alert = {
         text : text, 
@@ -37810,12 +37833,5 @@ window.alertShow = function(text,okfun) {
         }
     };
 };
-
-},{}],9:[function(require,module,exports){
-$.get('/wxlogin/hasLogin.do',function(data){
-    if(data.error_no == '0' && data.data == false) {
-        location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);
-    }
-});
 
 },{}]},{},[7])

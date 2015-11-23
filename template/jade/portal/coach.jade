@@ -19,7 +19,9 @@ body(ng-controller="coachCtrl")
                     div.skill 擅长 : {{ skills }}
                     button(ng-if="self==false&&like==false",ng-click="likeCoach()") + 关注
                     button(ng-if="self==false&&like==true") 已关注 
-                    button(ng-if="self==true") 粉丝 
+                    button(ng-if="self==true") 粉丝
+                div.line.clearfix
+                    div.skill {{ location }}
         div.card
             div.title 综合评价
                 div.more(ng-click="goEvaluate()") 更多

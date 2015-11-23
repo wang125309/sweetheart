@@ -9,7 +9,7 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
     $scope.backShow = false;
     $scope.addrShow = false;
     pid = getQueryParams("addr_id");
-
+    $scope.location = '不限';
     $scope.showAddr = function($event) {
         $event.stopPropagation();
         if($scope.backShow == false) {

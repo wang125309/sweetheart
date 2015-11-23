@@ -10,8 +10,11 @@ orderedCtrl = angular.module('sweetheart',['ngAnimate']).controller('orderedCtrl
         $scope.active.push("");
     }
     type = getQueryParams("type");
+    if(!type) {
+        type = 1;
+    }
     $scope.active[type] = "active";
-    $.get("/api/getMyOrder.do?type="+getQueryParams("type"),function(data){
+    $.get("/api/getMyOrder.do?type="+type,function(data){
         $scope.card = data.data;
         for(i in $scope.card) {
             if($scope.card[i].classtype == 'public') {

@@ -35,6 +35,17 @@ userCtrl = angular.module('app',['ngAnimate']).controller('userCtrl',['$scope',f
     $scope.goToPage = function(page) {
         location.href = "/user.html?p="+page;  
     };
+    search_start = 0;
+    $scope.search = function() {
+        jQuery.get("/sys/getStUsersList.do?start="+search_start+"&limit=100&nickname="+$scope.queryString,function(data){
+            if ("error_no" in data && data.error_no == '1') {
+                location.href = "/login.html";
+            }
+            $scope.data = data;
+            $scope.count = 0;
+            $scope.$apply();
+        });
+    };
     $scope.sync = function() {
         jQuery.get("/sys/syncWeixinUser.do",function(data){
             alert("同步成功");

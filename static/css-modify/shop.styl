@@ -1,5 +1,8 @@
-@import '../css/nav.css';
+@import '../../bower_components/font-awesome/css/font-awesome.css';
 @import '../../bower_components/bootstrap/dist/css/bootstrap.min.css';
+@import '../../bower_components/bootstrap-wysiwyg/index.css';
+@import '../css/nav.css';
+
 
 body
     background-color:#fff
@@ -9,3 +12,32 @@ body
         border:1px solid #dcdcdc
         .edit-link
             margin-right:10px
+    .editor
+        height:360px
+        .left
+            width:49%
+            display:inline-block
+            position;relative
+            height:360px
+        .right
+            width:49%
+            display:inline-block
+            position:relative
+            height:360px
+            .htmlArea
+                width:203px
+                position:relative
+                margin:0 auto
+                height:inherit
+                border:1px solid #dcdcdc
+    .editor
+        .btn-toolbar
+            display:block
+        input[type='file']
+            visibility:hidden
+            width:0
+            height:0
+    #description
+        overflow:scroll
+        height:320px
+        border:1px solid #dcdcdc

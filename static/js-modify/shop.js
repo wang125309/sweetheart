@@ -3,15 +3,17 @@ require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
 require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
-shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',function($scope){
+require("../../bower_components/angular-sanitize/angular-sanitize.min.js");
+shopCtrl = angular.module('app',['ngAnimate','ngSanitize']).controller('shopCtrl',['$scope','$sce',function($scope,$sce){
     $scope.nav = 'shop';
     $scope.logout = function() {
         jQuery.get("/sys/logout.do",function(data){
             location.href = "/login.html";
         });
     };
+
     var refrash = function() {
-        jQuery.get("/sys/getGoodsList.do",function(data){
+        jQuery.get("/sys/getGoodsList.do?type=1",function(data){
             if ("error_no" in data && data.error_no == '1') {
                 location.href = "/login.html";
             }
@@ -75,7 +77,10 @@ shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',f
         price : "",
         now_stock : ""
     };
+    $scope.trustHtml = function() {
 
+        return $sce.trustAsHtml($scope.trust);
+    };
     $scope.editForm = function(id,name,description,price,now_stock) {
         $scope.edit.id = id;
         $scope.edit.name = name;
@@ -99,5 +104,10 @@ shopCtrl = angular.module('app',['ngAnimate']).controller('shopCtrl',['$scope',f
             }
         });
     };
+    jQuery("#description").wysiwyg();
+    jQuery("#description").bind('keypress', function(){
+        $scope.trust = jQuery("#description").html();
+        $scope.$apply();
+    });
 }]);
 shopCtrl.$inject = ['$scope','shopCtrl']; 

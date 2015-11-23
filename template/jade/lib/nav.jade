@@ -21,25 +21,33 @@ nav.navbar.navbar-default
                 li(ng-if="nav!='course'")
                     a(href="/course.html") 专业
                 li(ng-if="nav=='position'",class="active")
-                    a(href="/position.html") 地点
+                    a(href="/position.html") 实体店 
                 li(ng-if="nav!='position'")
-                    a(href="/position.html") 地点
+                    a(href="/position.html") 实体店
                 li(ng-if="nav=='wx'",class="active")
-                    a(href="/wx.html") 常量
+                    a(href="/wx.html") 系统
                 li(ng-if="nav!='wx'")
-                    a(href="/wx.html") 常量
+                    a(href="/wx.html") 系统
                 li(ng-if="nav=='backuser'",class="active")
                     a(href="/backuser.html") 后台用户
                 li(ng-if="nav!='backuser'")
                     a(href="/backuser.html") 后台用户
                 li(ng-if="nav=='shop'",class="active")
-                    a(href="/shop.html") 积分商城
+                    a(href="/shop.html") 商城
                 li(ng-if="nav!='shop'")
-                    a(href="/shop.html") 积分商城
+                    a(href="/shop.html") 商城
+                li(ng-if="nav=='ordered'",class="active")
+                    a(href="/ordered.html") 订单
+                li(ng-if="nav!='ordered'")
+                    a(href="/ordered.html") 订单
+                li(ng-if="nav=='recharge'",class="active")
+                    a(href="/recharge.html") 充值
+                li(ng-if="nav!='recharge'")
+                    a(href="/recharge.html") 充值
                 li(ng-if="nav=='scan'",class="active")
-                    a(href="/scan.html") 支付扫码设备
+                    a(href="/scan.html") 到店扫码
                 li(ng-if="nav!='scan'")
-                    a(href="/scan.html") 支付扫码设备
+                    a(href="/scan.html") 到店扫码
             ul.nav.navbar-nav.navbar-right
                 li
                     a(href="javascript:;",ng-click="logout()") 退出登录 

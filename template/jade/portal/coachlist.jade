@@ -2,13 +2,13 @@ include ./lib/header.jade
     title 私教列表 
     link(href="/static/css/portal/coachlist.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/coachlist.js")
-body(ng-controller="coachlistCtrl")
+body(ng-controller="coachlistCtrl",ng-cloak)
     section#index-view
         div.filter.clearfix
             div.left(ng-click="filter_location($event)") 场地：{{ location }}
                 div.pull-down.location(ng-show="location_pull_down==true")
-                    div.location-detail(ng-repeat="i in locations",ng-click="chooseLocation(i)")
-                        a(href="#") {{ i }}
+                    div.location-detail(ng-repeat="i in locations",ng-click="chooseLocation(i.id)")
+                        a(href="#") {{ i.place_name }}
             span |
             div.middle(ng-click="filter_sex($event)") 性别：{{ sex }}
                 div.pull-down.sex(ng-show="sex_pull_down==true")
@@ -32,6 +32,6 @@ body(ng-controller="coachlistCtrl")
                         span.sex-f(ng-show="i.sex=='0'")=""
                         span.sex-m(ng-show="i.sex=='1'")=""
                     div.skill {{ i.skill }}
-                    div.location {{ i.location }}
-                        span.location-icon=""
+                    //div.location {{ i.location }}
+                        //span.location-icon=""
         

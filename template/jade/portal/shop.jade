@@ -1,0 +1,20 @@
+include ./lib/header.jade
+    title 商城 
+    link(href="/static/css/portal/shop.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/shop.js")
+body(ng-controller="shopCtrl")
+    include ./lib/alert.jade
+    section#index-view
+        div.tab
+            div.left(ng-click="changeTo('pay')")
+                div.text(class="{{ payStateType }}") 甜心币支付
+            div.right(ng-click="changeTo('recharge')")
+                div.text(class="{{ rechargeStateType }}") 甜心币充值
+        div.list
+            div.card-wrap(ng-repeat="i in cards",ng-click="goDetail(i.id)")
+                div.card
+                    div.image(style="background:url('{{ i.pic_res.resourceUrl }}')")=""
+                    div.name {{ i.name }}
+                    div.line
+                        div.tianxin=""
+                        div.price {{ i.price }}

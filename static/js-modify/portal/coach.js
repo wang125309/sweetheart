@@ -73,7 +73,8 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
         for(i in $scope.times) {
             if($scope.times[i].id == id) {
                 $scope.times[i].class = "active";
-                $scope.cost = $scope.times[i].cost + '元';
+                $scope.cost = $scope.times[i].cost + '甜心币';
+                $scope.location = '地址：' + $scope.times[i].address.place_name;
                 console.log($scope.cost);
             }
             else {

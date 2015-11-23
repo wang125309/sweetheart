@@ -1,6 +1,10 @@
 include ./lib/header.jade
 link(href="/static/css/shop.css",rel="stylesheet",type="text/css")
+link(href="/bower_components/bootstrap-wysiwyg/external/google-code-prettify/prettify.css",rel="stylesheet",type="text/css")
 script(language="javascript",src="/static/js/shop.min.js")
+script(language="javascript",src="/bower_components/bootstrap-wysiwyg/bootstrap-wysiwyg.js")
+script(language="javascript",src="/bower_components/bootstrap-wysiwyg/external/jquery.hotkeys.js")
+script(language="javascript",src="/bower_components/bootstrap-wysiwyg/external/google-code-prettify/prettify.js")
 body(ng-controller="shopCtrl")
     include ./lib/nav.jade
     div.container
@@ -45,7 +49,50 @@ body(ng-controller="shopCtrl")
                             input#name.form-control(type="text",placeholder="输入商品名称",ng-model="add.name")
                         div.form-group
                             label(for="description") 商品详情
-                            input#description.form-control(name="description",type="text",placeholder="输入商品名称",ng-model="add.description")
+                            div.editor
+                                div.btn-toolbar(data-role="editor-toolbar",data-target="#description")
+                                    div.btn-group
+                                        a.btn.dropdown-toggle(data-toggle="dropdown" title="Font Size")
+                                            i(class="icon-text-height")=" "
+                                            b(class="caret")
+                                        ul(class="dropdown-menu")=""
+                                            li
+                                                a(data-edit="fontSize 5")
+                                                    font(size="5") 大
+                                            li
+                                                a(data-edit="fontSize 3")
+                                                    font(size="3") 正常
+                                            li
+                                                a(data-edit="fontSize 1")
+                                                    font(size="1") 小
+                                        a.btn(data-edit="insertunorderedlist" title="Bullet list")
+                                            i(class="icon-list-ul")=""
+                                        a.btn(data-edit="insertorderedlist" title="Number list")
+                                            i(class="icon-list-ol")=""
+                                        a.btn(data-edit="outdent" title="Reduce indent (Shift+Tab)")
+                                            i(class="icon-indent-left")=""
+                                        a.btn(data-edit="indent" title="Indent (Tab)")
+                                            i(class="icon-indent-right")=""
+                                        a.btn(data-edit="justifyleft" title="左对齐 (Ctrl/Cmd+L)")
+                                            i(class="icon-align-left")=""
+                                        a.btn(data-edit="justifycenter" title="居中 (Ctrl/Cmd+E)")
+                                            i(class="icon-align-center")=""
+                                        a.btn(data-edit="justifyright" title="右对齐 (Ctrl/Cmd+R)")
+                                            i(class="icon-align-right")=""
+                                        a.btn(data-edit="justifyfull" title="两端对齐 (Ctrl/Cmd+J)")
+                                            i(class="icon-align-justify")=""
+                                        a.btn#pictureBtn(title="插入图片，支持拖拽")
+                                            i.icon-picture
+                                        input(type="file",data-role="magic-overlay",data-target="#pictureBtn",data-edit="insertImage")
+                                        a.btn.dropdown-toggle(data-toggle="dropdown" title="Hyperlink")
+                                            i(class="icon-link")=""
+                                            div(class="dropdown-menu input-append")
+                                                input(class="span2" placeholder="URL" type="text" data-edit="createLink")
+                                                button(class="btn" type="button") 添加
+                                        a.btn(data-edit="unlink" title="Remove Hyperlink")
+                                            i(class="icon-cut")=""
+
+                                div#description(desc)
                         div.form-group
                             label(for="price") 兑换积分
                             input#price.form-control(name="price",type="text",placeholder="输入兑换积分",ng-model="add.price")

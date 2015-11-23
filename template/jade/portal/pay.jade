@@ -1,0 +1,31 @@
+include ./lib/header.jade
+    title 订单支付 
+    link(href="/static/css/portal/pay.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="/static/js/portal/pay.js")
+body(ng-controller="payCtrl")
+    section#index-view
+        include ./lib/alert.jade
+        div.process(ng-show="process==true")=""
+        div.card
+            div.title 请确认订单信息
+            div.detail
+                div.line
+                    div.left {{ courseName }}
+                    div.right {{ cost }}
+                div.line
+                    div.left {{ bgtime | date : "yyyy-MM-dd a HH:mm" }} - {{ edtime | date : "a HH:mm" }}
+                div.line
+                    div.left {{ addr }}
+            div.price-area
+                div.line
+                    div.left 原价
+                    div.right {{ cost }}
+                div.line
+                    div.left {{ type }}
+                    div.right {{ cost }}
+            div.need-pay
+                div.line
+                    div.left 需支付
+                    div.right {{ payment }} 甜心币 
+        div.tip Tips: 请在15分钟内完成支付
+        button(type="button",ng-click="pay()") 甜心币支付

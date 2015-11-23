@@ -6,7 +6,7 @@ require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../getParams.js");
 require("./lib/alert.js");
-require("./login.js");
+//require("./login.js");
 personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).controller('personalspaceCtrl',['$scope','$sce',function($scope,$sce){
     p = {};
     id = window.getQueryParams('id');
@@ -62,8 +62,10 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).cont
     };
     refrash();
     $scope.goMyFocus = function() {
-        alertShow("疯狂开发中");
-        $scope.alert = window.alert;
+        location.href = '/portal/focuslist.html';
+    };
+    $scope.goFocusMe = function() {
+        location.href = '/portal/focuslist.html?type=me&&coach_id='+$scope.person.coachid;
     };
     $scope.focusOn = function() {
         $.get("/api/likeCoach.do?coach_id="+$scope.person.coachid,function(data){

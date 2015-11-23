@@ -2,9 +2,9 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
-require("./login.js");
+//require("./login.js");
 coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlistCtrl',['$scope',function($scope){
-    var refrash = function(sex,subject,sb) {
+    var refrash = function(sex,subject,sb,place_id) {
         url = "/api/getCoachsByPara.do";
         p = {};
         if (sex) {
@@ -21,6 +21,9 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
         }
         else {
             $scope.subject = sb;
+        }
+        if(place_id) {
+            p.place_id = place_id;
         }
         $.get(url,p,function(data){
             $scope.cards = [];
@@ -68,8 +71,13 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
     $scope.goPersonSpace = function(id,cid) {
         if(id) location.href = "/portal/coach.html?id=" + id+"&coachid=" + cid;
     };
-    $scope.locations = ["北京","日本","深蓝健身俱乐部","绿色俱乐部"];
-    $scope.location = $scope.locations[0];
+    $scope.chooseLocation = function(id) {
+        refrash($scope.filterSex,$scope.filterSubject,0,id);
+    };
+    $.get("/api/getAllPlace.do",function(data){
+        $scope.locations = data.data;
+    });
+    $scope.location = '不限';
     $scope.sex = "不限";
     $scope.filter_location = function($event) {
         $scope.location_pull_down = !$scope.location_pull_down;

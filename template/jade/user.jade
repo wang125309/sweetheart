@@ -9,7 +9,7 @@ body(ng-controller="userCtrl")
                 button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#sync") 同步微信用户
             div.col-lg-3
                 div.input-group
-                    input#search.form-control(type="text",placeholder="搜索微信名...",ng-modle="queryString")
+                    input#search.form-control(type="text",placeholder="搜索微信名...",ng-model="queryString")
                     span.input-group-btn
                         button.btn.btn-default(type="button",ng-click="search()") 搜索
         table(class="table table-striped",style="margin-top:20px;")
@@ -18,7 +18,7 @@ body(ng-controller="userCtrl")
                 th 昵称
                 th 性别
                 th 手机号
-                th 积分
+                th 甜心币
                 th 关注领域
                 th 头像
                 th 操作
@@ -33,6 +33,7 @@ body(ng-controller="userCtrl")
                 td {{ i.goodat }}
                 td
                     img(ng-src="{{ i.headurl }}",width="70px",height="70px")
+                td=""
         include ./lib/pagination.jade
     div#sync.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="同步微信用户")
         div.modal-dialog(role="document")

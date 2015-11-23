@@ -1,8 +1,8 @@
 include ./lib/header.jade
     title 个人中心
-    link(href="/static/css/portal/personalspace.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/personalspace.js")
-body(ng-controller="personalspaceCtrl")
+    link(href="/static/css/portal/personalspace.css",rel="stylesheet",type="text/css")
+body(ng-controller="personalspaceCtrl",ng-cloak)
     include ./lib/alert.jade
     section#index-view(ng-if="type=='1'")
         section.banner
@@ -10,7 +10,7 @@ body(ng-controller="personalspaceCtrl")
             div.name {{ person.name }}
                 span.sex-f(ng-show="person.sex == '1'")
                 span.sex-m(ng-show="person.sex == '0'")
-            div.button-line
+            div.button-line(ng-cloak)
                 button#order-button(ng-click="goMyOrdered()")
                     i#order-button-icon=""
                     span 我的预约
@@ -42,7 +42,7 @@ body(ng-controller="personalspaceCtrl")
                 button#focus
                     span(ng-show="focus == false && self == false",ng-click="focusOn()") + 加关注
                     span(ng-show="focus == true && self == false") 已关注
-                    span(ng-show="self == true") 关注我的 
+                    span(ng-show="self == true",ng-click="goFocusMe()") 关注我的 
                     i.go-right=""
                 button#sendMessage
                     span 私信 
