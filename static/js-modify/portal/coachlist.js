@@ -2,7 +2,7 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
-//require("./login.js");
+require("./login.js");
 coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlistCtrl',['$scope',function($scope){
     var refrash = function(sex,subject,sb,place_id) {
         url = "/api/getCoachsByPara.do";

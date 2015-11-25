@@ -5,7 +5,7 @@ include ./lib/header.jade
 body(ng-controller="focuslistCtrl")
     section#index-view
         div.coach-list(ng-show="type=='1'")
-            div.line(ng-repeat="i in coachlist",ng-click="goCoach(i.coach_id)")
+            div.line(ng-repeat="i in coachlist")
                 div.avatar-area
                     div.avatar(style="background-image:url('{{ i.stUserEntity.headurl }}')")
                 div.message-area

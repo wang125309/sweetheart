@@ -3,6 +3,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
+require("./login.js");
 evaluatelistCtrl = angular.module('sweetheart',['ngAnimate']).controller('evaluatelistCtrl',['$scope',function($scope){
     personalclass_id = getQueryParams("personalclass_id");
     public_id = getQueryParams("publicclass_id");

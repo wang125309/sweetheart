@@ -44,7 +44,7 @@ body(ng-controller="personalspaceCtrl",ng-cloak)
                     span(ng-show="focus == true && self == false") 已关注
                     span(ng-show="self == true",ng-click="goFocusMe()") 关注我的 
                     i.go-right=""
-                button#sendMessage
+                button#sendMessage(disabled)
                     span 私信 
                     i.go-right=""
         section.blank

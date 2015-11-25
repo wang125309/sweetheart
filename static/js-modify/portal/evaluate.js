@@ -4,6 +4,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
 require("./lib/alert.js");
+require("./login.js");
 evaluateCtrl = angular.module('sweetheart',['ngAnimate']).controller('evaluateCtrl',['$scope',function($scope){
     now = 5;
     $scope.getstatus = function(n) {

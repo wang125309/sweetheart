@@ -38289,6 +38289,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("./lib/alert.js");
+require("./login.js");
 informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informationCtrl',['$scope',function($scope){
     $scope.person = {};
     var init = function() {
@@ -38409,7 +38410,6 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
         if(!flag)   $scope.skillsed.push(skill);
         for(i in $scope.skills.data) {
             if($scope.skills.data[i].id == skill.id) {
-
                 if("select" in $scope.skills.data[i] && $scope.skills.data[i].select == "active") {
                     $scope.skills.data[i].select = "";
                 }
@@ -38451,7 +38451,7 @@ informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informa
 }]);
 informationCtrl.$inject = ['$scope','informationCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-touch/angular-touch.js":2,"../../../bower_components/angular/angular.js":3,"../../../bower_components/swiper/dist/js/swiper.js":4,"../../../bower_components/zepto/zepto.js":5,"../../../bower_components/zeptojs/src/touch.js":6,"./lib/alert.js":8}],8:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-touch/angular-touch.js":2,"../../../bower_components/angular/angular.js":3,"../../../bower_components/swiper/dist/js/swiper.js":4,"../../../bower_components/zepto/zepto.js":5,"../../../bower_components/zeptojs/src/touch.js":6,"./lib/alert.js":8,"./login.js":9}],8:[function(require,module,exports){
 window.alertShow = function(text,okfun) {
     window.alert = {
         text : text, 
@@ -38467,5 +38467,12 @@ window.alertShow = function(text,okfun) {
         }
     };
 };
+
+},{}],9:[function(require,module,exports){
+$.get('/wxlogin/hasLogin.do',function(data){
+    if(data.error_no == '0' && data.data == false) {
+        location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);
+    }
+});
 
 },{}]},{},[7])

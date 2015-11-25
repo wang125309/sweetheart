@@ -37688,7 +37688,7 @@ require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../getParams.js");
 require("./lib/alert.js");
-//require("./login.js");
+require("./login.js");
 personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).controller('personalspaceCtrl',['$scope','$sce',function($scope,$sce){
     p = {};
     id = window.getQueryParams('id');
@@ -37813,7 +37813,7 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).cont
 
 personalspaceCtrl.$inject = ['$scope','personalspaceCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-sanitize/angular-sanitize.min.js":2,"../../../bower_components/angular/angular.js":3,"../../../bower_components/swiper/dist/js/swiper.js":4,"../../../bower_components/zepto/zepto.js":5,"../../../bower_components/zeptojs/src/touch.js":6,"../getParams.js":7,"./lib/alert.js":9}],9:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-sanitize/angular-sanitize.min.js":2,"../../../bower_components/angular/angular.js":3,"../../../bower_components/swiper/dist/js/swiper.js":4,"../../../bower_components/zepto/zepto.js":5,"../../../bower_components/zeptojs/src/touch.js":6,"../getParams.js":7,"./lib/alert.js":9,"./login.js":10}],9:[function(require,module,exports){
 window.alertShow = function(text,okfun) {
     window.alert = {
         text : text, 
@@ -37829,5 +37829,12 @@ window.alertShow = function(text,okfun) {
         }
     };
 };
+
+},{}],10:[function(require,module,exports){
+$.get('/wxlogin/hasLogin.do',function(data){
+    if(data.error_no == '0' && data.data == false) {
+        location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);
+    }
+});
 
 },{}]},{},[8])

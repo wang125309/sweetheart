@@ -34324,6 +34324,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
+require("./login.js");
 evaluatelistCtrl = angular.module('sweetheart',['ngAnimate']).controller('evaluatelistCtrl',['$scope',function($scope){
     personalclass_id = getQueryParams("personalclass_id");
     public_id = getQueryParams("publicclass_id");
@@ -34348,4 +34349,11 @@ evaluatelistCtrl = angular.module('sweetheart',['ngAnimate']).controller('evalua
 }]);
 evaluatelistCtrl.$inject = ['$scope','evaluatelistCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"../getParams.js":5}]},{},[6])
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"../getParams.js":5,"./login.js":7}],7:[function(require,module,exports){
+$.get('/wxlogin/hasLogin.do',function(data){
+    if(data.error_no == '0' && data.data == false) {
+        location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);
+    }
+});
+
+},{}]},{},[6])

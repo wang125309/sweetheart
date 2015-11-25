@@ -3,6 +3,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
+require("./login.js");
 orderedCtrl = angular.module('sweetheart',['ngAnimate']).controller('orderedCtrl',['$scope',function($scope){
 
     $scope.active = [];

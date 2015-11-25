@@ -34313,7 +34313,7 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
-//require("./login.js");
+require("./login.js");
 coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlistCtrl',['$scope',function($scope){
     var refrash = function(sex,subject,sb,place_id) {
         url = "/api/getCoachsByPara.do";
@@ -34405,4 +34405,11 @@ coachlistCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachlist
 }]);
 coachlistCtrl.$inject = ['$scope','coachlistCtrl']; 
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4}]},{},[5])
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular/angular.js":2,"../../../bower_components/zepto/zepto.js":3,"../../../bower_components/zeptojs/src/touch.js":4,"./login.js":6}],6:[function(require,module,exports){
+$.get('/wxlogin/hasLogin.do',function(data){
+    if(data.error_no == '0' && data.data == false) {
+        location.href = '/api/login.do?wcbzlr='+encodeURIComponent(location.href);
+    }
+});
+
+},{}]},{},[5])

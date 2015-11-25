@@ -9,14 +9,11 @@ body(ng-controller="calendarCtrl")
             div.left(ng-click="showAddr($event)") 场地：{{ location }}
                 div.addr-menu(ng-show="addrShow==true")
                     div.addr-line(class="{{ i.active }}",ng-repeat="i in addrs",ng-click="goAddr(i.id)") {{ i.name }}
+                    div.addr-line(class="{{ i.active }}",ng-click="goAddr(-1)") 不限
             span |
             div.middle(ng-click="showSub($event)") 专业：{{ subject }}
                 div.subject-menu(ng-show="subShow == true")
                     div.subj-line(class="{{ i.active }}",ng-repeat="i in subjs",ng-click="goSub(i.id)") {{ i.display }}
-            span |
-            div.right 课程类型：{{ type }}
-                div.type-menu(ng-show="typeShow == true")
-                    div.type-line(class="{{ i.active }}",ng-repeat="i in types") {{ i.name }}
         include ./lib/alert.jade
         include ./lib/calendar.jade
         div.today(ng-show="cardShow == true")

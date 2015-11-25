@@ -3,6 +3,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
+//require("./login.js");
 calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCtrl',['$scope',function($scope){
     require("./lib/alert.js");
     $scope.date = [];
@@ -67,7 +68,12 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
     getMenu();
 
     $scope.goAddr = function(id) {
-        location.href = "/portal/calendar.html?addr_id="+id;
+        if(id == -1) {
+            location.href = "/portal/calendar.html";
+        }
+        else {
+            location.href = "/portal/calendar.html?addr_id="+id;
+        }
     };
     $scope.goSub = function(id) {
         $scope.goodat_id = id;
@@ -88,7 +94,12 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
             else {
                 line = $scope.cline3;
             }
-            queryString = "/api/getPublicClassListByDate.do?address_id="+pid+"&date="+line[i].year+"-"+line[i].month+"-"+line[i].date; 
+            if(getQueryParams("addr_id")) {
+                queryString = "/api/getPublicClassListByDate.do?addr_id="+ getQueryParams("addr_id")+"&date="+line[i].year+"-"+line[i].month+"-"+line[i].date;
+            }
+            else {
+                queryString = "/api/getPublicClassListByDate.do?&date="+line[i].year+"-"+line[i].month+"-"+line[i].date;
+            }
             return sub || $scope.goodat_id ? queryString  +"&goodat_id="+$scope.goodat_id : queryString ;
         };
 
@@ -200,7 +211,6 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
         $scope.cline3 = []; 
 
         for(i=0;i< $scope.calendar.length;i++) {
-            console.log(i);
             if (i < 7) {
                 $scope.cline1.push($scope.calendar[i]);
             }
@@ -220,11 +230,21 @@ calendarCtrl = angular.module('sweetheart',['ngAnimate']).controller('calendarCt
         location.href = "/portal/newcourse.html?id="+id;
     };
     var frashCalendar = function( first , fun ) {
-        $.get("/api/getPublicClassListDateByAddress.do?address_id="+pid,function(data){
+        getUrl = '/api/getPublicClassListDateByAddress.do';
+        if(getQueryParams("addr_id")) {
+            getUrl += ("?addr_id="+ getQueryParams("addr_id")); 
+        }
+        $.get(getUrl,function(data){
             $scope.data = data.data;
-            console.log($scope.data);
             now = new Date();
-            $.get("/api/getPublicClassListByDate.do?address_id="+pid+"&date="+now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate(),function(data){
+            addrUrl = "/api/getPublicClassListByDate.do";
+            if(getQueryParams("addr_id")) {
+                addrUrl += ("?addr_id=" + getQueryParams("addr_id") + "&date=" +now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate());
+            }
+            else {
+                addrUrl += ("?date=" +now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate());            
+            }
+            $.get(addrUrl,function(data){
                 $scope.cards = data.data;
                 "classes" in $scope.cards && $scope.cards.classes.length ? $scope.cardShow = true : $scope.cardShow = false;
                 $scope.$apply();

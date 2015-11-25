@@ -3,6 +3,7 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
+require("./login.js");
 controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl',['$scope',function($scope){
     require("./lib/alert.js");
     $scope.date = []; 
@@ -44,7 +45,6 @@ controlCtrl = angular.module('sweetheart',['ngAnimate']).controller('controlCtrl
             if($scope.data[i].date.split("-")[2] == date) {
                 full = true;
                 $scope.cards = $scope.data[i].classes;
-                console.log($scope.cards);
                 break;
             }
         }

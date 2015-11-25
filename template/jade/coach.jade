@@ -47,7 +47,7 @@ body(ng-controller="coachCtrl")
                 td(ng-if="i.type == '1'") 操课教练  
                 td(ng-if="i.type != '0' && i.type != '1'") 全能 
                 td
-                    a.view(href="javascript:;") 查看详情 
+                    a.view(href="javascript:;",data-target="#view",ng-click="viewEdit(i)",data-toggle="modal") 查看详情 
                     a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.userid,i.id)") 通过 
                     a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#reject") 取消通过
                     a.addV(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#addV") 成为认证
@@ -95,6 +95,29 @@ body(ng-controller="coachCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+    div#view.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="查看详情")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 查看详情
+                div.modal-body
+                    div.form-group
+                        label(for="images") 名称
+                        div.images(ng-repeat="i in viewImagesUrlList")
+                            img(ng-src="{{ i.res_url }}")
+                    div.form-group
+                        label(for="horizontalimg") 横幅
+                        img#horizontalimg(ng-src="{{ horizontalimg }}")
+                    div.form-group
+                        label(for="headimg") 头像
+                        img#headimg(ng-src="{{ headimg }}")
+                    div.form-group
+                        label(for="video") 视频
+                        video#video(ng-src="{{ video }}",controls="controls")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
     div#approval.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="通过成为教练申请")
         div.modal-dialog(role="document")
             div.modal-content

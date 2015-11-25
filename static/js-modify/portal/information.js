@@ -5,6 +5,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("./lib/alert.js");
+require("./login.js");
 informationCtrl = angular.module('sweetheart',['ngAnimate']).controller('informationCtrl',['$scope',function($scope){
     $scope.person = {};
     var init = function() {

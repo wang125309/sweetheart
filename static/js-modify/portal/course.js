@@ -4,6 +4,7 @@ require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../getParams.js");
 require("./lib/alert.js");
+require("./login.js");
 courseCtrl = angular.module('sweetheart',['ngAnimate']).controller('courseCtrl',['$scope',function($scope){
     id = getQueryParams("id");
     var refrash = function(){

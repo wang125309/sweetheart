@@ -4,7 +4,8 @@ require("../../bower_components/angular-animate/angular-animate.js");
 jQuery = require("../../bower_components/jquery/dist/jquery.js");
 require("../../bower_components/bootstrap/dist/js/bootstrap.js");
 require("../../bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js");
-coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope',function($scope){
+require("../../bower_components/angular-sanitize/angular-sanitize.min.js");
+coachCtrl = angular.module('app',['ngAnimate','ngSanitize']).controller('coachCtrl',['$scope','$sce',function($scope,$sce){
     $scope.nav = 'coach'; 
     $scope.logout = function() {
         jQuery.get("/sys/logout.do",function(data){
@@ -46,6 +47,14 @@ coachCtrl = angular.module('app',['ngAnimate']).controller('coachCtrl',['$scope'
                 refrash();
             }
         });
+    };
+    $scope.viewEdit = function(i) {
+        $scope.headimg = i.headimg;
+        $scope.video = $sce.trustAsResourceUrl(i.video);
+        $scope.viewImagesUrlList = i.imagesUrlList;
+        $scope.horizontalimg = i.horizontalimg;
+        $scope.goodats = i.goodats;
+        $scope.winning = i.winning;
     };
     $scope.rejectCoachApply = function() {
         jQuery.get("/sys/approvalCoach.do?coach_id="+$scope.id+"&user_id="+$scope.user_id+"&pass=false",function(data){
