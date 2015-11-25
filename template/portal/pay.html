@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en" ng-app="sweetheart"><head><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0"><meta http-equiv="Content-Type" content="text/html" charset="utf-8"><meta name="format-detection" content="telephone=no"><script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script>!(function() {
+    var rem;
+    rem = function() {
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+    };
+    rem();
+    window.addEventListener('resize', rem, false);
+    var _hmt = _hmt || []
+})();</script><title>订单支付 </title><link href="/static/css/portal/pay.css" rel="stylesheet" type="text/css"><script language="javascript" src="/static/js/portal/pay.js"></script></head></html><body ng-controller="payCtrl"><section id="index-view"><div ng-show="alert.show==true" class="alertMenu"><div class="inner">{{ alert.text }}</div><div class="button-line"><div ng-click="alert.ok()" class="button-left">{{ alert.sure }}</div><div ng-click="alert.not()" class="button-right">{{ alert.cancel }}</div></div></div><div ng-show="process==true" class="process"></div><div class="card"><div class="title">请确认订单信息</div><div class="detail"><div class="line"><div class="left">{{ courseName }}</div><div class="right">{{ cost }}</div></div><div class="line"><div class="left">{{ bgtime | date : "yyyy-MM-dd a HH:mm" }} - {{ edtime | date : "a HH:mm" }}</div></div><div class="line"><div class="left">{{ addr }}</div></div></div><div class="need-pay"><div class="line"><div class="left">需支付</div><div class="right">{{ payment }} 甜心币 </div></div></div></div><div class="tip">Tips: 请在15分钟内完成支付</div><button type="button" ng-click="pay()">甜心币支付</button></section></body>

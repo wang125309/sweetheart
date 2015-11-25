@@ -1,0 +1,79 @@
+@import "./lib/header.styl"
+
+section#index-view
+    text-align:center
+    font-size:base-font-size
+    .process
+        position:fixed
+        height:100%
+        width:100%
+        background-color:rgba(0,0,0,0.5)
+        top:0
+        z-index:10000
+        image-auto('uploading.gif')
+        background-position:center
+        background-size:20% auto
+    .card
+        margin:0.02rem
+        background-color:#fff
+        border:1px solid #dcdcdc
+        box-shadow:1px 1px 3px #ccc
+        position:relative
+        .title
+            color:#fff
+            background-color:brand-pink
+            text-align:center
+            height:0.1rem
+            line-height:0.1rem
+        .detail
+            margin:0 0.02rem
+            .line
+                height:0.09rem
+                line-height:0.09rem
+                font-size:less-font-size
+                color:brand-pink
+                .left
+                    position:absolute
+                    left:0.06rem
+                .right
+                    position:absolute
+                    right:0.06rem
+        .price-area
+            margin:0 0.02rem
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            .line
+                height:0.09rem
+                line-height:0.09rem
+                font-size:less-font-size
+                color:#333
+                .left
+                    position:absolute
+                    left:0.06rem
+                .right
+                    right:0.06rem
+                    position:absolute
+        .need-pay
+            margin:0 0.02rem
+            color:brand-pink
+            .line
+                height:0.09rem
+                line-height:0.09rem
+                .left
+                    position:absolute
+                    left:0.06rem
+                .right
+                    position:absolute
+                    right:0.06rem
+    .tip
+        font-size:less-font-size
+        margin-top:0.1rem
+        color:brand-pink
+    button
+        margin-top:0.1rem
+        background-color:brand-pink
+        color:#fff
+        border:none
+        height:0.12rem
+        width:90%
+        border-radius:0.12rem

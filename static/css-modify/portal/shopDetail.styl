@@ -1,0 +1,84 @@
+@import "./lib/header.styl"
+body
+    font-size:base-font-size
+    #index-view
+        .process
+            position:fixed
+            height:100%
+            width:100%
+            background-color:rgba(0,0,0,0.5)
+            top:0
+            z-index:10000
+            image-auto('uploading.gif')
+            background-position:center
+            background-size:20% auto
+        .banner
+            height:0.5rem
+            background-repeat:no-repeat
+            background-size:auto 100%
+            background-position:center
+            background-color:#fff
+            border-bottom:1px solid #dcdcdc
+        .desc
+            background-color:#fff
+            border-bottom:1px solid #dcdcdc
+            .title
+                height:0.08rem
+                line-height:0.08rem
+                color:brand-black
+                padding:0 0.02rem
+            .line
+                height:0.08rem
+                line-height:0.08rem
+                position:relative
+                padding:0 0.02rem
+                .cost-icon
+                    display:inline-block
+                    width:80%
+                .price
+                    display:inline-block
+                    width:20%
+                    text-align:right
+        .details
+            position:relative
+            height:0.12rem
+            margin:0.04rem 0
+            border-top:1px solid #dcdcdc
+            border-bottom:1px solid #dcdcdc
+            line-height:0.12rem
+            background-color:#fff
+            box-shadow:1px 1px 3px #ccc
+            .text
+                display:inline-block
+                width:80%
+            .go-right
+                display:inline-block
+                width:20%
+
+        .annc
+            border-top:1px solid #dcdcdc
+            box-shadow:1px 1px 3px #ccc
+            background-color:#fff
+            margin-bottom:0.2rem
+            .title
+                height:0.12rem
+                line-height:0.12rem
+                text-align:center
+            .annc-desc
+                min-height:1rem
+
+        .buy
+            position:fixed
+            background-color:rgba(0,0,0,0.8)
+            text-align:center
+            bottom:0
+            height:0.2rem
+            width:100%
+            .buy-now
+                width:90%
+                border:none
+                height:0.1rem
+                margin-top:0.05rem
+                color:#fff
+                background-color:brand-pink
+                border-radius:0.15rem

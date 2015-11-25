@@ -1,0 +1,99 @@
+@import "./lib/header.styl"
+body
+    font-size:base-font-size
+section#index-view
+    .tab
+        height:0.15rem
+        background-color:#fff
+        box-shadow:1px 1px 3px #ccc
+        line-height:0.15rem
+        position:relative
+        .left
+            positon:absolute
+            left:0
+            top:0
+            width:49.9%
+            border-right:1px solid #dcdcdc
+            text-align:center
+            .active
+                border-bottom:3px solid brand-pink
+                margin:0 0.2rem
+        .right
+            position:absolute
+            left:50%
+            top:0
+            width:49.9%
+            text-align:center
+            .active
+                border-bottom:3px solid brand-pink
+                margin:0 0.15rem
+    .coach-list
+        .line
+            position:relative
+            width:92%
+            margin:0 auto
+            height:0.24rem
+            background:#fff
+            border:1px solid #dcdcdc
+            box-shadow:1px 1px 3px #ccc
+            margin-top:0.04rem
+            .avatar-area
+                position:absolute
+                height:100%
+                width:26%
+                left:0
+                top:0
+                .avatar
+                    position:absolute
+                    width:0.2rem
+                    height:0.2rem
+                    left:0.02rem
+                    top:0.02rem
+                    border-radius:100%
+                    border:none
+                    background-repeat:no-repeat
+                    background-size:cover
+                    background-position:center
+            .message-area
+                position:absolute
+                left:26%
+                width:80%
+                height:100%
+                font-size:less-font-size
+                .line-first
+                    position:absolute
+                    top:0
+                    height:50%
+                    width:100%
+                    line-height:0.12rem
+                    span.sex-f
+                        width:0.045rem !important
+                        height:0.045rem !important
+                        position:absolute
+                        margin-left:0.01rem
+                        image-hauto('famale.png')
+                        margin-top:0.04rem
+                            
+                    span.sex-m
+                        width:0.045rem
+                        height:0.045rem
+                        position:absolute
+                        margin-left:0.01rem
+                        image-hauto('male.png')
+                        margin-top:0.04rem
+                    .skill-area
+                        margin-left:0.05rem
+                    .skill
+                        margin-left:0.02rem
+                        border:1px solid brand-pink
+                        color:brand-pink
+                        background-color:transparent
+                        padding:0 0.02rem
+                        border-radius:0.05rem
+                .line-second
+                    position:absolute
+                    top:50%
+                    height:50%
+                    width:100%
+                    line-height:0.12rem
+                     

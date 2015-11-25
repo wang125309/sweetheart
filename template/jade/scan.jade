@@ -1,0 +1,32 @@
+include ./lib/header.jade
+link(href="/static/css/scan.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/scan.min.js")
+body(ng-controller="scanCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add",ng-click="add()") 添加设备
+        button.btn.btn-primary#download-btn.pull-right(type="button")
+            a(href="/res/fitpass.apk",target=_blank) 下载APP(android)
+        table(class="table table-striped")
+            tr
+                th IMEI号
+                th 录入时间
+                th 操作
+            tr(ng-repeat="i in data")
+                td {{ i.imei }}
+                td {{ i.inserttime | date : 'yyyy-MM-dd hh:mm' }}
+                td
+                    a.delete-link(href="#",data-toggle="modal",ng-click="delete(i.id)") 删除
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加用户")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加新设备
+                div.modal-body
+                    div.form-group
+                        div.qrcode(style="background-image:url('{{ qrcode }}')")=""
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="refrash()") 扫描结束 

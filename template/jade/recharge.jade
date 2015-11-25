@@ -1,0 +1,75 @@
+include ./lib/header.jade
+link(href="/static/css/recharge.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/recharge.min.js")
+body(ng-controller="rechargeCtrl")
+    include ./lib/nav.jade
+    div.container
+        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加充值
+        table(class="table table-striped")
+            tr
+                th id
+                th 充值类型名称
+                th 充值金额
+                th 对应甜心币
+                th 操作
+            tr(ng-repeat="i in data")
+                td {{ i.id }}
+                td {{ i.name }}
+                td {{ i.price }}
+                td {{ i.score }}
+                td
+                    a.edit-link(href="#",data-toggle="modal",data-target="#edit",ng-click="editForm(i.id,i.name,i.price,i.score)") 编辑
+    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加充值")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 添加充值
+                div.modal-body
+                    form#add-form(role="form",method="post",enctype="multipart/form-data")
+                        div.form-group
+                            label(for="name") 充值类型名称
+                            input#name.form-control(type="text",placeholder="输入充值类型名称",ng-model="add.name")
+                        div.form-group
+                            label(for="description") 充值金额
+                            input#description.form-control(name="description",type="text",placeholder="输入充值金额",ng-model="add.price")
+                        div.form-group
+                            label(for="price") 对应甜心币
+                            input#price.form-control(name="price",type="text",placeholder="输入对应甜心币",ng-model="add.score")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="save()",type="button",data-dismiss="modal") 保存
+    div#edit.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="编辑充值")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 编辑充值
+                div.modal-body
+                    form#edit-form(role="form",method="post",enctype="multipart/form-data")
+                        div.form-group
+                            label(for="name") 充值类型名称
+                            input#name.form-control(type="text",placeholder="输入充值类型名称",ng-model="edit.name")
+                        div.form-group
+                            label(for="description") 充值金额
+                            input#description.form-control(name="description",type="text",placeholder="输入充值金额",ng-model="edit.price")
+                        div.form-group
+                            label(for="price") 对应甜心币
+                            input#price.form-control(name="price",type="text",placeholder="输入对应甜心币",ng-model="edit.score")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(ng-click="saveEdit()",type="button",data-dismiss="modal") 保存
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除教练")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 删除充值类型
+                div.modal-body
+                    p 确定要删除充值类型{{ deleteKey }}吗？
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="doDelete()") 删除

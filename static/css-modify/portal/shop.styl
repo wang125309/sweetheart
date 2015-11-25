@@ -1,0 +1,58 @@
+@import "./lib/header.styl"
+body
+    font-size:base-font-size
+    #index-view
+        .tab
+            position:relative
+            background-color:#fff
+            border-bottom:1px solid #dcdcdc
+            height:0.12rem
+            line-height:0.12rem
+            text-align:center
+            .left
+                display:inline-block
+                width:50%
+                position:relative
+            .right
+                display:inline-block
+                width:50%
+                position:relative
+            .text
+                color:#777
+                width:90%
+                margin:0 auto
+                &.active
+                    color:brand-pink
+                    border-bottom:2px solid brand-pink
+        
+        .list
+            .card-wrap
+                position:relative
+                display:inline-block
+                width:50%
+                margin-top:0.04rem
+
+                .card
+                    margin:0 auto
+                    width:90%
+                    position:relative
+                    border:1px solid #dcdcdc
+                    box-shadow:1px 1px 3px #ccc
+                    .image
+                        background-position:center
+                        background-size:cover
+                        background-repeat:no-repeat
+                        width:100%
+                        height:0.4rem
+                    .name
+                        text-align:left
+                        background-color:#fff
+                        height:0.08rem
+                        line-height:0.08rem
+                        padding:0 0.02rem
+                    .line
+                        text-align:left
+                        background-color:#fff
+                        height:0.08rem
+                        line-height:0.08rem
+                        padding:0 0.02rem

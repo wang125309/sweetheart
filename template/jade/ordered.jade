@@ -1,0 +1,40 @@
+include ./lib/header.jade
+link(href="/static/css/ordered.css",rel="stylesheet",type="text/css")
+script(language="javascript",src="/static/js/ordered.min.js")
+body(ng-controller="orderedCtrl")
+    include ./lib/nav.jade
+    div.container
+        div.col-lg-9
+            div.dropdown
+                button.btn.btn-default.dropdown-toggle#filter(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ filterText }}
+                    span.caret=""
+                ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                    li
+                        a(href="javascript:;",ng-click="getOrder('neworder')") 新订单
+                    li
+                        a(href="javascript:;",ng-click="getOrder('payed')") 已支付
+                    li  
+                        a(href="javascript:;",ng-click="getOrder('finish')") 已完成
+                    li
+                        a(href="javascript:;",ng-click="getOrder('all')") 全部
+        div.col-lg-3
+            div.input-group
+                input#search.form-control(type="text",placeholder="搜索微信名...",ng-model="queryString")
+                span.input-group-btn
+                    button.btn.btn-default(type="button",ng-click="search()") 搜索
+        table(class="table table-striped")
+            tr
+                th(width="100px") 订单号
+                th(width="300px") 商品名称
+                th 商品价格
+                th 支付状态
+            tr(ng-repeat="i in data")
+                td {{ i.transaction_id }}
+                td {{ i.desc }}
+                td {{ i.cost }}
+                td(ng-if="i.orderstatus == 'outdate'") 已过期
+                td(ng-if="i.orderstatus == 'finish'") 已完成
+                td(ng-if="i.orderstatus == 'payed'") 已支付
+                td(ng-if="i.orderstatus == 'paying'") 支付中
+                td(ng-if="i.orderstatus == 'neworder'") 新订单
+        include ./lib/pagination.jade
