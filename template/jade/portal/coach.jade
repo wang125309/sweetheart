@@ -25,20 +25,21 @@ body(ng-controller="coachCtrl")
         div.card
             div.title 综合评价
                 div.more(ng-click="goEvaluate()") 更多
-            div.dialog(ng-repeat="i in dialogs")
+            div.dialog(ng-if="dialogsEmpty==false",ng-repeat="i in dialogs")
                 div.detail {{ i.comment }}
                 div.name {{ i.stUserEntity.nickname }}
                     span.time {{ i.edate | date : 'yyyy-MM-dd a HH:mm' }}
+            div.dialog-empty(ng-if="dialogsEmtpy==true")=""
         
         div.freetime
             div.title 可预约的时间 
-            div.detail.clearfix
+            div.detail.clearfix(ng-if="freeEmpty==false")
                 div.left-bar.clearfix
                     div.item(class="{{ i.active }}",ng-repeat="i in date | orderBy : 'date' ",ng-click="changeToDate( i.date )") {{ i.displaydate }}
                 div.right-content.clearfix
                     div.time(class="{{ i.class }}",ng-if="i.reserved == false",ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
                     div.time.unable(ng-if="i.reserved == true",ng-repeat="i in times") {{ i.time }}
-
+            div.freeEmpty(ng-if="freeEmpty==true")=""
         //div.ask(ng-click="ask()")=""
         div.order-button
             button(type="button",ng-click="order()") 预约

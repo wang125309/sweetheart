@@ -30,8 +30,8 @@ body(ng-controller="controlCtrl")
                 span.right(ng-show="card.reserved == '0'") {{ card.cost }}
                 span.right.ordered(ng-show="card.reserved == '1'") {{ card.cost }}
             div.line 课程地址
-                span.right(ng-show="card.reserved == '0'") {{ card.address }}
-                span.right.ordered(ng-show="card.reserved == '1'") {{ card.address }}
+                span.right(ng-show="card.reserved == '0'") {{ card.address.place_name }}
+                span.right.ordered(ng-show="card.reserved == '1'") {{ card.address.place_name }}
             div.line 课程状态
                 span.right(ng-if="card.reserved == '0'") 未预约
                 span.right(ng-if="card.reserved == '1'") 已预约

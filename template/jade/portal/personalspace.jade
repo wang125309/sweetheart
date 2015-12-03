@@ -17,7 +17,7 @@ body(ng-controller="personalspaceCtrl",ng-cloak)
                     span {{ person.ordered }}
                     i#new(ng-show="person.ordered_new == 1")
                     i.go-right=""
-                button#shop
+                button#shop(ng-click="go('shop')")
                     i#shop-button-icon=""
                     span 积分商城
                     span {{ person.score }}
@@ -39,13 +39,17 @@ body(ng-controller="personalspaceCtrl",ng-cloak)
             div.button-line
                 div.tags    
                     span(ng-repeat="skill in skills") {{ skill.display }} 
-                button#focus
-                    span(ng-show="focus == false && self == false",ng-click="focusOn()") + 加关注
-                    span(ng-show="focus == true && self == false") 已关注
-                    span(ng-show="self == true",ng-click="goFocusMe()") 关注我的 
+                button#focus(ng-if="focus == false && self == false",ng-click="focusOn()")
+                    span + 加关注
                     i.go-right=""
-                button#sendMessage(disabled)
-                    span 私信 
+                button#focus(ng-if="focus == true && self == false")
+                    span 已关注
+                    i.go-right=""
+                button#focus(ng-if="self == true",ng-click="goFocusMe()")
+                    span 关注我的 
+                    i.go-right=""
+                button#sendMessage(ng-if="self == true",ng-click="editMyProfile()")
+                    span 我的档案 
                     i.go-right=""
         section.blank
             div#hiscourse(ng-if="self == false && (person.sex == '1' || person.sex == '0')",ng-click="goCoach()")

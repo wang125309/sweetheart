@@ -35,7 +35,9 @@ courseCtrl = angular.module('sweetheart',['ngAnimate']).controller('courseCtrl',
     $scope.order = function() {
         $.get("/api/orderPublicClass.do?publicclass_id="+id,function(data){
             if(data.error_no == '0') {
-                alertShow(data.data);
+                alertShow(data.data,function(){
+                    location.href = '/portal/ordered.html';
+                });
                 $scope.alert = window.alert;
                 refrash();
             }

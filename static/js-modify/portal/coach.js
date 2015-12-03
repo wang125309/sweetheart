@@ -29,10 +29,6 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
         });
     };
     refrash();
-    $scope.ask = function() {
-        alertShow("愤怒开发中");
-        $scope.alert = window.alert;
-    };
     $scope.likeCoach = function() {
         $.get("/api/likeCoach.do?coach_id="+coach_id,function(data){
             refrash();
@@ -43,10 +39,16 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
 
     };
     $.get("/api/getEvaluation.do",{
-        coach_id : coach_id
+        coach_id : getQueryParams("coachid")
     },function(data){
         if(data.error_no == '0') {
             $scope.dialogs = data.data;
+            if($scope.dialogs.length == 0) {
+                $scope.dialogsEmpty = true;
+            }
+            else {
+                $scope.dialogsEmpty = false;
+            }
             $scope.$apply();
         }
     });
@@ -55,6 +57,12 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
     };
     $.get("/api/getPersonalClassListDateByCoach.do?coach_id="+window.getQueryParams("coachid"),function(data){
         $scope.date = data.data;
+        if($scope.date.length == 0) {
+            $scope.freeEmpty = true;
+        }
+        else {
+            $scope.freeEmpty = false;
+        }
         date = '';
         for(i in $scope.date) {
             if($scope.date[i].active == true) {
@@ -85,11 +93,14 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
     $scope.goPersonalSpace = function() {
         location.href = "/portal/personalspace.html?id="+id;
     };
+
     $scope.order = function() {
         if("personalclass_id" in $scope.orderP) {
             $.get("/api/orderPersonalClass.do",$scope.orderP,function(data){
                 if(data.error_no == '0') {
-                    alertShow('您的预约请求已发送，请15分钟之内完成支付');
+                    alertShow('您的预约请求已发送，请15分钟之内完成支付',function(){
+                        location.href = '/portal/ordered.html';
+                    });
                     $scope.alert = window.alert;
                     $scope.$apply();
                 }

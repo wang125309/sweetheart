@@ -51,6 +51,8 @@ section#index-view
                 border:none
                 width:0.6rem
                 -webkit-user-select:initial
+            span.right
+                float:right
     #personal-message,#award-message,#skill-message,#image-message,#video-message
         .left-title
             border-left:0.01rem solid brand-pink
@@ -150,12 +152,20 @@ section#index-view
             display:inline-block
             margin-left:0.02rem
             margin-top:0.02rem
+            position:relative
             > div
                 background-repeat:no-repeat
                 background-size:cover
                 background-position:center
                 width:0.2rem
                 height:0.2rem
+            .close
+                image-wauto('close.png')
+                position:absolute
+                right:0
+                top:0
+                width:0.04rem
+                height:0.04rem
         #video
             visibility:hidden
             height:0

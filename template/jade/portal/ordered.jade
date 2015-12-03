@@ -21,7 +21,7 @@ body(ng-controller="orderedCtrl")
                 div.line 时间
                     span.right {{ i.begintime | date : 'yyyy-MM-dd a HH:mm' }} - {{ i.endtime | date : 'a HH:mm' }}
                 div.line 地址
-                    span.right {{ i.address }}
+                    span.right {{ i.placeEntity.place_name }}
             div.bottom
                 div.name 单号 {{ i.id }}
                     span.qrcode(ng-if="i.orderstatus == 'payed'",ng-click="showQrcode($index)")=""

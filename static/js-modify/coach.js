@@ -53,6 +53,7 @@ coachCtrl = angular.module('app',['ngAnimate','ngSanitize']).controller('coachCt
         $scope.video = $sce.trustAsResourceUrl(i.video);
         $scope.viewImagesUrlList = i.imagesUrlList;
         $scope.horizontalimg = i.horizontalimg;
+        $scope.imagesIDCardUrlList = i.imagesIDCardUrlList;
         $scope.goodats = i.goodats;
         $scope.winning = i.winning;
     };
@@ -88,9 +89,14 @@ coachCtrl = angular.module('app',['ngAnimate','ngSanitize']).controller('coachCt
             });
         }
     };
+    $scope.delete = function() {
+        jQuery.get("/sys/delCoach.do?coach_id="+$scope.id,function(data){
+            refrash();         
+        });
+    };
     $scope.addVApply = function() {
-        jQuery.get("/sys/setCoachVic.do?coach_id="+$scope.id,function(data){
-             
+        jQuery.get("/sys/setCoachVip.do?coach_id="+$scope.id,function(data){
+            refrash();         
         });
     };
 }])

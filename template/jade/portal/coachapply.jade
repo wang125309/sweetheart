@@ -1,8 +1,9 @@
 include ./lib/header.jade
-    title 申请成为私教 
+
     link(href="/static/css/portal/coachapply.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="/static/js/portal/coachapply.js")
 body(ng-controller="coachapplyCtrl")
+    title {{ title }} 
 
     section#index-view
         div.processing(ng-show="processing==true")
@@ -13,25 +14,31 @@ body(ng-controller="coachapplyCtrl")
                 span 基本信息
             div.real-name.message-line.clearfix
                 span 真实姓名
-                input(type="text",name="realname",ng-model="coach.realname")
+                input(ng-if="type=='new'",type="text",name="realname",ng-model="coach.realname")
+                span.right(ng-if="type=='edit'") {{ edit.nickname }}
             div.mobile.message-line.clearfix
                 span 昵称
-                input(type="text",name="displayname",ng-model="coach.displayname")
+                input(ng-if="type=='new'",type="text",name="displayname",ng-model="coach.displayname")
+                input(ng-if="type=='edit'",type="text",name="displayname",ng-model="edit.displayname")
             div.age.message-line.clearfix
                 span 教龄 
-                input(type="text",name="age",ng-model="coach.age")
+                input(ng-if="type=='new'",type="text",name="age",ng-model="coach.age")
+                input(ng-if="type=='edit'",type="text",name="age",ng-model="edit.age")
             div.card.message-line.clearfix
                 span 证件号
-                input(type="text",name="idcard",ng-model="coach.idcard")
+                input(ng-if="type=='new'",type="text",name="idcard",ng-model="coach.idcard")
+                span.right(ng-if="type=='edit'") {{ edit.idcard }}
         section#personal-message
             div.base-title
                 span 个人简介
-            textarea(name="description",ng-model="coach.description",placeholder="必填，100字以上")
+            textarea(ng-if="type=='new'",name="description",ng-model="coach.description",placeholder="必填，100字以上")
+            textarea(ng-if="type=='edit'",name="description",ng-model="edit.description",placeholder="必填，100字以上")
         section#award-message
             div.base-title
                 span 获奖经历
-            textarea(name="winning",ng-model="coach.winning",placeholder="（选填）")
-        section#skill-message
+            textarea(ng-if="type=='new'",name="winning",ng-model="coach.winning",placeholder="（选填）")
+            textarea(ng-if="type=='edit'",name="winning",ng-model="edit.winning",placeholder="（选填）")
+        section#skill-message(ng-if="type=='new'")
             div.left-title 专长
                 span.more-skill-down(ng-show="skillShow==true")=""
                 span.more-skill-up(ng-show="skillShow==false")=""
@@ -39,39 +46,76 @@ body(ng-controller="coachapplyCtrl")
                 span(ng-repeat="i in skills")
                     button(class="{{ i.class }}",ng-click="chooseSkill(i.id)") {{ i.name }}
                 input(type="hidden",ng-model="coach.skills",name="goodat",value="{{ coach.skills }}")
-        form#avatar-form(method="post",role="form",enctype="multipart/form-data")
+        section#skill-message(ng-if="type=='edit'")
+            div.left-title 专长
+                span.more-skill-down(ng-show="skillShow==true")=""
+                span.more-skill-up(ng-show="skillShow==false")=""
+            div.skills-area
+                span(ng-repeat="i in editskills")
+                    button(class="{{ i.class }}",ng-click="chooseSkillEdit(i.id)") {{ i.name }}
+                input(type="hidden",ng-model="coach.skills",name="goodat",value="{{ edit.editskills }}")
+        form#avatar-form(method="post",role="form",enctype="multipart/form-data",ng-if="type=='new'")
             section#image-message
                 div.left-title 头像图片（将展示在您的个人中心）
                 div.image-area
                     div.pic(ng-show="avatarUploaded==true")
                         div.picture(style="{{ avatar }}")
-                        i.close=""
                     input(avatar-upload,type="file",name="images",id="avatar-input",accept="image/*")
                     div.add-pic(ng-click="addAvatar()")=""
-        form#banner-form(method="post",role="form",enctype="multipart/form-data")
+        form#avatar-form(method="post",role="form",enctype="multipart/form-data",ng-if="type=='edit'")
+            section#image-message
+                div.left-title 头像图片（将展示在您的个人中心）
+                div.image-area
+                    div.pic(ng-show="edit.headimg")
+                        div.picture(style="background-image:url('{{ edit.headimg }}');")
+                    input(avatar-edit-upload,type="file",name="images",id="avatar-input",accept="image/*")
+                    div.add-pic(ng-click="addAvatar()")=""
+        form#banner-form(ng-if="type=='new'",method="post",role="form",enctype="multipart/form-data")
             section#image-message
                 div.left-title 列表页图片（将作为您的形象照展示在教练列表页，建议使用比例16/9的宽图片）
                 div.image-area
                     div.pic(ng-show="bannerUploaded==true")
                         div.picture(style="{{ banner }}")
-                        i.close=""
                     input(banner-upload,type="file",name="images",id="banner-input",accept="image/*")
                     div.add-pic(ng-click="addBanner()")=""
-        form#image-form(method="post",role="form",enctype="multipart/form-data")
+        form#banner-form(ng-if="type=='edit'",method="post",role="form",enctype="multipart/form-data")
+            section#image-message
+                div.left-title 列表页图片（将作为您的形象照展示在教练列表页，建议使用比例16/9的宽图片）
+                div.image-area
+                    div.pic(ng-show="edit.horizontalimg")
+                        div.picture(style="background-image:url('{{ edit.horizontalimg }}');")
+                    input(banner-edit-upload,type="file",name="images",id="banner-input",accept="image/*")
+                    div.add-pic(ng-click="addBanner()")=""
+        form#image-form(ng-if="type=='new'",method="post",role="form",enctype="multipart/form-data")
             section#image-message
                 div.left-title 风采展示图片（请上传个人生活照，仅支持9图以内）
                 div.image-area
                     div.pic(ng-repeat="i in pics track by $index")
                         div.picture(style="{{ i.image }}")
-                        i.close=""
+                        i.close(ng-click="deletePic(i)")=""
                     input(file-upload,ng-repeat="i in images track by $index",type="file",name="images",id="input{{ $index + 1 }}",accept="image/*")
                     div.add-pic(ng-click="addPic()")=""
-        form#video-form(method="post",role="form",enctype="multipart/form-data")
+        form#image-form(ng-if="type=='edit'",method="post",role="form",enctype="multipart/form-data")
+            section#image-message
+                div.left-title 风采展示图片（请上传个人生活照，仅支持9图以内）
+                div.image-area
+                    div.pic(ng-repeat="i in edit.imagesUrlList track by $index")
+                        div.picture(style="background-image:url('{{ i.res_url }}');")
+                        i.close(ng-click="deleteEditPic(i,i.id)")=""
+                    input(file-edit-upload,ng-repeat="i in images track by $index",type="file",name="images",id="input{{ $index + 1 }}",accept="image/*")
+                    div.add-pic(ng-click="addPic()")=""
+        form#video-form(ng-if="type=='new'",method="post",role="form",enctype="multipart/form-data")
             section#video-message
                 div.left-title="视频展示"
                 div.add-video(ng-click="addVideo()") {{ videoUpload }}
                 input#video(type="file",name="video",video-upload,accept="video/*")
-        form#credit-form(method="post",role="form",enctype="multipart/form-data")
+        form#video-form(ng-if="type=='edit'",method="post",role="form",enctype="multipart/form-data")
+            section#video-message
+                div.left-title="视频展示"
+                video(controls="controls",ng-src="{{ video }}",height="200px",webkit-playsinline,poster="/static/image/video.jpg",style="margin:0.02rem")
+                div.add-video(ng-click="addVideo()") {{ videoUpload }}
+                input#video(type="file",name="video",video-upload,accept="video/*")
+        form#credit-form(ng-if="type=='new'",method="post",role="form",enctype="multipart/form-data")
             section#credit-message
                 div.left-title="身份信息照片"
                 section#credit-up-message
@@ -82,6 +126,7 @@ body(ng-controller="coachapplyCtrl")
                     div.example=""
                     div.credit-button(style="{{ creditDownImage }}",ng-click="addCreditDown()") {{ creditDownText }}
                     input#credit-down(type="file",name="images",credit-upload-down,accept="image/*")
-            section#footer
-                div Tip：信息越完善，申请通过的几率越大哦~
-                button#submit(ng-click="save()") 提交申请
+        section#footer
+            div Tip：信息越完善，申请通过的几率越大哦~
+            button#submit(ng-if="type=='new'",ng-click="save()") 提交申请
+            button#submit(ng-if="type=='edit'",ng-click="saveEdit()") 提交申请

@@ -22,12 +22,14 @@ orderedCtrl = angular.module('sweetheart',['ngAnimate']).controller('orderedCtrl
                 if("publicClassEntity" in $scope.card[i]) {
                     $scope.card[i].begintime = $scope.card[i].publicClassEntity.begintime;
                     $scope.card[i].endtime = $scope.card[i].publicClassEntity.endtime;
+                    $scope.card[i].placeEntity = $scope.card[i].publicClassEntity.placeEntity;
                 }
             }
             else {
                 if("personalClassEntity" in $scope.card[i]) {
                     $scope.card[i].begintime = $scope.card[i].personalClassEntity.begintime;
                     $scope.card[i].endtime = $scope.card[i].personalClassEntity.endtime;   
+                    $scope.card[i].placeEntity = $scope.card[i].personalClassEntity.placeEntity;
                 }
             }
         }

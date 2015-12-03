@@ -24,6 +24,7 @@ newcourseCtrl = angular.module('sweetheart',['ngAnimate']).controller('newcourse
             $scope.locations[i].active = '';
         }
         $scope.locations[0].active = 'active';
+        $scope.course.address = $scope.locations[0].id;
         $scope.location = $scope.locations[0].place_name;
         $scope.$apply();
     });

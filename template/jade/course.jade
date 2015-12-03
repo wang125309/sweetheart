@@ -5,6 +5,7 @@ body(ng-controller="courseCtrl")
     include ./lib/nav.jade
     div.container
         button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add") 添加专业
+
         table(class="table table-striped")
             tr
                 th #
@@ -15,7 +16,7 @@ body(ng-controller="courseCtrl")
                 td {{ i.display }}
                 td
                     a.delete(href="javascript:;",ng-click="delete(i.id,i.display)",data-toggle="modal",data-target="#delete") 删除
-    
+
     div#add.modal.fade.bs-example-modal-sm(role="dialog",datepicker,tabindex="-1",aria-labelledby="添加科目")
         div.modal-dialog(role="document")
             div.modal-content

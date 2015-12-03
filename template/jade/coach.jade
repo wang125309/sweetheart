@@ -27,7 +27,6 @@ body(ng-controller="coachCtrl")
                 th 性别
                 th 身份证号
                 th 手机号
-                th 类型
                 th 操作
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
@@ -43,58 +42,26 @@ body(ng-controller="coachCtrl")
                 td(ng-if="i.gender != '1' && i.gender != '2'") 未知
                 td {{ i.idcard }}
                 td {{ i.phonenum }}
-                td(ng-if="i.type == '0'") 私教  
-                td(ng-if="i.type == '1'") 操课教练  
                 td(ng-if="i.type != '0' && i.type != '1'") 全能 
                 td
                     a.view(href="javascript:;",data-target="#view",ng-click="viewEdit(i)",data-toggle="modal") 查看详情 
                     a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.userid,i.id)") 通过 
                     a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#reject") 取消通过
                     a.addV(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#addV") 成为认证
+                    a.delete(style="margin-left:5px;",href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#delete") 删除记录
     
-    div#add.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="添加操课教练")
+    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除记录")
         div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button",data-dismiss="modal",area-label="Close")
                         span(aria-hidden="true") &times;
-                    h4.modal-title 添加操课教练
+                    h4.modal-title 删除记录
                 div.modal-body
-                    div.form-group
-                        label(for="name") 名称
-                        input#name.form-control(type="text",placeholder="输入教练的名称")
-                    div.form-group
-                        label(for="age") 年龄 
-                        input#age.form-control(type="text",placeholder="输入教练的年龄")
-                    div.form-group
-                        label(for="images") 头像图片 
-                        input#age.form-control(type="file",placeholder="教练头像")
-                    div.form-group
-                        label(for="display-name") 展示昵称
-                        input#display-name.form-control(type="text",placeholder="输入教练的昵称")
-                    div.form-group
-                        label(for="subject") 擅长的项目
-                        div
-                            select#subject(select,multiple="multiple")
-                                option(value="1") 搏击
-                                option(value="2") 散打
-                                option(value="3") 游泳
-                                option(value="4") 举重
+                    p 确定要删除这条记录吗？
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-primary(type="button",data-dismiss="modal") 保存
-    div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除教练")
-        div.modal-dialog(role="document")
-            div.modal-content
-                div.modal-header
-                    button.close(type="button",data-dismiss="modal",area-label="Close")
-                        span(aria-hidden="true") &times;
-                    h4.modal-title 删除教练
-                div.modal-body
-                    p 确定要删除教练Jam吗？
-                div.modal-footer
-                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
-                    button.btn.btn-danger(type="button",data-dismiss="modal") 删除
+                    button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="delete()") 删除
     div#view.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="查看详情")
         div.modal-dialog(role="document")
             div.modal-content
@@ -104,8 +71,12 @@ body(ng-controller="coachCtrl")
                     h4.modal-title 查看详情
                 div.modal-body
                     div.form-group
-                        label(for="images") 名称
+                        label(for="images") 生活照
                         div.images(ng-repeat="i in viewImagesUrlList")
+                            img(ng-src="{{ i.res_url }}")
+                    div.form-group
+                        label(for="credit-images") 认证照片
+                        div.images(ng-repeat="i in imagesIDCardUrlList")
                             img(ng-src="{{ i.res_url }}")
                     div.form-group
                         label(for="horizontalimg") 横幅

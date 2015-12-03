@@ -26,14 +26,57 @@ subjectCtrl = angular.module('app',['ngAnimate']).controller('subjectCtrl',['$sc
             $scope.skills = data.data; 
             $scope.$apply();
         });
+        jQuery.get("/sys/getAllPlace.do",function(data){
+            $scope.locations = data.root;
+            $scope.location = '选择场地';
+            $scope.locationSelect = '选择场地';
+            $scope.$apply();
+        });
+        jQuery.get("/sys/getWeeks.do",function(data){
+            $scope.weeks = data.data;
+            $scope.week = '选择时间段';
+            $scope.weekStart = '选择要复制到的时间段';
+            $scope.weekSample = '选择样本时间段';
+            $scope.$apply();
+        });
     };
     refrash();
+    $scope.copy = {};
+    $scope.getLocation = function(id,place_name) {
+        $scope.copy.location = id;
+        $scope.locationSelect = place_name;
+    };
+    $scope.getWeek = function(numberof,start,end) {      
+        $scope.copy.numberof = numberof;
+        $scope.weekStart =  '第'+numberof+'周 ' + start + ' ~ ' + end;
+    };
+    $scope.getWeekSample = function(numberof,start,end) {
+        $scope.copy.samplenumberof = numberof;
+        $scope.weekSample = '第'+numberof+'周 ' + start + ' ~ ' + end;
+    };
+    $scope.filter = {};
+    $scope.selectLocation = function(id,place_name) {
+        $scope.location = place_name;
+        $scope.filter.place_id = id;
+        jQuery.get("/sys/getPublicClassByWeekAndPlace.do",$scope.filter,function(data){
+            $scope.data = data.data;
+            $scope.$apply();
+        });
+    };
+    $scope.selectWeek = function(numberof,start,end) {      
+        $scope.week = '第'+numberof+'周 ' + start + ' ~ ' + end;
+        $scope.filter.numberof = numberof;
+        jQuery.get("/sys/getPublicClassByWeekAndPlace.do",$scope.filter,function(data){
+            $scope.data = data.data;
+            $scope.$apply();
+        });
+    };
     $scope.addMenu = function() {
         $scope.optText = '添加课程';
         $scope.course = {};
         jQuery("#position+.btn-group>button>span").html("请选择项目");
     };
-
+    
     $scope.optid = function(id) {
         $scope.id = id;
         $scope.optText = '编辑课程';
@@ -63,6 +106,20 @@ subjectCtrl = angular.module('app',['ngAnimate']).controller('subjectCtrl',['$sc
                 }
                 return res;
             }());
+        });
+    };
+    $scope.saveCopy = function() {
+        jQuery.get("/sys/copyPublicClassByNumble.do",{
+            "numberof":$scope.copy.samplenumberof,
+            "target":$scope.copy.numberof,
+            "place_id":$scope.copy.location
+        },function(data){
+            if(data.error_no == '0') {
+                refrash();
+            }
+            else {
+                alert(data.data.message);
+            }
         });
     };
     $scope.deleteid = function(id) {

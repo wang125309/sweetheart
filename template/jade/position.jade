@@ -8,13 +8,11 @@ body(ng-controller="positionCtrl")
         button.btn.btn-primary.pull-right#add-btn(type="button",data-toggle="modal",data-target="#sync") 同步场地到微信菜单
         table(class="table table-striped")
             tr
-                th #
                 th 场地名称
                 th 详细地址
                 th 在微信菜单中展示
                 th 操作
             tr(ng-repeat="i in data.root")
-                td {{ i.id }}
                 td {{ i.place_name }}
                 td {{ i.description }}
                 td(ng-if="i.issynctoweixin==0")="未同步"

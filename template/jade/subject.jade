@@ -5,7 +5,21 @@ body(ng-controller="subjectCtrl")
     include ./lib/nav.jade
     div.process(ng-show="process==true")=""
     div.container
-        button.btn.btn-primary#add-btn(type="button",data-toggle="modal",data-target="#add",ng-click="addMenu()") 添加课程
+        div(style="position:relative")
+            div.location-filter(style="position:relative;display:inline-block;")
+                button.btn.btn-default.dropdown-toggle#location-filter(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ location }}
+                    span.caret=""
+                ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                    li(ng-repeat="i in locations")
+                        a(href="javascript:;",ng-click="selectLocation(i.id,i.place_name)") {{ i.place_name }}
+            div.week-filter(style="position:relative;display:inline-block;margin-left:15px;")
+                button.btn.btn-default.dropdown-toggle#week-filter(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ week }}
+                    span.caret=""
+                ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                    li(ng-repeat="i in weeks.weeks")
+                        a(href="javascript:;",ng-click="selectWeek(i.numberof,i.begin,i.end)") 第{{ i.numberof }}周 {{ i.begin }} ~ {{ i.end }}
+            button.btn.btn-primary.pull-right#copy-btn(type="button",data-toggle="modal",data-target="#copy") 复制课程
+            button.btn.btn-primary#add-btn.pull-right(type="button",data-toggle="modal",data-target="#add",ng-click="addMenu()",style="margin-right:15px;") 添加课程
         table(class="table table-striped")
             tr
                 th #
@@ -96,3 +110,40 @@ body(ng-controller="subjectCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="delete()") 删除
+    div#copy.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="复制课程")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 复制课程
+                div.modal-body
+                    div.form-group
+                        label(for="location") 地点
+                        div(style="position:relative;")
+                            button.btn.btn-default.dropdown-toggle#location(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ locationSelect }}
+                                span.caret=""
+                            ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                                li(ng-repeat="i in locations")
+                                    a(href="javascript:;",ng-click="getLocation(i.id,i.place_name)") {{ i.place_name }}
+                    div.form-group
+                        label(for="weeksSample") 样本周 
+                        div(style="position:relative;")
+                            button.btn.btn-default.dropdown-toggle#weekSample(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ weekSample }}
+                                span.caret=""
+                            ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                                li(ng-repeat="i in weeks.weeks")
+                                    a(href="javascript:;",ng-click="getWeekSample(i.numberof,i.begin,i.end)") 第{{ i.numberof }}周 {{ i.begin }} - {{ i.end }}
+
+                    div.form-group
+                        label(for="weeks") 复制到目标周
+                        div(style="position:relative;")
+                            button.btn.btn-default.dropdown-toggle#week(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ weekStart }}
+                                span.caret=""
+                            ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                                li(ng-repeat="i in weeks.weeks")
+                                    a(href="javascript:;",ng-click="getWeek(i.numberof,i.begin,i.end)") 第{{ i.numberof }}周 {{ i.begin }} - {{ i.end }}
+
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="saveCopy()") 确定    

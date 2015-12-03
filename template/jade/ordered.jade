@@ -29,7 +29,7 @@ body(ng-controller="orderedCtrl")
                 th 商品价格
                 th 支付状态
             tr(ng-repeat="i in data")
-                td {{ i.transaction_id }}
+                td {{ i.id }}
                 td {{ i.desc }}
                 td {{ i.cost }}
                 td(ng-if="i.orderstatus == 'outdate'") 已过期

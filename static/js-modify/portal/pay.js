@@ -30,13 +30,13 @@ payCtrl = angular.module('sweetheart',['ngAnimate']).controller('payCtrl',['$sco
             $scope.cost = data.data.publicClassEntity.cost + '甜心币';
             $scope.bgtime = data.data.publicClassEntity.begintime;
             $scope.edtime = data.data.publicClassEntity.endtime;
-            $scope.addr = data.data.publicClassEntity.address;
+            $scope.addr = data.data.publicClassEntity.placeEntity.place_name;
         }
         else if("personalclass_id" in data.data) {
             $scope.cost = data.data.personalClassEntity.cost + '甜心币';
             $scope.bgtime = data.data.personalClassEntity.begintime;
             $scope.edtime = data.data.personalClassEntity.endtime;
-            $scope.addr = data.data.personalClassEntity.address;
+            $scope.addr = data.data.personalClassEntity.placeEntity.place_name;
         }
         $scope.type = '新店立减';
         $scope.payment = data.data.cost;
@@ -45,8 +45,12 @@ payCtrl = angular.module('sweetheart',['ngAnimate']).controller('payCtrl',['$sco
     payed = 0;
     $scope.pay = function() {
         if(payed == 0) {
+            $scope.process = true;
+
             $.get("/pay/payClassOrder.do?order_id="+order_id,function(data){
+
                 if(data.error_no == '0') {
+                    $scope.process = false;
                     payed = 1;
                     alertShow("支付成功，请按时参加~",function(){
                         location.href = '/portal/ordered.html?type=2';
@@ -55,6 +59,7 @@ payCtrl = angular.module('sweetheart',['ngAnimate']).controller('payCtrl',['$sco
                     $scope.$apply();
                 }
                 else {
+                    $scope.process = false;
                     alertShow(data.data.message,function(){
                         if(data.data.code == '500302') {
                             location.href = '/portal/shop.html?type=0';
@@ -64,6 +69,7 @@ payCtrl = angular.module('sweetheart',['ngAnimate']).controller('payCtrl',['$sco
                     $scope.$apply();
                 }
             });
+            $scope.$apply();
         }
         payed = 1;
     };

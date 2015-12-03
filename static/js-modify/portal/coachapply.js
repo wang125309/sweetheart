@@ -2,11 +2,50 @@ require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/zepto/zepto.js");
 require("../../../bower_components/zeptojs/src/touch.js");
+require("../getParams.js");
+require("../../../bower_components/angular-sanitize/angular-sanitize.min.js");
 require("./login.js");
-coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapplyCtrl',['$scope',function($scope){
+coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapplyCtrl',['$scope','$sce',function($scope,$sce){
     $scope.skills = [];
     $scope.videoUpload = "上传视频";
     var refrash = function() {
+        if(getQueryParams("type")=='edit') {
+
+            $scope.title = '我的档案';
+            $scope.type = 'edit';
+            $scope.editskills = [];
+            $.get("/api/getUserInfo.do",function(data){
+                $scope.edit = data.data.coachinfo;
+                $scope.edit.skills = '';
+                $scope.video = $sce.trustAsResourceUrl($scope.edit.video);
+                $.get("/api/getGoodat.do",function(d){
+                    for(i in d.data) {
+                        ds = {
+                            name : d.data[i].display,
+                            id : d.data[i].id,
+                            choose : false,
+                            class : "unchoose",
+                            old_id : d.data[i].old_id
+                        };
+                        $scope.editskills.push(ds);
+                        for(j in $scope.edit.goodats) {
+                            if(d.data[i].id == $scope.edit.goodats[j].old_id) {
+                                $scope.editskills[i].class = 'choose';
+                                $scope.editskills[i].choose = true;
+                                $scope.edit.skills += ',' + d.data[i].id;
+                            }
+                        }
+                        $scope.$apply();
+                    }
+                    $scope.$apply();
+                });
+                $scope.$apply();
+            });
+        }
+        else {
+            $scope.title = '申请成为私教';
+            $scope.type = 'new';
+        }
         $.get("/api/getGoodat.do",function(data){
             for(i in data.data) {
                 d = {
@@ -30,6 +69,36 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
             $scope.skillShow = true;
         }
     };
+    $scope.deletePic = function(obj) {
+        for(i in $scope.pics) {
+            if($scope.pics[i].image == obj.image) {
+                //delete image
+                if(!$scope.pics.splice(i,1)) {
+                    $scope.pics.pop();
+                    if(!scope.images.splice(i,1)) {
+                        $scope.images.pop();
+                    }
+                }
+            }
+        }
+    };
+    $scope.deleteEditPic = function(obj,id) {
+        $.get("/api/deleteCoachImage.do?id="+id,function(data){
+            if(data.error_no == '0') {
+                for(i in $scope.edit.imagesUrlList) {
+                    if($scope.edit.imagesUrlList[i].id == id) {
+                        //delete image
+                        if(!$scope.edit.imagesUrlList.splice(i,1)) {
+                            $scope.edit.imagesUrlList.pop();
+                            if(!scope.images.splice(i,1)) {
+                                $scope.images.pop();
+                            }
+                        }
+                    }
+                }
+            }
+        }); 
+    }
     $scope.coach = {
         realname : '',
         age : '',
@@ -40,6 +109,35 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
     };
     $scope.creditUpText = '+ 点击上传';
     $scope.creditDownText = '+ 点击上传';
+
+    $scope.chooseSkillEdit = function(id) {
+        for(i in $scope.editskills) {
+            if($scope.editskills[i].id == id) {
+                $scope.editskills[i].choose = !$scope.editskills[i].choose;
+                if($scope.editskills[i].class == 'unchoose') {
+                    $scope.editskills[i].class = 'choose';
+                    $scope.edit.skills += ','+$scope.editskills[i].id;
+                }
+                else {
+                    $scope.editskills[i].class = 'unchoose';
+                    s = $scope.edit.skills.split(",");
+                    for (j in s) {
+                        if (s[j] == $scope.editskills[i].id) {
+                            if(!s.splice(j,1)) {
+                                s.pop();
+                            }
+                        }
+                    }
+                    res = '';
+                    for (j in s) {
+                        res += ',' + s[j];
+                    }
+                    $scope.edit.skills = res;
+                }
+                break;
+            }
+        }
+    };
     $scope.chooseSkill = function(id) {
         for(i in $scope.skills) {
             if($scope.skills[i].id == id) {
@@ -144,7 +242,12 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
 
     var insertBanner = function() {
         formUpload("/api/insertCoachImagesHorizontal.do","#banner-form",function(){
-            insertCard();
+            if($scope.type == 'new') {
+                insertCard();
+            }
+            else {
+                insertVideo();
+            }
         },function(){
             alertShow("ajax错误，展示图上传失败");
         },"展示图上传失败","展示图上传中...");
@@ -169,15 +272,32 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
     };
     var insertImages = function() {
         formUpload("/api/insertCoachImages.do","#image-form",function(){
-            insertVideo();
+            insertAvatar();
         },function(){
             alertShow("ajax错误，生活照上传失败");
         },"生活照上传失败","生活照上传中...");
     };
+    check = false;
+    $scope.saveEdit = function() {
+
+        if(!check) {
+            check = true;
+            $.post('/api/updateCoach.do',$scope.edit,function(data){
+                if(data.error_no == '0') {
+                    insertImages();
+                }
+                else {
+                    alertShow("信息填写失败");
+                    $scope.processing = false;
+                    $scope.$apply();
+                }
+            });
+        } 
+    };
 
     $scope.save = function() {
-        check = false;
         if(!check) {
+            check = true;
             $.post('/api/userToCoach.do',$scope.coach,function(data){
                 if(data.error_no == '0') {
                     insertImages();
@@ -198,6 +318,27 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
                 f = element[0].value.split("\\");
                 scope.videoUpload = f[f.length - 1];
                 scope.$apply();
+            });
+        }
+    }
+})
+.directive('fileEditUpload',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function(){
+                var fReader = new FileReader();
+                file_element = $("#input"+scope.images.length)[0];
+                console.log(file_element);
+                fReader.readAsDataURL(file_element.files[0]);
+                fReader.onloadend = function(event) {
+                    upload_image = event.target.result;
+                    l = scope.images.length;
+                    scope.edit.imagesUrlList.push({
+                        res_url:upload_image,
+                    });
+                    scope.images.push(1);
+                    scope.$apply();
+                }
             });
         }
     }
@@ -223,6 +364,22 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
         }
     }
 })
+.directive('avatarEditUpload',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function(){
+                var fReader = new FileReader();
+                file_element = $("#avatar-input")[0];
+                fReader.readAsDataURL(file_element.files[0]);
+                fReader.onloadend = function(event) {
+                    upload_image = event.target.result;
+                    scope.edit.headimg = upload_image;
+                    scope.$apply();
+                }
+            });
+        }
+    }
+})
 .directive('avatarUpload',function(){
     return {
         link : function(scope,element,attr) {
@@ -234,6 +391,22 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
                     upload_image = event.target.result;
                     scope.avatar = 'background-image:url("'+ upload_image +'")';
                     scope.avatarUploaded = true;
+                    scope.$apply();
+                }
+            });
+        }
+    }
+})
+.directive('bannerEditUpload',function(){
+    return {
+        link : function(scope,element,attr) {
+            element.on('change',function(){
+                var fReader = new FileReader();
+                file_element = $("#banner-input")[0];
+                fReader.readAsDataURL(file_element.files[0]);
+                fReader.onloadend = function(event) {
+                    upload_image = event.target.result;
+                    scope.edit.horizontalimg = upload_image ;
                     scope.$apply();
                 }
             });

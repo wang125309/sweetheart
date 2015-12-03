@@ -1,12 +1,14 @@
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/angular-sanitize/angular-sanitize.min.js");
+require("./lib/alert.js");
 require("../../../bower_components/zepto/zepto.js");
+require("./login.js");
 require("../../../bower_components/zeptojs/src/touch.js");
 require("../../../bower_components/swiper/dist/js/swiper.js");
 require("../getParams.js");
-require("./lib/alert.js");
-require("./login.js");
+
+
 personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).controller('personalspaceCtrl',['$scope','$sce',function($scope,$sce){
     p = {};
     id = window.getQueryParams('id');
@@ -66,6 +68,9 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).cont
     };
     $scope.goFocusMe = function() {
         location.href = '/portal/focuslist.html?type=me&&coach_id='+$scope.person.coachid;
+    };
+    $scope.editMyProfile = function() {
+        location.href = '/portal/coachapply.html?type=edit';
     };
     $scope.focusOn = function() {
         $.get("/api/likeCoach.do?coach_id="+$scope.person.coachid,function(data){
