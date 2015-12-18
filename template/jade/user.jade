@@ -16,6 +16,7 @@ body(ng-controller="userCtrl")
             tr
                 th #
                 th 昵称
+                th 会员状态
                 th 性别
                 th 手机号
                 th 甜心币
@@ -25,6 +26,13 @@ body(ng-controller="userCtrl")
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
                 td {{ i.nickname }}
+                td
+                    span(ng-if="i.vip_status==0") 非会员
+                    span(ng-if="i.vip_status==-1") 过期会员
+                    span(ng-if="i.vip_status==1") 充值会员
+                    span(ng-if="i.vip_status==2") 月卡会员
+                    span(ng-if="i.vip_status==3") 季卡会员
+                    span(ng-if="i.vip_status==4") 年卡会员
                 td(ng-if="i.gender == 1") 男
                 td(ng-if="i.gender == 2") 女
                 td(ng-if="i.gender == 0") 未知
@@ -33,8 +41,49 @@ body(ng-controller="userCtrl")
                 td {{ i.goodat }}
                 td
                     img(ng-src="{{ i.headurl }}",width="70px",height="70px")
-                td=""
+                td
+                    a(href="javascript:;",style="margin-right:5px;",data-target="#beVip",data-toggle="modal",ng-click="optid(i.id,i.nickname)") 成为会员
+                    a(href="javascript:;",style="margin-right:5px;",data-target="#addScore",data-toggle="modal",ng-click="optid(i.id,i.nickname)") 加甜心币
+                    a(href="javascript:;",style="margin-right:5px;",data-target="#viewScore",data-toggle="modal",ng-click="viewScore(i.id)") 查看甜心币明细
         include ./lib/pagination.jade
+    
+
+    div#addScore.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="增加甜心币")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 给{{ addNickName }}增加甜心币
+                div.modal-body
+                    div.form-group
+                        label(for="score") 数量
+                        input#name.form-control(type="number",placeholder="输入具体数量",ng-model="add.count")
+                    div.form-group
+                        label(for="remark") 理由
+                        input#remark.form-control(type="text",placeholder="输入理由",ng-model="add.remark")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="addScore()") 确定 
+    div#viewScore.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="查看甜心币明细")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 查看甜心币明细
+                div.modal-body
+                    table(style="border:0;width:100%;")
+                        th 理由
+                        th 数量
+                        th 时间
+                        tr(ng-repeat="i in logs")
+                            td {{ i.remark }}
+                            td {{ i.score }}
+                            td {{ i.xdate | date:"yyyy-MM-dd HH:mm" }}
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="addScore()") 确定 
     div#sync.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="同步微信用户")
         div.modal-dialog(role="document")
             div.modal-content
@@ -47,3 +96,36 @@ body(ng-controller="userCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="sync()") 同步
+    div#beVip.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="成为会员")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 使{{ addNickName }}成为会员
+                div.modal-body
+                    div.form-group
+                        label(for="score") 会员类型
+                        div(style="position:relative;")
+                            button.btn.btn-default.dropdown-toggle#location-filter(type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="true") {{ vipTypeSelect }}
+                                span.caret=""
+                            ul.dropdown-menu.dropdown-menu-left(aria-labelledby="filter")
+                                li
+                                    a(href="javascript:;",ng-click="vipType(0)") 非会员
+                                li
+                                    a(href="javascript:;",ng-click="vipType(1)") 充值会员
+                                li
+                                    a(href="javascript:;",ng-click="vipType(2)") 月卡会员
+                                li
+                                    a(href="javascript:;",ng-click="vipType(3)") 季卡会员
+                                li
+                                    a(href="javascript:;",ng-click="vipType(4)") 年卡会员
+                    div.form-group
+                        label(for="endtime") 会员结束时间
+                        div.input-append.date(data-date-format="yyyy-mm-dd-hh-ii",datepicker)
+                            input.span2.form-control#endtime(size="16",type="text",ng-model="vip.endtime")
+                            span.add-on
+                                i.icon-th
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="beVip()") 确定 

@@ -71,6 +71,7 @@ subjectCtrl = angular.module('app',['ngAnimate']).controller('subjectCtrl',['$sc
             $scope.$apply();
         });
     };
+
     $scope.addMenu = function() {
         $scope.optText = '添加课程';
         $scope.course = {};

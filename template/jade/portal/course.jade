@@ -14,7 +14,7 @@ body(ng-controller="courseCtrl")
                 div.price {{ price }} 甜心币/课时
             div.line-second.clearfix
                 i.location-icon=""
-                div.location {{ location }}
+                div.location {{ location.place_name }}({{ location.description }})
                 //button(type="button") +加关注
         div.order
             div.title 预约人数{{ ready }}/{{ total }}

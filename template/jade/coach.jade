@@ -19,6 +19,7 @@ body(ng-controller="coachCtrl")
         table(class="table table-striped")
             tr
                 th #
+                th 排序权重 
                 th 展示名
                 th 全名  
                 th 昵称  
@@ -30,6 +31,7 @@ body(ng-controller="coachCtrl")
                 th 操作
             tr(ng-repeat="i in data.root")
                 td {{ i.id }}
+                td {{ i.order_code }}
                 td {{ i.displayname }}
                 td {{ i.nickname }}
                 td {{ i.stUserEntity.nickname }}
@@ -48,6 +50,7 @@ body(ng-controller="coachCtrl")
                     a.approval(href="javascript:;",data-toggle="modal",data-target="#approval",ng-click="optid(i.userid,i.id)") 通过 
                     a.reject(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#reject") 取消通过
                     a.addV(href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#addV") 成为认证
+                    a.order(href="javascript:;",style="margin-left:5px;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#order") 更改排序权重
                     a.delete(style="margin-left:5px;",href="javascript:;",data-toggle="modal",ng-click="optid(i.userid,i.id)",data-target="#delete") 删除记录
     
     div#delete.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="删除记录")
@@ -125,3 +128,16 @@ body(ng-controller="coachCtrl")
                 div.modal-footer
                     button.btn.btn-default(type="button",data-dismiss="modal") 取消
                     button.btn.btn-danger(type="button",data-dismiss="modal",ng-click="addVApply()") 确定
+    div#order.modal.fade.bs-example-modal-sm(role="dialog",tabindex="-1",aria-labelledby="修改排序权重")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",area-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 修改排序权重 
+                div.modal-body
+                    label(for="score") 数量
+                        input#name.form-control(type="number",placeholder="输入具体数量",ng-model="order_code")
+                div.modal-footer
+                    button.btn.btn-default(type="button",data-dismiss="modal") 取消
+                    button.btn.btn-primary(type="button",data-dismiss="modal",ng-click="changeOrder()") 确定

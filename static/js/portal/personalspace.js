@@ -38590,6 +38590,7 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).cont
                         name : data.data.nickname,
                         score : data.data.score,
                     }
+                    $scope.vipType = data.data.vip_status;
                     $scope.$apply();
                 }
                 else {
@@ -38610,6 +38611,7 @@ personalspaceCtrl = angular.module('sweetheart',['ngAnimate','ngSanitize']).cont
                     };
                     $scope.focus = data.data.coachinfo.like;
                     $scope.skills = data.data.coachinfo.goodats;
+                    $scope.vipType = data.data.vip_status;
                     if(id) {
                         $scope.self = data.data.self;
                     }

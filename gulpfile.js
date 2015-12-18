@@ -56,7 +56,7 @@ gulp.task('js',function(){
 
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/newcourse.js')
+    gulp.src('./static/js-modify/portal/course.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
         .pipe(uglify())

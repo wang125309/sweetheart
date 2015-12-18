@@ -7,6 +7,11 @@ body(ng-controller="personalspaceCtrl",ng-cloak)
     section#index-view(ng-if="type=='1'")
         section.banner
             div.avatar(style="background-image:url('{{ person.avatar }}')")
+                div.vipIcon1(ng-if="vipType==1")=""
+                div.vipIcon2(ng-if="vipType==2")=""
+                div.vipIcon3(ng-if="vipType==3")=""
+                div.vipIcon4(ng-if="vipType==4")=""
+                div.vipIcon5(ng-if="vipType==5")=""
             div.name {{ person.name }}
                 span.sex-f(ng-show="person.sex == '1'")
                 span.sex-m(ng-show="person.sex == '0'")
@@ -33,6 +38,11 @@ body(ng-controller="personalspaceCtrl",ng-cloak)
     section#second-view(ng-if="type=='2'",ng-show="details==false")
         section.banner
             div.avatar(style="background-image:url('{{ person.avatar }}')")
+                div.vipIcon1(ng-if="vipType==1")=""
+                div.vipIcon2(ng-if="vipType==2")=""
+                div.vipIcon3(ng-if="vipType==3")=""
+                div.vipIcon4(ng-if="vipType==4")=""
+                div.vipIcon5(ng-if="vipType==5")=""
             div.name {{ person.name }}
                 span.sex-f(ng-show="person.sex == '1'")
                 span.sex-m(ng-show="person.sex == '0'")

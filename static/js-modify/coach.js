@@ -38,6 +38,19 @@ coachCtrl = angular.module('app',['ngAnimate','ngSanitize']).controller('coachCt
         $scope.id = id;
         $scope.user_id = uid;
     };
+    $scope.changeOrder = function() {
+        jQuery.get("/sys/updateCoachOrder.do",{
+            coach_id : $scope.id,
+            order : $scope.order_code
+        },function(data){
+            if(data.error_no == '0') {
+                refrash();
+            }
+            else {
+                alert("排序权重更新失败，后台错误");
+            }
+        });
+    };
     $scope.passCoachApply = function() {
         jQuery.get("/sys/approvalCoach.do?coach_id="+$scope.id+"&user_id="+$scope.user_id+"&pass=true",function(data){
             if(data.error_no != '0') {

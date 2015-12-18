@@ -24,8 +24,10 @@ body(ng-controller="calendarCtrl")
                 div.card(ng-repeat="card in cards.classes",ng-click="goCourse(card.id)")
                     div.card-detail(style="background-image:url('{{ card.poster }}');")
                         div.bottom-bar
-                            span.left {{ card.time }}
-                            span.center {{ card.name }}
-                            span.right {{ card.cost }} 甜心币/课时 
-                            span.go-right=""
+                            div.line
+                                div.left {{ card.time }}
+                                div.right {{ card.name }}
+                            div.line
+                                span.left {{ card.cost }} 甜心币/课时 
+                                span.go-right=""
                     span.red-point=""
