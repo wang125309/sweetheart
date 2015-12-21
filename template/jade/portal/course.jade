@@ -26,5 +26,6 @@ body(ng-controller="courseCtrl")
             div.desc-details {{ desc }}
         div.consult=""
         div.order-button
-            button(type="button",ng-click="order()") 预约
+            button.unordered(ng-if="ordered==0",type="button",ng-click="order()") 预约
+            button.ordered(ng-if="ordered==1",type="button",ng-click="cancelOrder()") 取消预约
                     

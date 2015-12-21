@@ -18,6 +18,12 @@ courseCtrl = angular.module('sweetheart',['ngAnimate']).controller('courseCtrl',
             $scope.video = data.data.video;
             $scope.ready = data.data.order_count;
             $scope.total = data.data.user_count;
+            if("mine" in data.data) {
+                $scope.ordered = data.data.mine?1:0;
+            }
+            else {
+                $scope.ordered = 0;
+            }
             $scope.ps = [];
             initps = function() {
                 for(i=0;i<$scope.ready;i++) {
@@ -39,6 +45,18 @@ courseCtrl = angular.module('sweetheart',['ngAnimate']).controller('courseCtrl',
                     location.href = '/portal/ordered.html';
                 });
                 $scope.alert = window.alert;
+                refrash();
+            }
+            else {
+                alertShow(data.data.message);
+                $scope.alert = window.alert;
+                $scope.$apply();
+            }
+        });
+    };
+    $scope.cancelOrder = function() {
+        $.get("/api/cancelPublicClass.do?publicclass_id="+id,function(data){
+            if(data.error_no == '0') {
                 refrash();
             }
             else {

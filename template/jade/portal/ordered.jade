@@ -13,8 +13,8 @@ body(ng-controller="orderedCtrl")
             div.tab(class="{{ active[4] }}",ng-click="goType(4)") 已结束
         div.card(ng-repeat="i in card")
             div.title {{ i.stCoachEntity.displayname }}
-                span.route 导航
-                    i.route-icon=""
+                //span.route 导航
+                    //i.route-icon=""
             div.detail
                 div.line 课程
                     span.right {{ i.desc }}

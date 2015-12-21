@@ -62,7 +62,7 @@ userCtrl = angular.module('app',['ngAnimate']).controller('userCtrl',['$scope',f
         }
         else if(t == 0){
             $scope.vipTypeSelect = '非会员';
-            $scope.vip.type = 1;
+            $scope.vip.type = 0;
         }
 
     };

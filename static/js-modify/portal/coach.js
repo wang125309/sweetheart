@@ -70,10 +70,11 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
             }
         }
         $.get("/api/getPersonalClassListByDate.do?coach_id="+window.getQueryParams("coachid")+"&date="+date,function(d){
-            $scope.times = d.data.classes;        
+            $scope.times = d.data.classes;
             $scope.$apply();
         });
     });
+    $scope.ordered = 0;
     $scope.orderP = {};
     $scope.setOrderP = function(id) {
         $scope.orderP.personalclass_id = id;
@@ -81,6 +82,12 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
         for(i in $scope.times) {
             if($scope.times[i].id == id) {
                 $scope.times[i].class = "active";
+                if("mine" in $scope.times[i]) {
+                    $scope.ordered = $scope.times[i].mine?1:0;
+                }
+                else {
+                    $scope.ordered = 0;
+                }
                 $scope.cost = $scope.times[i].cost + '甜心币';
                 $scope.location = '地址：' + $scope.times[i].address.place_name;
                 console.log($scope.cost);
@@ -94,6 +101,26 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
         location.href = "/portal/personalspace.html?id="+id;
     };
 
+    $scope.cancelOrder = function() {
+        if("personalclass_id" in $scope.orderP) {
+            $.get("/api/cancelPersonalClass.do",$scope.orderP,function(data){
+                if(data.error_no == '0') {
+                    refrash();
+                    location.href = location.href;
+                }
+                else {
+                    alertShow(data.data.message);
+                    $scope.alert = window.alert;
+                    $scope.$apply();
+                }
+            });
+        }
+        else {
+            alertShow('请先选择一个时段进行预约');
+            $scope.alert = window.alert;
+            $scope.$apply();
+        }
+    };
     $scope.order = function() {
         if("personalclass_id" in $scope.orderP) {
             $.get("/api/orderPersonalClass.do",$scope.orderP,function(data){
@@ -124,6 +151,7 @@ coachCtrl = angular.module('sweetheart',['ngTouch','ngSanitize']).controller('co
                 $scope.date[i].active = true;
                 $.get("/api/getPersonalClassListByDate.do?coach_id="+coach_id+"&date="+$scope.date[i].date,function(d){
                     $scope.times = d.data.classes;        
+
                     $scope.$apply();
                 });
             }

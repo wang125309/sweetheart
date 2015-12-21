@@ -35040,7 +35040,7 @@ coachapplyCtrl = angular.module('sweetheart',['ngAnimate']).controller('coachapp
                     insertImages();
                 }
                 else {
-                    alertShow("信息填写失败，您可能已经是教练了");
+                    alertShow(data.data.message);
                     $scope.processing = false;
                     $scope.$apply();
                 }

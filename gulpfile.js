@@ -32,11 +32,11 @@ gulp.task('stylus-portal',function(){
 });
 
 gulp.task('js-only',function(){
-        gulp.src('./static/js-modify/coach.js')
+        gulp.src('./static/js-modify/user.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/js'))
-            .pipe(rename('coach.min.js'))
+            .pipe(rename('user.min.js'))
             .pipe(uglify())
             .pipe(gulp.dest('./static/js'));
 });
@@ -56,7 +56,7 @@ gulp.task('js',function(){
 
 
 gulp.task('js-portal',function(){
-    gulp.src('./static/js-modify/portal/course.js')
+    gulp.src('./static/js-modify/portal/coach.js')
         .pipe(browserify())
         .pipe(gulp.dest('./static/js/portal/'))
         .pipe(uglify())

@@ -38,9 +38,10 @@ body(ng-controller="coachCtrl")
                     div.item(class="{{ i.active }}",ng-repeat="i in date | orderBy : 'date' ",ng-click="changeToDate( i.date )") {{ i.displaydate }}
                 div.right-content.clearfix
                     div.time(class="{{ i.class }}",ng-if="i.reserved == false",ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
-                    div.time.unable(ng-if="i.reserved == true",ng-repeat="i in times") {{ i.time }}
+                    div.time.unable(ng-if="i.reserved == true",ng-repeat="i in times",ng-click="setOrderP(i.id)") {{ i.time }}
             div.freeEmpty(ng-if="freeEmpty==true")=""
         //div.ask(ng-click="ask()")=""
         div.order-button
-            button(type="button",ng-click="order()") 预约
+            button.unordered(ng-if="ordered==0",type="button",ng-click="order()") 预约
+            button.ordered(ng-if="ordered==1",type="button",ng-click="cancelOrder()") 取消预约
 
